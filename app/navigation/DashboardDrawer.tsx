@@ -3,6 +3,7 @@ import { NavigationRoutes } from '../constants';
 import { HomeScreen, SettingsScreen, ProfileScreen } from '../modules';
 import { DashBoardDrawerParamsList } from './NavigationTypes';
 import { FC } from 'react';
+import HomeTabs from './HomeTabs';
 
 // Create a drawer navigator using `createDrawerNavigator` from `@react-navigation/drawer`
 const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
@@ -23,7 +24,7 @@ const DashBoardDrawer:FC = ():JSX.Element => {
     <DasboardDrawer.Navigator>
       <DasboardDrawer.Screen
         name={NavigationRoutes.HomeTabs}
-        component={HomeScreen}
+        component={HomeTabs}
       />
       <DasboardDrawer.Screen
         name={NavigationRoutes.ProfileScreen}
