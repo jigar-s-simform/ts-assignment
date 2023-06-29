@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import loaderStyles from './CustomLoaderStyles';
+<<<<<<< HEAD
 import { ICustomLoader } from './CustomLoaderTypes';
+=======
+import ICustomLoader from './CustomLoaderTypes';
+>>>>>>> a604e69 (feat: TE7-T1022: Login UI Part-2 complete with validation and Custom Input)
 /**
  * CustomLoader Function
  *
