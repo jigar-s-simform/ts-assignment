@@ -1,4 +1,4 @@
-import { FormikProps, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,13 +9,6 @@ import { clearError } from '../../redux/auth/AuthSlice';
 import { loginThunk } from '../../services';
 import { LoginSchemaTypes, loginSchema, navigateWithParam } from '../../utils';
 
-interface UseLoginReturnType {
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
-  formRefs: React.MutableRefObject<any[]>; 
-  formik: FormikProps<LoginSchemaTypes>
-  
-}
 /**
  * useLogin Hook
  *
@@ -23,7 +16,7 @@ interface UseLoginReturnType {
  *
  * @returns {Object} An object containing the formik object, loginStatus, formRefs, and navigation.
  */
-const useLogin = ():UseLoginReturnType => {
+const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const {loginSuccess, error} = useSelector((state: RootState) => state.auth);
