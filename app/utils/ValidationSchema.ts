@@ -3,7 +3,7 @@ import { strings } from '../constants';
 
 export const loginSchema = yup.object({
   email: yup.string().email().required(),
-  password: yup.string().required(strings.yupErrors.passwordEmpty),
+  password: yup.string().min(8).required(strings.yupErrors.passwordEmpty),
 });
 
 export const signUpSchema = yup.object({

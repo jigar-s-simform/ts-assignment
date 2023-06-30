@@ -1,4 +1,5 @@
 import {
+  GestureResponderEvent,
   Image,
   KeyboardAvoidingView,
   ScrollView,
@@ -47,16 +48,19 @@ const LoginScreen = (): JSX.Element => {
             error={formik.errors.email}
           />
           <CustomInput
-            ref={ref => (formRefs.current[1] = ref)}
             onBlur={formik.handleBlur(strings.formInputNames.password)}
             name={strings.formInputNames.password}
+            ref={ref => (formRefs.current[1] = ref)}
+            onChangeText={formik.handleChange(strings.formInputNames.password)}
             onSubmitEditing={() => handleSubmitEdit(formRefs, 1)}
             returnKeyType="done"
             touched={formik.touched.password}
             error={formik.errors.password}
             defaultValue={formik.values.password}
           />
-          <TouchableOpacity style={styles.loginBtn}>
+          <TouchableOpacity style={styles.loginBtn}
+           onPress={formik.handleSubmit as (e?: GestureResponderEvent) => void}
+          >
             {isLoading ? (
               <CustomLoader
                 animating={isLoading}
