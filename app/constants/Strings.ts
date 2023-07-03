@@ -30,8 +30,8 @@ export default {
     nameInvalid: 'Please enter valid name',
   },
   formInputNames: {
-    firstName: 'firstName',
-    lastName: 'lastName',
+    firstName: 'first name',
+    lastName: 'last name',
     email: 'email',
     password: 'password',
   },
@@ -39,6 +39,7 @@ export default {
     home: 'Home',
     create: 'Create',
     videos: 'Videos',
-    profile: 'Profile',
+    profile: 'Profile'
   },
+  editProfile:'Edit Profile'
 };

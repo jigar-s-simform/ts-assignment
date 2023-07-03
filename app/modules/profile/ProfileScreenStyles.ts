@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   colors,
   horizontalScale,
@@ -9,6 +9,7 @@ import {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: colors.white,
   },
   top: {
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   profileImage: {
-    width: horizontalScale(150),
-    height: verticalScale(150),
+    width: moderateScale(120),
+    height: moderateScale(120),
     borderRadius: moderateScale(100),
     borderWidth: horizontalScale(2),
   },
@@ -35,6 +36,27 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     borderWidth: horizontalScale(1.5),
     borderColor: colors.themeBlueDark,
+  },
+  editProfileButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: verticalScale(40),
+    paddingVertical: moderateScale(10),
+    backgroundColor: colors.themeBlueDark,
+    borderRadius: moderateScale(10),
+    width: 200,
+  },
+  editProfileText: {
+    fontSize: moderateScale(16),
+    color: colors.white,
+    fontWeight: '500',
+  },
+  bottomContainer: {
+    marginTop: verticalScale(59),
+    width: '100%',
+    borderTopLeftRadius: moderateScale(25),
+    borderTopRightRadius: moderateScale(25),
+    paddingHorizontal: horizontalScale(10),
   },
 });
 
