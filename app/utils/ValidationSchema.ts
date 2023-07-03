@@ -1,16 +1,16 @@
 import * as yup from 'yup';
-import { strings } from '../constants';
+import { Strings } from '../constants';
 
 export const loginSchema = yup.object({
   email: yup.string().email().required(),
-  password: yup.string().min(8).required(strings.yupErrors.passwordEmpty),
+  password: yup.string().min(8).required(Strings.yupErrors.passwordEmpty),
 });
 
 export const signUpSchema = yup.object({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
-  password: yup.string().required(strings.yupErrors.passwordEmpty),
+  password: yup.string().required(Strings.yupErrors.passwordEmpty),
 });
 
 export const userDetailsSchema = yup.object({

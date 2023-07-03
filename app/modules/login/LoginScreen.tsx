@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { images } from '../../assets';
 import { CustomInput, CustomLoader, LoaderSizeType } from '../../components';
-import { strings } from '../../constants';
+import { Strings } from '../../constants';
 import { colors, globalMetrics, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import styles from './LoginStyles';
@@ -34,13 +34,13 @@ const LoginScreen = (): JSX.Element => {
         style={styles.bottom}
         behavior={globalMetrics.isIos ? 'padding' : 'height'}
         keyboardVerticalOffset={verticalScale(10)}>
-        <Text style={styles.loginText}>{strings.loginToContinue}</Text>
+        <Text style={styles.loginText}>{Strings.loginToContinue}</Text>
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <CustomInput
-            onBlur={formik.handleBlur(strings.formInputNames.email)}
+            onBlur={formik.handleBlur(Strings.formInputNames.email)}
             ref={ref => (formRefs.current[0] = ref)}
-            name={strings.formInputNames.email}
-            onChangeText={formik.handleChange(strings.formInputNames.email)}
+            name={Strings.formInputNames.email}
+            onChangeText={formik.handleChange(Strings.formInputNames.email)}
             onSubmitEditing={() => handleSubmitEdit(formRefs, 0)}
             returnKeyType="next"
             defaultValue={formik.values.email}
@@ -48,10 +48,10 @@ const LoginScreen = (): JSX.Element => {
             error={formik.errors.email}
           />
           <CustomInput
-            onBlur={formik.handleBlur(strings.formInputNames.password)}
-            name={strings.formInputNames.password}
+            onBlur={formik.handleBlur(Strings.formInputNames.password)}
+            name={Strings.formInputNames.password}
             ref={ref => (formRefs.current[1] = ref)}
-            onChangeText={formik.handleChange(strings.formInputNames.password)}
+            onChangeText={formik.handleChange(Strings.formInputNames.password)}
             onSubmitEditing={() => handleSubmitEdit(formRefs, 1)}
             returnKeyType="done"
             touched={formik.touched.password}
@@ -68,11 +68,11 @@ const LoginScreen = (): JSX.Element => {
                 color={colors.white}
               />
             ) : (
-              <Text style={styles.loginBtnTxt}>{strings.loginBtnText}</Text>
+              <Text style={styles.loginBtnTxt}>{Strings.loginBtnText}</Text>
             )}
           </TouchableOpacity>
           <TouchableOpacity style={styles.notAUser}>
-            <Text style={styles.notAUserText}>{strings.notAUser}</Text>
+            <Text style={styles.notAUserText}>{Strings.notAUser}</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>

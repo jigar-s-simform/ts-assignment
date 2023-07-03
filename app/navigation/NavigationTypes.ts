@@ -1,4 +1,4 @@
-import { NavigationRoutes } from '../constants/strings';
+import { NavigationRoutes } from '../constants';
 
 export type RootStackParamsList = {
   [NavigationRoutes.LoginScreen]: undefined;
@@ -21,5 +21,5 @@ export type HomeTabsParamsList = {
 export type HomeStackParamsList = {
   [NavigationRoutes.HomeScreen]: undefined;
   [NavigationRoutes.NotificationScreen]: undefined;
-  [NavigationRoutes.DetailsScreen]:undefined
+  [NavigationRoutes.DetailsScreen]: undefined;
 };

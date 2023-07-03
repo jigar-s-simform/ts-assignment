@@ -100,3 +100,7 @@ List all dependencies from the package.json file along with their usage. This li
 - **For Validations:**
 
   - [formik](https://github.com/jaredpalmer/formik), [yup](https://github.com/jquense/yup)
+
+- **For Icons:**
+
+  - [phospor-react-native](https://github.com/duongdev/phosphor-react-native)
