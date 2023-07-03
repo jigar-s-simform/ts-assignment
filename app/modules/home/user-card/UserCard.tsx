@@ -12,7 +12,7 @@ const UserCard = ({ item: user }: { item: UserSchemaType }) => {
         <View>
           <Image
             source={{
-              uri: user.avatar,
+              uri: (user.avatar),
             }}
             style={styles.profileImg}
           />

@@ -1,10 +1,11 @@
 import {
-    ActionReducerMapBuilder,
-    createSlice,
-    Draft,
-    PayloadAction,
+  ActionReducerMapBuilder,
+  createSlice,
+  Draft,
+  PayloadAction,
 } from '@reduxjs/toolkit';
 import { loginThunk, UserSchemaType } from '../../services';
+import { RootState } from '../store';
 
 interface InitialStateType {
   loginSuccess: boolean;
@@ -53,4 +54,5 @@ const authSlice = createSlice({
 });
 
 export const {clearError} = authSlice.actions;
+export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;
