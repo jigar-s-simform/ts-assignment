@@ -20,7 +20,6 @@ export default {
   loginErrorMessage: 'Your credentials may be invalid !',
   deleteConfirmationHeader: 'Are you sure?',
   deleteConfirmationMessage: 'You really want to delete this user?',
-
   yupErrors: {
     emailError: 'Please enter valid email',
     passwordEmpty: 'Please enter your password',
@@ -34,13 +33,16 @@ export default {
     email: 'email',
     password: 'password',
   },
-
-  
-
-  returnKeyTypes: {
+returnKeyTypes: {
     next: 'next',
     done: 'done',
   },
+  bottomNavigationTitles: {
+    home: 'Home',
+    create: 'Create',
+    videos: 'Videos',
+    profile: 'Profile'
+  }
 };
 
 export enum NavigationRoutes {

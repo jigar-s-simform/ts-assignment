@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { instance } from '../config';
-import { strings } from '../constants';
+import { Strings } from '../constants';
 import { LoginSchemaTypes } from '../utils';
 
 export interface UserSchemaType {
@@ -31,11 +31,11 @@ const loginThunk = createAsyncThunk(
           const userData = users.filter(user => user.email === values.email)[0];
           return userData;
         } catch (e) {
-          thunkAPI.rejectWithValue(strings.someThingWentWrong);
+          thunkAPI.rejectWithValue(Strings.someThingWentWrong);
         }
       }
     } catch (e) {
-      return thunkAPI.rejectWithValue(strings.someThingWentWrong);
+      return thunkAPI.rejectWithValue(Strings.someThingWentWrong);
     }
   },
 );

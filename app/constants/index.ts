@@ -1,2 +1,2 @@
-export { default as strings, NavigationRoutes } from './Strings';
+export { default as Strings, NavigationRoutes } from './Strings';
 

@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import { Text, TextInput, View } from 'react-native';
-import { strings } from '../../constants';
+import { Strings } from '../../constants';
 import { colors } from '../../theme';
 import customInputStyles from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
@@ -30,7 +30,7 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
       <View style={customInputStyles.inputContainer}>
         <TextInput
           ref={inputRef}
-          secureTextEntry={props.name === strings.formInputNames.password}
+          secureTextEntry={props.name === Strings.formInputNames.password}
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"

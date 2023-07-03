@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { strings } from '../../../constants';
+import { Strings } from '../../../constants';
 import { UserSchemaType } from '../../../services';
 import styles from './UserCardStyles';
 
@@ -23,13 +23,13 @@ const UserCard = ({ item: user }: { item: UserSchemaType }) => {
             <Text style={styles.name}>{user.last_name}</Text>
           </View>
           <View style={styles.emailContainer}>
-            <Text>{strings.formInputNames.email}</Text>
+            <Text>{Strings.formInputNames.email}</Text>
             <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.deleteBtnStyles}>
-        <Text>{strings.cancelBtn}</Text>
+        <Text>{Strings.cancelBtn}</Text>
       </TouchableOpacity>
     </>
   );
