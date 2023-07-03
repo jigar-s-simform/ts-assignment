@@ -28,6 +28,12 @@ const authSlice = createSlice({
     clearError: (state: Draft<InitialStateType>) => {
       state.error = '';
     },
+    setProfilePicture: (state: Draft<InitialStateType>, action: PayloadAction<string>) => {
+      state.userDetails = {
+        ...state.userDetails,
+        avatar:action.payload
+      } as UserSchemaType
+    }
   },
   extraReducers: (builder: ActionReducerMapBuilder<InitialStateType>) => {
     builder
@@ -53,6 +59,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {clearError} = authSlice.actions;
+export const {clearError, setProfilePicture} = authSlice.actions;
 export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;

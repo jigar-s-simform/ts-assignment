@@ -28,8 +28,8 @@ export default {
     nameInvalid: 'Please enter valid name',
   },
   formInputNames: {
-    firstName: 'firstName',
-    lastName: 'lastName',
+    firstName: 'first name',
+    lastName: 'last name',
     email: 'email',
     password: 'password',
   },
@@ -42,7 +42,8 @@ returnKeyTypes: {
     create: 'Create',
     videos: 'Videos',
     profile: 'Profile'
-  }
+  },
+  editProfile:'Edit Profile'
 };
 
 export enum NavigationRoutes {

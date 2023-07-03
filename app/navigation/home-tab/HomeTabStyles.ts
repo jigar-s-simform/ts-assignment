@@ -8,7 +8,7 @@ import {
 
 const styles = StyleSheet.create({
   navigatorStyles: {
-    height: verticalScale(75),
+    height: verticalScale(65),
     position: 'absolute',
     bottom: verticalScale(10),
     left: horizontalScale(16),
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
   },
 
   buttonImg: {
-    width: horizontalScale(43),
-    height: verticalScale(50),
+    width: moderateScale(35),
+    height: moderateScale(35),
     borderWidth: horizontalScale(2),
-    borderRadius: moderateScale(50),
+    borderRadius: moderateScale(17.5),
     backgroundColor: colors.themeCyan,
     borderColor: colors.white,
     tintColor: colors.themeBluelight,
@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
   },
   buttonImgInactive: {
     backgroundColor: 'white',
-    width: horizontalScale(42),
-    height: verticalScale(50),
+    width: moderateScale(35),
+    height: moderateScale(35),
     borderWidth: horizontalScale(2),
-    borderRadius: moderateScale(20),
+    borderRadius: moderateScale(17.5),
     resizeMode: 'contain',
     borderColor: colors.white,
     tintColor: colors.black,
@@ -47,11 +47,12 @@ const styles = StyleSheet.create({
   buttonContainerMain: {
     justifyContent: 'center',
     flex: 1,
-    borderRadius: 16,
+    borderRadius:moderateScale (16),
     alignItems: 'center',
   },
 
   buttonAnimationStyle: {
+    position:'relative',
     display: 'flex',
     alignItems: 'center',
   },

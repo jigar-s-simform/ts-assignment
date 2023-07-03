@@ -19,12 +19,12 @@ const customInputStyles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     paddingVertical:
-      Platform.OS === 'android' ? verticalScale(0) : verticalScale(15),
-    marginTop: verticalScale(10),
+      Platform.OS === 'android' ? verticalScale(5) : verticalScale(15),
+    marginTop: verticalScale(20),
     backgroundColor: colors.white,
     paddingHorizontal: horizontalScale(15),
-    borderRadius: moderateScale(15),
-    borderWidth: moderateScale(0.5),
+    borderRadius: moderateScale(8),
+    borderWidth: moderateScale(0.7),
     borderColor: colors.grey,
   },
 });

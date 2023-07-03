@@ -29,6 +29,7 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
     <>
       <View style={customInputStyles.inputContainer}>
         <TextInput
+          editable={props.editable ?? true}
           ref={inputRef}
           secureTextEntry={props.name === Strings.formInputNames.password}
           placeholder={props.name}

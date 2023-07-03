@@ -10,6 +10,7 @@ import { icons } from '../../assets';
 const Tabs = createBottomTabNavigator<HomeTabsParamsList>();
 
 const HomeTabs = () => {
+  
   return (
     <Tabs.Navigator
       screenOptions={{
