@@ -25,10 +25,12 @@ const getUsersThunk = createAsyncThunk(
         {
           params: {
             page: arg,
+            per_page: 10,
+            delay:2
           },
         },
       );
-      return res?.data?.data;
+      return {users :res?.data?.data, page: arg};
     } catch (e) {
       return rejectWithValue(Strings.someThingWentWrong);
     }

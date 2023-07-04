@@ -9,24 +9,19 @@ import {
 const styles = StyleSheet.create({
   navigatorStyles: {
     height: verticalScale(65),
-    position: 'absolute',
-    bottom: verticalScale(10),
-    left: horizontalScale(16),
-    right: horizontalScale(16),
-    borderRadius: moderateScale(40),
     display: 'flex',
     backgroundColor: colors.themeBlueDark,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: horizontalScale(2),
-    borderColor: colors.white,
+    borderTopLeftRadius: moderateScale(15),
+    borderTopRightRadius:moderateScale(15)
   },
 
   buttonImg: {
-    width: moderateScale(35),
-    height: moderateScale(35),
+    width: moderateScale(30),
+    height: moderateScale(30),
     borderWidth: horizontalScale(2),
-    borderRadius: moderateScale(17.5),
+    borderRadius: moderateScale(15),
     backgroundColor: colors.themeCyan,
     borderColor: colors.white,
     tintColor: colors.themeBluelight,
@@ -35,10 +30,10 @@ const styles = StyleSheet.create({
   },
   buttonImgInactive: {
     backgroundColor: 'white',
-    width: moderateScale(35),
-    height: moderateScale(35),
+    width: moderateScale(30),
+    height: moderateScale(30),
     borderWidth: horizontalScale(2),
-    borderRadius: moderateScale(17.5),
+    borderRadius: moderateScale(15),
     resizeMode: 'contain',
     borderColor: colors.white,
     tintColor: colors.black,

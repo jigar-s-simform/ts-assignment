@@ -1,6 +1,8 @@
-import {useFormik} from 'formik';
-import {useEffect, useState} from 'react';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { Strings } from '../../constants';
 import {
   authSelector,
   saveProfileChanges,
@@ -8,10 +10,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
-import {SignUpSchemaTypes, signUpSchema} from '../../utils';
+import { SignUpSchemaTypes, signUpSchema } from '../../utils';
 
 /**
- * @description custom hook for implementing business logic
+ * @description custom̦ hook for implementing business logic
  *
  * @returns {Object} containing user details
  *
@@ -23,6 +25,7 @@ const useProfile = () => {
   const dispatch = useAppDispatch();
   const [editable, setEditable] = useState<boolean>(false);
 
+  //useEffect loads form with user data
   useEffect(() => {
     formik.setValues({
       email: userDetails?.email ?? '',
@@ -31,9 +34,13 @@ const useProfile = () => {
       password: userDetails?.password ?? '',
     });
   }, []);
+
+  // makes the profile editable
   const handleEditProfile = () => {
     setEditable(true);
   };
+
+  // performs saving changes logic to redux and shows alert after performing changes
   const handleSaveProfile = (values: SignUpSchemaTypes) => {
     setEditable(false);
     dispatch(
@@ -46,11 +53,14 @@ const useProfile = () => {
         password: values.password,
       }),
     );
+    Alert.alert(Strings.dataSavedSuccessfully);
   };
+
   const handleEditOrSave = () => {
     if (editable) formik.handleSubmit();
     else handleEditProfile();
   };
+
   const handleEditProfilePicture = async () => {
     if (editable) {
       const response = await launchImageLibrary({mediaType: 'photo'});
@@ -61,6 +71,7 @@ const useProfile = () => {
       dispatch(setProfilePicture(picturePath));
     }
   };
+
   const formik = useFormik<SignUpSchemaTypes>({
     initialValues: {
       email: '',

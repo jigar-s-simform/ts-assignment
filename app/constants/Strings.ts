@@ -20,6 +20,8 @@ export default {
   loginErrorMessage: 'Your credentials may be invalid !',
   deleteConfirmationHeader: 'Are you sure?',
   deleteConfirmationMessage: 'You really want to delete this user?',
+  searchUser: 'Search here...',
+  emptyString:'',
   yupErrors: {
     emailError: 'Please enter valid email',
     passwordEmpty: 'Please enter your password',

@@ -1,10 +1,10 @@
-import React, {useImperativeHandle, useRef, useState} from 'react';
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {Strings} from '../../constants';
-import {colors, moderateScale} from '../../theme';
+import { Eye, EyeSlash } from 'phosphor-react-native';
+import React, { useImperativeHandle, useRef, useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Strings } from '../../constants';
+import { colors, moderateScale } from '../../theme';
 import customInputStyles from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
-import {Eye, EyeSlash} from 'phosphor-react-native';
 
 /**
  * CustomInput Function

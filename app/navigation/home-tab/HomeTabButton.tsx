@@ -1,6 +1,6 @@
 import { Animated, Image, Text, TouchableOpacity } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
-import { verticalScale } from '../../theme';
+import { moderateScale, verticalScale } from '../../theme';
 import styles from './HomeTabStyles';
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 
@@ -19,7 +19,7 @@ const TabButton = (props: TabButtonProps): JSX.Element => {
     useEffect(() => {
         if (focused) {
             Animated.spring(yOffest, {
-                toValue: -verticalScale(20),
+                toValue: -moderateScale(10),
                 useNativeDriver: true,
             }).start();
         } else {
