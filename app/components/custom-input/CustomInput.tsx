@@ -1,9 +1,10 @@
-import React, { useImperativeHandle, useRef } from 'react';
-import { Text, TextInput, View } from 'react-native';
-import { Strings } from '../../constants';
-import { colors } from '../../theme';
+import React, {useImperativeHandle, useRef, useState} from 'react';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Strings} from '../../constants';
+import {colors, moderateScale} from '../../theme';
 import customInputStyles from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
+import {Eye, EyeSlash} from 'phosphor-react-native';
 
 /**
  * CustomInput Function
@@ -18,6 +19,7 @@ import CustomTextInputType from './CustomInputTypes';
  */
 const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
   const inputRef = useRef<TextInput>(null);
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
   useImperativeHandle(ref, () => ({
     focus: () => {
@@ -25,13 +27,19 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
     },
   }));
 
+  const handlePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <>
       <View style={customInputStyles.inputContainer}>
         <TextInput
           editable={props.editable ?? true}
           ref={inputRef}
-          secureTextEntry={props.name === Strings.formInputNames.password}
+          secureTextEntry={
+            props.name === Strings.formInputNames.password && !passwordShown
+          }
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"
@@ -42,6 +50,15 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
           onSubmitEditing={props.onSubmitEditing}
           defaultValue={props.defaultValue}
         />
+        {props.name === Strings.formInputNames.password && (
+          <TouchableOpacity onPress={handlePasswordVisibility}>
+            {!passwordShown ? (
+              <EyeSlash size={moderateScale(20)} />
+            ) : (
+              <Eye size={moderateScale(20)} />
+            )}
+          </TouchableOpacity>
+        )}
       </View>
       {props.touched && props.error && (
         <Text style={customInputStyles.textWarning}>{props.error}</Text>

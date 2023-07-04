@@ -1,11 +1,6 @@
 import { Camera } from 'phosphor-react-native';
 import { FC } from 'react';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
 import { useInitializeRefs } from '../../hooks';
@@ -20,7 +15,13 @@ import useProfile from './useProfile';
  * @returns {JSX.Element}
  */
 const ProfileScreen: FC = (): JSX.Element => {
-  const {userDetails, formik, editable, handleEditOrSave, handleEditProfilePicture} = useProfile();
+  const {
+    userDetails,
+    formik,
+    editable,
+    handleEditOrSave,
+    handleEditProfilePicture,
+  } = useProfile();
   const formRefs = useInitializeRefs(4);
 
   return (
@@ -32,7 +33,9 @@ const ProfileScreen: FC = (): JSX.Element => {
             style={styles.profileImage}
             resizeMode="contain"
           />
-          <TouchableOpacity style={styles.editIcon} onPress={handleEditProfilePicture}>
+          <TouchableOpacity
+            style={styles.editIcon}
+            onPress={handleEditProfilePicture}>
             <Camera size={moderateScale(25)} color={colors.white} />
           </TouchableOpacity>
         </View>
