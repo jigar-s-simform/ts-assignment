@@ -3,12 +3,7 @@ import { Colors, moderateScale } from '../../theme';
 import styles from './ProfileScreenStyles';
 import useProfile, { UseProfileReturnType } from './useProfile';
 import { FC } from 'react';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
 import { useInitializationRef } from '../../hooks';
