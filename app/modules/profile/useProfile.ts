@@ -1,12 +1,20 @@
 import { UserSchemaType } from '../../services';
 import { FormikProps, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { authSelector, setProfilePicture, useAppDispatch, useAppSelector, saveProfileChanges } from '../../redux';
-import { SignUpSchemaTypes, signUpSchema } from '../../utils';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { Alert } from 'react-native';
+import { Strings } from '../../constants';
+import {
+  authSelector,
+  saveProfileChanges,
+  setProfilePicture,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
+import { SignUpSchemaTypes, signUpSchema } from '../../utils';
 
 /**
- * @description custom hook for implementing business logic
+ * @description custom̦ hook for implementing business logic
  *
  * @returns {Object} containing user details
  *
@@ -25,6 +33,7 @@ const useProfile = ():UseProfileReturnType => {
   const dispatch = useAppDispatch()
   const [editable, setEditable] = useState<boolean>(false);
 
+  //useEffect loads form with user data
   useEffect(() => {
     formik.setValues({
       email: userDetails?.email ?? '',
@@ -36,6 +45,8 @@ const useProfile = ():UseProfileReturnType => {
   const handleEditProfile = ():void => {
     setEditable(true);
   };
+
+  // performs saving changes logic to redux and shows alert after performing changes
   const handleSaveProfile = (values: SignUpSchemaTypes) => {
     setEditable(false);
     dispatch(
@@ -48,6 +59,7 @@ const useProfile = ():UseProfileReturnType => {
         password: values.password,
       }),
     );
+    Alert.alert(Strings.dataSavedSuccessfully);
   };
   const handleEditOrSave = ():void => {
     if (editable) formik.handleSubmit();
@@ -63,6 +75,7 @@ const useProfile = ():UseProfileReturnType => {
       dispatch(setProfilePicture(picturePath));
     }
   };
+
   const formik = useFormik<SignUpSchemaTypes>({
     initialValues: {
       email: '',

@@ -39,7 +39,9 @@ export default {
     home: 'Home',
     create: 'Create',
     videos: 'Videos',
-    profile: 'Profile'
+    profile: 'Profile',
   },
-  editProfile:'Edit Profile'
+  editProfile: 'Edit Profile',
+  searchEmpty: 'No results found!',
+  opacity:'AA'
 };

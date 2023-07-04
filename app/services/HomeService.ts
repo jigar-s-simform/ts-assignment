@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { instance } from '../config';
-import { Strings } from '../constants';
+import { Strings, usersBase } from '../constants';
 import { UserSchemaType } from './AuthService';
 
 export interface UsersResponseType {
@@ -21,14 +21,16 @@ const getUsersThunk = createAsyncThunk(
   async (arg: number, {rejectWithValue}) => {
     try {
       const res: AxiosResponse<UsersResponseType> = await instance.get(
-        '/users',
+        usersBase,
         {
           params: {
             page: arg,
+            per_page: 10,
+            delay:2
           },
         },
       );
-      return res?.data?.data;
+      return {users :res?.data?.data, page: arg};
     } catch (e) {
       return rejectWithValue(Strings.someThingWentWrong);
     }

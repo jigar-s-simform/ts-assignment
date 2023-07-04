@@ -1,7 +1,7 @@
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Image, Text, TouchableOpacity } from 'react-native';
-import { verticalScale } from '../../theme';
+import { moderateScale } from '../../theme';
 import styles from './HomeTabStyles';
 
 interface TabButtonProps extends BottomTabBarButtonProps {
@@ -16,16 +16,16 @@ const TabButton = (props: TabButtonProps): JSX.Element => {
   const [yOffest] = useState<Animated.Value>(new Animated.Value(0));
   const transform = [{translateY: yOffest}];
 
-  useEffect(() => {
-    if (focused) {
-      Animated.spring(yOffest, {
-        toValue: -verticalScale(20),
-        useNativeDriver: true,
-      }).start();
-    } else {
-      yOffest.setValue(0);
-    }
-  }, [focused]);
+    useEffect(() => {
+        if (focused) {
+            Animated.spring(yOffest, {
+                toValue: -moderateScale(10),
+                useNativeDriver: true,
+            }).start();
+        } else {
+            yOffest.setValue(0);
+        }
+    }, [focused]);
 
   return (
     <TouchableOpacity style={styles.buttonContainerMain} onPress={onPress}>

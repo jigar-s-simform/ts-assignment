@@ -1,15 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   AnyAction,
   CombinedState,
-  Reducer,
   combineReducers,
-  configureStore,
+  configureStore
 } from '@reduxjs/toolkit';
-import {InitialAuthStateType, authSlice} from './auth';
-import {InitialHomeStateType, homeSlice} from './home';
-import {persistStore, persistReducer} from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import { InitialAuthStateType, authSlice } from './auth';
+import { InitialHomeStateType, homeSlice } from './home';
 
 const rootReducer = combineReducers({
   auth: authSlice,
