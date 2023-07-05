@@ -7,19 +7,18 @@ import { colors, moderateScale } from '../../../theme';
 import { navigateWithParam } from '../../../utils';
 import styles from './UserCardStyles';
 
-const UserCard = ({ item: user }: { item: UserSchemaType }) => {
-
+const UserCard = ({item: user}: {item: UserSchemaType}) => {
   const handleOnPress = () => {
-    navigateWithParam(NavigationRoutes.DetailsScreen,user)
-  }
-  
+    navigateWithParam(NavigationRoutes.DetailsScreen, {user});
+  };
+
   return (
     <>
       <TouchableOpacity style={styles.card} onPress={handleOnPress}>
         <View>
           <Image
             source={{
-              uri: (user.avatar),
+              uri: user.avatar,
             }}
             style={styles.profileImg}
           />
@@ -30,7 +29,10 @@ const UserCard = ({ item: user }: { item: UserSchemaType }) => {
             <Text style={styles.name}>{user.last_name}</Text>
           </View>
           <View style={styles.emailContainer}>
-            <EnvelopeSimple size={moderateScale(20)} color={colors.themeBlueDark} />
+            <EnvelopeSimple
+              size={moderateScale(20)}
+              color={colors.themeBlueDark}
+            />
             <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>

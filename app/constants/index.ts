@@ -1,2 +1,2 @@
-export { default as Strings, NavigationRoutes, LoaderSizes } from './Strings';
-
+export { NavigationRoutes } from './NavigationRoutes';
+export { default as Strings } from './Strings';

@@ -1,4 +1,5 @@
 import { NavigationRoutes } from '../constants';
+import { UserSchemaType } from '../services';
 
 export type RootStackParamsList = {
   [NavigationRoutes.LoginScreen]: undefined;
@@ -21,5 +22,5 @@ export type HomeTabsParamsList = {
 export type HomeStackParamsList = {
   [NavigationRoutes.HomeScreen]: undefined;
   [NavigationRoutes.NotificationScreen]: undefined;
-  [NavigationRoutes.DetailsScreen]: undefined;
+  [NavigationRoutes.DetailsScreen]: {user: UserSchemaType};
 };

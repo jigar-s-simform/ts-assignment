@@ -21,7 +21,7 @@ export default {
   deleteConfirmationHeader: 'Are you sure?',
   deleteConfirmationMessage: 'You really want to delete this user?',
   searchUser: 'Search here...',
-  emptyString:'',
+  emptyString: '',
   yupErrors: {
     emailError: 'Please enter valid email',
     passwordEmpty: 'Please enter your password',
@@ -35,32 +35,14 @@ export default {
     email: 'email',
     password: 'password',
   },
-returnKeyTypes: {
-    next: 'next',
-    done: 'done',
-  },
   bottomNavigationTitles: {
     home: 'Home',
     create: 'Create',
     videos: 'Videos',
-    profile: 'Profile'
+    profile: 'Profile',
   },
   editProfile: 'Edit Profile',
-
+  opacity: 'AA',
+  phone: '909900909',
+  sendSms: 'sms:+909900909',
 };
-
-export enum NavigationRoutes {
-  SplashScreen = 'SPLASHSCREEN',
-  DashBoardDrawer = 'DASHBORADDRAWER',
-  CreateUserScreen = 'CREATEUSERSCREEN',
-  VideoScreen = 'VIDEOSCREEN',
-  ProfileScreen = 'PROFILESCREEN',
-  HomeStack = 'HOMESTACK',
-  NotificationScreen = 'NOTIFICATIONSCREEN',
-  HomeScreen = 'HOMESCREEN',
-  SettingsScreen = 'SETTINGSSCREEN',
-  DetailsScreen = 'DETAILSSCREEN',
-  LoginScreen = 'LOGINSCREEN',
-  SignUpScreen = 'SIGNUPSCREEN',
-  HomeTabs = 'HOMETABS',
-}
