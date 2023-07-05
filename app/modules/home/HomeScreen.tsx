@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { CustomLoader, LoaderSizeType } from '../../components';
 import { getUsersThunk } from '../../services';
 import { colors } from '../../theme';
 import styles from './HomeStyles';
@@ -16,6 +17,7 @@ const HomeScreen = () => {
     searchText,
     page,
     dispatch,
+    isLoading
   } = useHome();
 
   useEffect(() => {
@@ -28,25 +30,13 @@ const HomeScreen = () => {
       <FlatList
         data={searchText ? searchedUsers : users}
         renderItem={({item}) => <UserCard item={item} />}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
         onEndReached={() => handleOnEndReached(searchText)}
         onEndReachedThreshold={0}
-        ListFooterComponent={ListFooterComponent}
+        ListFooterComponent={<CustomLoader size={LoaderSizeType.large} animating={isLoading} color={colors.themeBlue} />}
       />
     </View>
-  );
-};
-
-const ListFooterComponent = () => {
-  const { isLoading } = useHome();
-  
-  return (
-    <ActivityIndicator
-      animating={isLoading}
-      size="large"
-      color={colors.themeBlue}
-    />
   );
 };
 

@@ -45,7 +45,8 @@ returnKeyTypes: {
     videos: 'Videos',
     profile: 'Profile'
   },
-  editProfile:'Edit Profile'
+  editProfile: 'Edit Profile',
+
 };
 
 export enum NavigationRoutes {
