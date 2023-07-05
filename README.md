@@ -87,3 +87,10 @@ List all dependencies from the package.json file along with their usage. This li
 
   - [React Native](https://github.com/facebook/react-native)
 
+- **Navigation:**
+
+  - [react-navigation](https://github.com/react-navigation/react-navigation), [react-native-gesture-handler](https://github.com/kmagiera/react-native-gesture-handler),
+    [react-navigation-stack](https://github.com/react-navigation/stack),
+    [react-navigation-bottom-tabs](https://github.com/react-navigation/react-navigation/tree/main/packages/bottom-tabs),
+    [react-native-safe-area-context](https://github.com/th3rdwave/react-native-safe-area-context)
+    [react-native-screens](https://github.com/software-mansion/react-native-screens)
