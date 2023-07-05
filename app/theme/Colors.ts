@@ -10,4 +10,5 @@ export default {
   yellow: '#E7B10A',
   grey: '#767676',
   red: '#FF0000',
+  blackWithOpacity: '#000000AA'
 };

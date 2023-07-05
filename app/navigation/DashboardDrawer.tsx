@@ -19,7 +19,7 @@ const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
  * This component returns a JSX element representing the dashboard drawer navigation.
  */
 const DashBoardDrawer: FC = (): JSX.Element => {
-
+  
   return (
     <DasboardDrawer.Navigator>
       <DasboardDrawer.Screen
