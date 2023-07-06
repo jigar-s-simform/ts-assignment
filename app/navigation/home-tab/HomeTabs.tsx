@@ -14,11 +14,11 @@ const HomeTabs: FC = () => {
   return (
     <Tabs.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarStyle: styles.navigatorStyles,
       }}>
       <Tabs.Screen
         options={{
+          headerShown: false,
           tabBarButton: props => (
             <TabButton
               {...props}

@@ -16,16 +16,16 @@ const TabButton = (props: TabButtonProps): JSX.Element => {
   const [yOffest] = useState<Animated.Value>(new Animated.Value(0));
   const transform = [{translateY: yOffest}];
 
-    useEffect(() => {
-        if (focused) {
-            Animated.spring(yOffest, {
-                toValue: -moderateScale(10),
-                useNativeDriver: true,
-            }).start();
-        } else {
-            yOffest.setValue(0);
-        }
-    }, [focused]);
+  useEffect(() => {
+    if (focused) {
+      Animated.spring(yOffest, {
+        toValue: -moderateScale(10),
+        useNativeDriver: true,
+      }).start();
+    } else {
+      yOffest.setValue(0);
+    }
+  }, [focused]);
 
   return (
     <TouchableOpacity style={styles.buttonContainerMain} onPress={onPress}>
