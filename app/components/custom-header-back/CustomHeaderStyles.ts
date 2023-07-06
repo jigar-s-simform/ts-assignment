@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import {
-    Colors,
-    horizontalScale,
-    moderateScale,
-    verticalScale,
+  Colors,
+  horizontalScale,
+  moderateScale,
+  verticalScale,
 } from '../../theme';
 
 const styles = StyleSheet.create({
@@ -23,12 +23,22 @@ const styles = StyleSheet.create({
     shadowOpacity: moderateScale(0.4),
     shadowRadius: moderateScale(1.5),
     elevation: 5,
-    },
-    headerText: {
-        color: Colors.black,
-        fontSize: moderateScale(16),
-        fontWeight:'500'
-    }
+  },
+  textStyles: {
+    textAlign: 'center',
+    fontSize: moderateScale(16),
+    fontWeight: '500',
+    paddingVertical: verticalScale(8),
+  },
+  leftContent: {
+    flex: 1,
+    paddingLeft: horizontalScale(10),
+    paddingVertical: verticalScale(8),
+  },
+  centerContent: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
 });
-
 export default styles;
