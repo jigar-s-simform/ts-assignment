@@ -38,14 +38,12 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     tintColor: colors.black,
   },
-
   buttonContainerMain: {
     justifyContent: 'center',
     flex: 1,
     borderRadius:moderateScale (16),
     alignItems: 'center',
   },
-
   buttonAnimationStyle: {
     position:'relative',
     display: 'flex',

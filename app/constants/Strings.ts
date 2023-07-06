@@ -45,4 +45,14 @@ export default {
   opacity: 'AA',
   phone: '909900909',
   sendSms: 'sms:+909900909',
+<<<<<<< HEAD
+=======
+  screenTitles: {
+    notifications: 'Notifications',
+    settings: 'Settings',
+    create: 'Create User',
+    videos: 'Videos',
+    profile: 'Your Profile'
+  }
+>>>>>>> 4766dd8 (feat: TE7-T1022: Implement Custom header for all screen)
 };
