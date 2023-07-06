@@ -6,6 +6,7 @@ import { HomeTabsParamsList } from '../NavigationTypes';
 import styles from './HomeTabStyles';
 import TabButton from './HomeTabButton';
 import { icons } from '../../assets';
+import { CustomHeaderWithoutBack } from '../../components/custom-header-back';
 
 const Tabs = createBottomTabNavigator<HomeTabsParamsList>();
 
@@ -32,6 +33,7 @@ const HomeTabs = () => {
       />
       <Tabs.Screen
         options={{
+          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.create} />,
           tabBarButton: props => (
             <TabButton
               {...props}
@@ -45,6 +47,7 @@ const HomeTabs = () => {
       />
       <Tabs.Screen
         options={{
+          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.videos} />,
           tabBarButton: props => (
             <TabButton
               {...props}
@@ -58,6 +61,7 @@ const HomeTabs = () => {
       />
       <Tabs.Screen
         options={{
+          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.profile} />,
           tabBarButton: props => (
             <TabButton
               {...props}

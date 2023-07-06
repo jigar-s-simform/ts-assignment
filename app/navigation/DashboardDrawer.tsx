@@ -1,13 +1,10 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { FC } from 'react';
-<<<<<<< HEAD
-import { NavigationRoutes } from '../constants';
-=======
 import { NavigationRoutes, Strings } from '../constants';
->>>>>>> 4766dd8 (feat: TE7-T1022: Implement Custom header for all screen)
 import { ProfileScreen, SettingsScreen } from '../modules';
 import { DashBoardDrawerParamsList } from './NavigationTypes';
 import { HomeTab } from './home-tab';
+import { CustomHeaderWithBack } from '../components/custom-header-back';
 
 // Create a drawer navigator using `createDrawerNavigator` from `@react-navigation/drawer`
 const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
@@ -34,10 +31,16 @@ const DashBoardDrawer: FC = (): JSX.Element => {
         component={HomeTab}
       />
       <DasboardDrawer.Screen
+        options={{
+          header: () => <CustomHeaderWithBack title={Strings.screenTitles.profile} />
+        }}
         name={NavigationRoutes.ProfileScreen}
         component={ProfileScreen}
       />
       <DasboardDrawer.Screen
+        options={{
+          header: () => <CustomHeaderWithBack title={Strings.screenTitles.settings} />
+        }}
         name={NavigationRoutes.SettingsScreen}
         component={SettingsScreen}
       />
