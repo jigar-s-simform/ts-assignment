@@ -52,5 +52,11 @@ export default {
     create: 'Create User',
     videos: 'Videos',
     profile: 'Your Profile'
-  }
+  },
+  defaultImg: 'https://cdn.vectorstock.com/i/preview-1x/77/30/default-avatar-profile-icon-grey-photo-placeholder-vector-17317730.jpg',
+  profilePictureModalText: 'Profile photo',
+  gallery: 'Gallery',
+  camera: 'Camera',
+  avatar: 'Avatar',
+  featureUnavaible:'This Feature Unavailble/Unsupported on your device!'
 };
