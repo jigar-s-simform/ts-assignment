@@ -8,6 +8,7 @@ import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
 import { useInitializationRef } from '../../hooks';
 import { handleSubmitEdit } from '../../utils';
+import { Images } from '../../assets';
 
 /**
  * @description Profile screen component that will show the profile details of the user
@@ -23,7 +24,7 @@ const ProfileScreen:FC = () => {
       <View style={styles.top}>
         <View style={styles.profileImgContainer}>
           <Image
-            source={{uri: userDetails?.avatar}}
+            source={typeof userDetails?.avatar === 'string' ? {uri: userDetails?.avatar} : Images.defaultImg}
             style={styles.profileImage}
             resizeMode="contain"
           />

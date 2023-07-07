@@ -46,6 +46,15 @@ const homeSlice = createSlice({
         );
       else state.searchedUsers = state.users;
     },
+    addUser: (
+      state: Draft<InitialHomeStateType>,
+      action: PayloadAction<UserSchemaType>,
+    ) => {
+      if (state.users) {
+        state.users = [action.payload, ...state.users];
+        state.searchedUsers = [action.payload, ...state.users];
+      }
+    },
   },
   extraReducers: (builder: ActionReducerMapBuilder<InitialHomeStateType>) => {
     builder
@@ -83,6 +92,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const {searchUser, increasePage} = homeSlice.actions;
+export const { searchUser, increasePage, addUser } = homeSlice.actions;
 export default homeSlice.reducer;
-export const homeSelector = (state:RootState) => state.home
+export const homeSelector = (state: RootState) => state.home;

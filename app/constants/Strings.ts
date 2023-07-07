@@ -57,5 +57,10 @@ export default {
   gallery: 'Gallery',
   camera: 'Camera',
   avatar: 'Avatar',
-  featureUnavaible:'This Feature Unavailble/Unsupported on your device!'
+  featureUnavailable: 'This Feature Unavailable/Unsupported on your device!',
+  android: 'ANDROID',
+  ios: 'IOS',
+  permissions: 'PERMISSIONS',
+  weNeedPermission: 'you need to provide permissions to use this feature!',
+  providePermission: 'Provide Permission'
 };

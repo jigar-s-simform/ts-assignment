@@ -9,7 +9,7 @@ export interface UserSchemaType {
   email: string;
   first_name: string;
   last_name: string;
-  avatar: string | undefined;
+  avatar: string | number | undefined;
   password?:string
 }
 interface AxiosResponseDataType {
