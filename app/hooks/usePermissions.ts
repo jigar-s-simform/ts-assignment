@@ -1,9 +1,22 @@
-import { Permission, check } from 'react-native-permissions';
+import {useEffect, useState} from 'react';
+import {
+  Permission,
+  PermissionStatus,
+  RESULTS,
+  check,
+} from 'react-native-permissions';
 
-export const usePermissionStatus = async(permissionQueried:Permission) => {
-    const result = await check(permissionQueried)
-    return result;       
-}
+export const usePermissionStatus = (permissionQueried: Permission) => {
+  const [permissionStatus, setPermissionStatus] = useState<PermissionStatus>(
+    RESULTS.UNAVAILABLE,
+  );
 
-
-
+  useEffect(() => {
+    const checkPermission = async () => {
+      const result = await check(permissionQueried);
+      setPermissionStatus(result);
+    };
+    checkPermission();
+  }, [permissionStatus]);
+  return permissionStatus;
+};

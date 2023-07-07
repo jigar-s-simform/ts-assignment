@@ -30,8 +30,8 @@ export default {
     nameInvalid: 'Please enter valid name',
   },
   formInputNames: {
-    firstName: 'first name',
-    lastName: 'last name',
+    firstName: 'firstName',
+    lastName: 'lastName',
     email: 'email',
     password: 'password',
   },
@@ -57,5 +57,10 @@ export default {
   gallery: 'Gallery',
   camera: 'Camera',
   avatar: 'Avatar',
-  featureUnavaible:'This Feature Unavailble/Unsupported on your device!'
+  featureUnavaible: 'This Feature Unavailble/Unsupported on your device!',
+  android: 'ANDROID',
+  ios: 'IOS',
+  permissions: 'PERMISSIONS',
+  weNeedPermission: 'you need to provide permissions to use this feature!',
+  providePermission: 'Provide Permission'
 };
