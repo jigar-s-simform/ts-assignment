@@ -3,4 +3,5 @@ export {
     default as useInitializeRefs
 } from './useInitializeRefs';
 export { default as useSubmitEdit } from './useSubmitEdit';
+export * from './usePermissions'
 
