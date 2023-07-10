@@ -1,6 +1,11 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
+import { ScaledSize, StatusBar, useWindowDimensions } from 'react-native';
+import Orientation from 'react-native-orientation-locker';
+import Video, { OnLoadData, OnProgressData } from 'react-native-video';
 import { data } from '../../constants';
-import Video, { OnProgressData } from 'react-native-video';
+import { globalMetrics } from '../../theme';
+import styles from './VideoStyles';
 export interface VideoType {
   description: string;
   sources: string[];
@@ -9,59 +14,130 @@ export interface VideoType {
   title: string;
 }
 
-export interface UseVideoReturnType {
-  videos: VideoType[] 
-  controlsVisible: boolean
-  handleControlsVisibility: () => void
-  isPlaying: boolean
-  handlePlayPause: () => void
-  onProgress: (data: OnProgressData) => void
-  seekForward: () => void,
-  seekBackward: () => void,
-  presentFullScreen: () => void
+interface TimingObjectInterface {
+  min: number;
+  secs: number;
 }
 
-const useVideos = (videoRef?: React.MutableRefObject<Video | undefined>): UseVideoReturnType => {
+export interface UseVideosReturnType {
+  currentTime: number;
+  duration: number;
+  videos: VideoType[] | undefined;
+  onLoad: (data: OnLoadData) => void;
+  controlsVisible: boolean;
+  handleControlsVisibility: () => void;
+  isPlaying: boolean;
+  handlePlayPause: () => void;
+  onProgress: (data: OnProgressData) => void;
+  seekForward: () => void;
+  seekBackward: () => void;
+  presentFullScreen: () => void;
+  handleSliderChange: (data: number) => void;
+  durationObj: TimingObjectInterface;
+  currentTimeObj: TimingObjectInterface;
+  isAudible: boolean;
+  toggleAudio: () => void;
+  width: number;
+  height: number;
+}
+
+const useVideos = (
+  videoRef?: React.MutableRefObject<Video | undefined>,
+): UseVideosReturnType => {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [duration, setDuration] = useState<number>(0);
   const [controlsVisible, setControlsVisible] = useState<boolean>(true);
+  const [isAudible, setIsAudible] = useState<boolean>(true);
+  const { width, height }: ScaledSize = useWindowDimensions();
+  const navigation: NavigationProp<ReactNavigation.RootParamList> =
+    useNavigation();
 
   const videos: VideoType[] = data?.categories[0]?.videos
  
   useEffect(() => {
     if (controlsVisible) {
       setTimeout(() => {
-        setControlsVisible(false)
-      },2000)
+        setControlsVisible(false);
+      }, 1000);
     }
-  },[controlsVisible])
+  }, [controlsVisible]);
+
+  useEffect(() => {
+    if (width > height) {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: styles.tabBarStylesLandScape,
+        headerShown: false,
+      });
+      StatusBar.setHidden(true);
+    } else {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: styles.tabBarStylesPotrait,
+        headerShown: true,
+      });
+    }
+  }, [width]);
 
   const seekForward = (): void => {
-    videoRef?.current?.seek(currentTime + 10)
-  }
+    videoRef?.current?.seek(currentTime + 10);
+    handleControlsVisibility();
+  };
 
   const seekBackward = (): void => {
     videoRef?.current?.seek(currentTime - 10);
-  }
+    handleControlsVisibility();
+  };
 
-  const onProgress = (data: OnProgressData): void =>{
+  const onProgress = (data: OnProgressData): void => {
     setCurrentTime(data.currentTime);
-  }
-  
+  };
+
   const handlePlayPause = (): void => {
-    setIsPlaying(!isPlaying)
-  }
+    setIsPlaying(!isPlaying);
+    handleControlsVisibility();
+  };
 
   const handleControlsVisibility = (): void => {
-    setControlsVisible(true)
-  }
+    setControlsVisible(true);
+  };
 
   const presentFullScreen = (): void => {
-    videoRef?.current?.presentFullscreenPlayer()
-  }
+    if (globalMetrics.isAndroid) {
+      if (width < height) Orientation.lockToLandscape();
+      else Orientation.lockToPortrait();
+    } else {
+      videoRef?.current?.presentFullscreenPlayer();
+    }
+  };
+
+  const onLoad = (data: OnLoadData): void => {
+    setDuration(data.duration);
+  };
+
+  const handleSliderChange = (data: number): void => {
+    videoRef?.current?.seek(data * duration);
+    handleControlsVisibility();
+  };
+
+  const toggleAudio = (): void => {
+    setIsAudible(!isAudible);
+  };
+
+  const durationObj: TimingObjectInterface = {
+    min: Math.floor(duration / 60),
+    secs: Math.ceil(duration % 60),
+  };
+
+  const currentTimeObj: TimingObjectInterface = {
+    min: Math.floor(currentTime / 60),
+    secs: Math.ceil(currentTime % 60),
+  };
 
   return {
+    currentTime,
+    duration,
     videos,
+    onLoad,
     controlsVisible,
     handleControlsVisibility,
     isPlaying,
@@ -69,7 +145,14 @@ const useVideos = (videoRef?: React.MutableRefObject<Video | undefined>): UseVid
     onProgress,
     seekForward,
     seekBackward,
-    presentFullScreen
+    presentFullScreen,
+    handleSliderChange,
+    durationObj,
+    currentTimeObj,
+    isAudible,
+    toggleAudio,
+    width,
+    height,
   };
 };
 
