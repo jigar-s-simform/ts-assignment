@@ -8,6 +8,14 @@
 	<string>We would need access to your photo library</string>
 	<key>NSCameraUsageDescription</key>
 	<string></string>
+	<key>NSAppTransportSecurity</key>
+<dict>
+<key>NSExceptionDomains</key>
+  <dict>
+    <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+    <true/>
+  </dict>
+</dict>
 	<key>CFBundleDisplayName</key>
 	<string>Ts_Assignment</string>
 	<key>CFBundleExecutable</key>

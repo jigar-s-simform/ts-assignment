@@ -1,13 +1,16 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabBarButtonProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import { FC } from 'react';
+import { Icons } from '../../assets';
+import { CustomHeaderWithoutBack } from '../../components/custom-header-back';
 import { NavigationRoutes, Strings } from '../../constants';
-import { CreateUserScreen, ProfileScreen, VideosListScreen } from '../../modules';
+import { CreateUserScreen, ProfileScreen, VideoStack } from '../../modules';
 import HomeStack from '../HomeStack';
 import { HomeTabsParamsList } from '../NavigationTypes';
-import styles from './HomeTabStyles';
 import TabButton from './HomeTabButton';
-import { Icons } from '../../assets';
-import { FC } from 'react';
-import { CustomHeaderWithoutBack } from '../../components/custom-header-back';
+import styles from './HomeTabStyles';
 
 const Tabs = createBottomTabNavigator<HomeTabsParamsList>();
 
@@ -20,7 +23,7 @@ const HomeTabs: FC = () => {
       <Tabs.Screen
         options={{
           headerShown: false,
-          tabBarButton: props => (
+          tabBarButton: (props: BottomTabBarButtonProps) => (
             <TabButton
               {...props}
               image={Icons.homeIcon}
@@ -33,8 +36,10 @@ const HomeTabs: FC = () => {
       />
       <Tabs.Screen
         options={{
-          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.create} />,
-          tabBarButton: props => (
+          header: () => (
+            <CustomHeaderWithoutBack title={Strings.screenTitles.create} />
+          ),
+          tabBarButton: (props: BottomTabBarButtonProps) => (
             <TabButton
               {...props}
               image={Icons.createUserIcon}
@@ -47,8 +52,10 @@ const HomeTabs: FC = () => {
       />
       <Tabs.Screen
         options={{
-          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.videos} />,
-          tabBarButton: props => (
+          header: () => (
+            <CustomHeaderWithoutBack title={Strings.screenTitles.videos} />
+          ),
+          tabBarButton: (props: BottomTabBarButtonProps) => (
             <TabButton
               {...props}
               image={Icons.videosIcon}
@@ -56,13 +63,15 @@ const HomeTabs: FC = () => {
             />
           ),
         }}
-        name={NavigationRoutes.VideoScreen}
-        component={VideosListScreen}
+        name={NavigationRoutes.VideoStack}
+        component={VideoStack}
       />
       <Tabs.Screen
         options={{
-          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.profile} />,
-          tabBarButton: props => (
+          header: () => (
+            <CustomHeaderWithoutBack title={Strings.screenTitles.profile} />
+          ),
+          tabBarButton: (props: BottomTabBarButtonProps) => (
             <TabButton
               {...props}
               image={Icons.profileIcon}
