@@ -62,5 +62,8 @@ export default {
   ios: 'IOS',
   permissions: 'PERMISSIONS',
   weNeedPermission: 'you need to provide permissions to use this feature!',
-  providePermission: 'Provide Permission'
+  providePermission: 'Provide Permission',
+  videosEndpoint: 'https://gist.githubusercontent.com/deepakpk009/99fd994da714996b296f11c3c371d5ee/raw/28c4094ae48892efb71d5122c1fd72904088439b/media.json',
+  http: 'http',
+  https: 'https'
 };

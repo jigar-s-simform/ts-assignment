@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationRoutes, Strings } from '../../constants';
-import { CreateUserScreen, ProfileScreen, VideosListScreen } from '../../modules';
-import HomeStack from '../HomeStack';
-import { HomeTabsParamsList } from '../NavigationTypes';
-import styles from './HomeTabStyles';
-import TabButton from './HomeTabButton';
 import { icons } from '../../assets';
 import { CustomHeaderWithoutBack } from '../../components/custom-header-back';
+import { NavigationRoutes, Strings } from '../../constants';
+import { CreateUserScreen, ProfileScreen, VideoStack } from '../../modules';
+import HomeStack from '../HomeStack';
+import { HomeTabsParamsList } from '../NavigationTypes';
+import TabButton from './HomeTabButton';
+import styles from './HomeTabStyles';
 
 const Tabs = createBottomTabNavigator<HomeTabsParamsList>();
 
@@ -56,8 +56,8 @@ const HomeTabs = () => {
             />
           ),
         }}
-        name={NavigationRoutes.VideoScreen}
-        component={VideosListScreen}
+        name={NavigationRoutes.VideoStack}
+        component={VideoStack}
       />
       <Tabs.Screen
         options={{
