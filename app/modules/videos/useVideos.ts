@@ -1,10 +1,10 @@
 import axios, {AxiosResponse} from 'axios';
 import {Strings} from '../../constants';
-import {useEffect, useState} from 'react';
-
+import {LegacyRef, useEffect, useRef, useState} from 'react';
+import Video, {OnProgressData} from 'react-native-video'
 export interface VideoType {
   description: string;
-  source: string[];
+  sources: string[];
   subtitle: string;
   thumb: string;
   title: string;
@@ -16,27 +16,71 @@ interface CategoryType {
 }
 
 interface ResponseType {
-    categories: CategoryType[]
+  categories: CategoryType[];
 }
 
-const useVideos = () => {
-
-const [videos, setVideos] = useState<VideoType[] | undefined>();  
+const useVideos = (videoRef?: React.MutableRefObject<Video | undefined>) => {
+  const [videos, setVideos] = useState<VideoType[] | undefined>();
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [controlsVisible, setControlsVisible] = useState<boolean>(true);
 
   useEffect(() => {
     const getVideos = async () => {
       const videosList: AxiosResponse<ResponseType> = await axios.get(
         Strings.videosEndpoint,
       );
-        if (videosList.data) setVideos(videosList.data.categories[0]?.videos);
-        console.log("videos list ", videosList.data)
+      if (videosList.data) setVideos(videosList.data.categories[0]?.videos);
     };
-      getVideos();
+    getVideos();
   }, []);
+ 
+  useEffect(() => {
+    if (controlsVisible) {
+      setTimeout(() => {
+        setControlsVisible(false)
+      },2000)
+    }
+  },[controlsVisible])
 
-return {
-    videos
-}
-    
+  const seekForward = () => {
+    videoRef?.current?.seek(currentTime + 10)
+  }
+
+  const seekBackward = () => {
+    videoRef?.current?.seek(currentTime - 10);
+  }
+
+  const onProgress = (data: OnProgressData) =>{
+    setCurrentTime(data.currentTime);
+  }
+  
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying)
+  }
+
+  const handleControlsVisibility = () => {
+    setControlsVisible(true)
+  }
+
+  const presentFullScreen = () => {
+    videoRef?.current?.presentFullscreenPlayer()
+  }
+
+  const dismissFullScreen = () => {
+
+  }
+
+  return {
+    videos,
+    controlsVisible,
+    handleControlsVisibility,
+    isPlaying,
+    handlePlayPause,
+    onProgress,
+    seekForward,
+    seekBackward,
+    presentFullScreen
+  };
 };
 export default useVideos;

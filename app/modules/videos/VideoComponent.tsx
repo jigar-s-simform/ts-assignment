@@ -1,17 +1,21 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../constants';
+import { NavigationRoutes, Strings } from '../../constants';
 import styles from './VideoStyles';
 import { VideoType } from './useVideos';
+import { navigateWithParam } from '../../utils';
 
 interface VideoComponentPropsType {
     video: VideoType
 }
 
 const VideoComponent = ({ video }: VideoComponentPropsType) => {
+  const navigateToVideoPlayer = () => {
+    navigateWithParam(NavigationRoutes.VideoPlayer, {video})
+  }
   
   return (
     <TouchableOpacity
-      style={styles.renderItemMainContainer}>
+      style={styles.renderItemMainContainer} onPress={navigateToVideoPlayer}>
       <Image
         source={{uri: video.thumb.replace(Strings.http, Strings.https)}}
         style={styles.videoThumbNail}

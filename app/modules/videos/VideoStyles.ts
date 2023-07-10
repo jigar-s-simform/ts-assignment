@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
   },
   videoThumbNail: {
     width: '100%',
-    height: verticalScale(200),
+    height: verticalScale(250),
     resizeMode: 'cover',
     borderWidth: moderateScale(1),
+    borderRadius:moderateScale(2)
   },
   videoPlayerBottomContainer: {
     flexDirection: 'row',
@@ -76,14 +77,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: colors.white + Strings.opacity,
   },
-  controlsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    columnGap: horizontalScale(15),
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: moderateScale(7),
-  },
   leftBottomControl: {
     alignItems: 'center',
     display: 'flex',
@@ -97,6 +90,45 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  video: {
+    width: '100%',
+    height:verticalScale(260)
+  },
+  controlsContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: verticalScale(260),
+    opacity: 0.5,
+    backgroundColor: colors.black,
+    justifyContent: 'center',
+  },
+  centerContainer: {
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: horizontalScale(20),
+  },
+  controlsBottom: {
+    position: 'absolute',
+    bottom:0,
+    width: '100%',
+    display: 'flex',
+    flexDirection:'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: horizontalScale(10),
+    paddingBottom: verticalScale(5)
+  },
+  videoContainer: {
+    rowGap:verticalScale(10)
+  },
+  videoBottom: {
+    flexDirection: 'row',
+    paddingHorizontal: horizontalScale(10),
+    paddingBottom:verticalScale(10),
+    columnGap: horizontalScale(10),
+    alignItems: 'center',
+    borderBottomWidth:moderateScale(1)
+  }
 });
 
 export default styles;
