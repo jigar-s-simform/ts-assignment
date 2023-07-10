@@ -8,7 +8,7 @@ interface VideoComponentPropsType {
     video: VideoType
 }
 
-const VideoComponent = ({ video }: VideoComponentPropsType) => {
+const VideoComponent = ({ video }: VideoComponentPropsType): JSX.Element => {
   const navigateToVideoPlayer = () => {
     navigateWithParam(NavigationRoutes.VideoPlayer, {video})
   }

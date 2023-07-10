@@ -1,10 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { colors, horizontalScale, moderateScale, verticalScale } from '../../theme';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Strings } from '../../constants';
+import {
+  colors,
+  globalMetrics,
+  horizontalScale,
+  moderateScale,
+  verticalScale
+} from '../../theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor:colors.white,
+    backgroundColor: colors.white,
     paddingHorizontal: moderateScale(10),
   },
   headerText: {
@@ -23,7 +29,7 @@ const styles = StyleSheet.create({
     height: verticalScale(250),
     resizeMode: 'cover',
     borderWidth: moderateScale(1),
-    borderRadius:moderateScale(2)
+    borderRadius: moderateScale(2),
   },
   videoPlayerBottomContainer: {
     flexDirection: 'row',
@@ -43,33 +49,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: moderateScale(16),
     fontWeight: '600',
+    color: colors.black,
   },
   subtitle: {
     fontSize: moderateScale(12),
-  },
-  modalContainer: {
-    backgroundColor: colors.white,
-    padding: moderateScale(10),
-    flex: 1,
-  },
-  modalVideoContainer: {
-    borderColor: colors.grey,
-    borderBottomWidth: verticalScale(1),
-    marginVertical: verticalScale(5),
-    paddingBottom: verticalScale(2),
+    color: colors.black,
   },
   progressContainer: {
     display: 'flex',
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-  },
-  progressBar: {
-    borderWidth: moderateScale(1),
-    borderColor: colors.white,
-    width: '90%',
-    height: verticalScale(8),
-    borderRadius: moderateScale(10),
-    backgroundColor: colors.red,
   },
   controlArea: {
     position: 'absolute',
@@ -91,8 +80,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   video: {
-    width: '100%',
-    height:verticalScale(260)
+    width: Dimensions.get('window').width,
+    height: verticalScale(260),
   },
   controlsContainer: {
     position: 'absolute',
@@ -110,25 +99,111 @@ const styles = StyleSheet.create({
   },
   controlsBottom: {
     position: 'absolute',
-    bottom:0,
+    bottom: 0,
     width: '100%',
     display: 'flex',
-    flexDirection:'row',
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: horizontalScale(10),
-    paddingBottom: verticalScale(5)
+    paddingBottom: verticalScale(5),
   },
   videoContainer: {
-    rowGap:verticalScale(10)
+    width: Dimensions.get('window').width,
+    rowGap: verticalScale(10),
   },
   videoBottom: {
     flexDirection: 'row',
+    paddingBottom: verticalScale(10),
     paddingHorizontal: horizontalScale(10),
-    paddingBottom:verticalScale(10),
     columnGap: horizontalScale(10),
     alignItems: 'center',
-    borderBottomWidth:moderateScale(1)
-  }
+    justifyContent: 'space-between',
+  },
+  sliderStyles: {
+    zIndex: 1,
+    width: '100%',
+    height: verticalScale(20),
+    position: 'absolute',
+    bottom: globalMetrics.isIos ? -verticalScale(25) : -verticalScale(10),
+  },
+  durationContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    columnGap: horizontalScale(1),
+    alignItems: 'center',
+  },
+  durationText: {
+    color: colors.white,
+    fontSize: moderateScale(12),
+    fontWeight: '700',
+  },
+  fullScreenVideo: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  tabBarStylesPotrait: {
+    height: verticalScale(65),
+    display: 'flex',
+    backgroundColor: colors.themeBlueDark,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: moderateScale(15),
+    borderTopRightRadius: moderateScale(15),
+  },
+  tabBarStylesLandScape: {
+    display: 'none',
+  },
+  videoBottomLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: horizontalScale(10),
+  },
+  subscribeBtn: {
+    paddingHorizontal: horizontalScale(15),
+    paddingVertical: verticalScale(10),
+    borderRadius: moderateScale(20),
+    backgroundColor: colors.black,
+  },
+  subscribeBtnText: {
+    color: colors.white,
+    fontWeight: '500',
+    fontSize: moderateScale(14),
+  },
+  reactionContainer: {
+    paddingTop: verticalScale(12),
+    paddingHorizontal: horizontalScale(10),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  reactionItem: {
+    backgroundColor: colors.themeColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: horizontalScale(8),
+    paddingVertical: verticalScale(5),
+    columnGap: horizontalScale(10),
+  },
+  commentsConatiner: {
+    backgroundColor: colors.themeColor,
+    paddingHorizontal: horizontalScale(18),
+    paddingVertical: verticalScale(15),
+    rowGap: 10,
+  },
+  commentTitleText: {
+    fontSize: moderateScale(16),
+    fontWeight: '600',
+  },
+  commentContentText: {
+    fontSize: moderateScale(14),
+    fontWeight: '400',
+  },
+  audioContainer: {
+    width: '100%',
+    alignItems: 'flex-end',
+    position: 'absolute',
+    top: verticalScale(10),
+    right: horizontalScale(10),
+  },
 });
 
 export default styles;
