@@ -1,6 +1,7 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeStackHeaderProps, NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { NavigationRoutes } from '../../constants';
+import { CustomHeaderWithBack, CustomHeaderWithoutBack } from '../../components/custom-header-back';
+import { NavigationRoutes, Strings } from '../../constants';
 import VideoPlayer from './VideoPlayer';
 import VideosListScreen from './VideosListScreen';
 import { VideoType } from './useVideos';
@@ -9,6 +10,10 @@ export type VideoStackParamsList = {
   [NavigationRoutes.VideoScreen]: undefined;
   [NavigationRoutes.VideoPlayer]: { video: VideoType };
 };
+
+interface VideoPlayerRoutePropType extends Omit<NativeStackHeaderProps, 'route'> {
+  route:  NativeStackScreenProps<VideoStackParamsList, NavigationRoutes.VideoPlayer>['route']
+}
 
 const VideoNavigator = createNativeStackNavigator<VideoStackParamsList>();
 
@@ -19,12 +24,18 @@ const VideoStack = (): JSX.Element => {
       headerShown: false
     }}>
       <VideoNavigator.Screen
+        options={{
+          header: (): JSX.Element => <CustomHeaderWithoutBack title={Strings.bottomNavigationTitles.videos} />
+        }}
         name={NavigationRoutes.VideoScreen}
         component={VideosListScreen}
       />
       <VideoNavigator.Screen
         name={NavigationRoutes.VideoPlayer}
         component={VideoPlayer}
+        options={{
+          header: ({ route }: VideoPlayerRoutePropType): JSX.Element => <CustomHeaderWithBack title={(route.params?.video.title)} /> 
+        }}
       />
     </VideoNavigator.Navigator>
   );

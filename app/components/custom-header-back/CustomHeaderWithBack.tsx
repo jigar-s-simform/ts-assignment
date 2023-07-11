@@ -3,6 +3,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from '../../theme';
 import { navigateBack } from '../../utils';
 import styles from './CustomHeaderStyles';
+import { Strings } from '../../constants';
 
 interface CustomHeaderTypes {
   title: string;
@@ -16,7 +17,7 @@ const CustomHeaderWithBack = ({ title }: CustomHeaderTypes): JSX.Element => {
         <ArrowLeft size={moderateScale(25)} weight="fill" />
       </TouchableOpacity>
       <View style={styles.centerContent}>
-        <Text style={styles.textStyles}>{title}</Text>
+        <Text numberOfLines={Strings.customHeaderNumberOfLines} ellipsizeMode='tail' style={styles.textStyles}>{title}</Text>
       </View>
       <View style={styles.leftContent} />
     </SafeAreaView>
