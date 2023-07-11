@@ -20,7 +20,8 @@ const customInputStyles = StyleSheet.create({
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
     paddingVertical:
      globalMetrics.isAndroid ? verticalScale(0) : verticalScale(15),
