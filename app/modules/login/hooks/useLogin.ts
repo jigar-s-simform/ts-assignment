@@ -1,8 +1,15 @@
-import { useFormik } from 'formik';
+import { FormikProps, useFormik } from 'formik';
 import { useState } from 'react';
 import { useInitializationRef } from '../../../hooks';
 import { LoginSchemaTypes, loginSchema } from '../../../utils';
 
+interface UseLoginReturnType {
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+  formRefs: React.MutableRefObject<any[]>; 
+  formik: FormikProps<LoginSchemaTypes>
+  
+}
 /**
  * useLogin Hook
  *
@@ -10,7 +17,7 @@ import { LoginSchemaTypes, loginSchema } from '../../../utils';
  *
  * @returns {Object} An object containing the formik object, loginStatus, formRefs, and navigation.
  */
-const useLogin = () => {
+const useLogin = ():UseLoginReturnType => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formRefs = useInitializationRef(2);
   const formik = useFormik<LoginSchemaTypes>({
