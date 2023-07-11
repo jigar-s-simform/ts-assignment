@@ -26,16 +26,14 @@ const LoginScreen = (): JSX.Element => {
   const {formRefs, formik, isLoading} = useLogin();
 
   return (
-    <View style={styles.mainContainer}>
+    <KeyboardAvoidingView style={styles.mainContainer}
+    behavior={globalMetrics.isIos ? 'padding' : 'height'}>
+      <ScrollView  bounces={false} showsVerticalScrollIndicator={false}>
       <View style={styles.top}>
         <Image source={images.loginBanner} style={styles.shopIcon} />
+      <Text style={styles.loginText}>{Strings.loginToContinue}</Text>
       </View>
-      <KeyboardAvoidingView
-        style={styles.bottom}
-        behavior={globalMetrics.isIos ? 'padding' : 'height'}
-        keyboardVerticalOffset={verticalScale(10)}>
-        <Text style={styles.loginText}>{Strings.loginToContinue}</Text>
-        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <View style={styles.bottom}>
           <CustomInput
             onBlur={formik.handleBlur(Strings.formInputNames.email)}
             ref={ref => (formRefs.current[0] = ref)}
@@ -59,6 +57,7 @@ const LoginScreen = (): JSX.Element => {
             defaultValue={formik.values.password}
           />
           <TouchableOpacity style={styles.loginBtn}
+            disabled={isLoading}
            onPress={formik.handleSubmit as (e?: GestureResponderEvent) => void}
           >
             {isLoading ? (
@@ -74,9 +73,9 @@ const LoginScreen = (): JSX.Element => {
           <TouchableOpacity style={styles.notAUser}>
             <Text style={styles.notAUserText}>{Strings.notAUser}</Text>
           </TouchableOpacity>
+      </View>
         </ScrollView>
-      </KeyboardAvoidingView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
