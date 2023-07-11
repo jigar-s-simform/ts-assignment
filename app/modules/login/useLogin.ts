@@ -17,9 +17,8 @@ import {clearError} from '../../redux/auth/AuthSlice';
  * @returns {Object} An object containing the formik object, loginStatus, formRefs, and navigation.
  */
 const useLogin = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
-  const {loginSuccess, error} = useSelector((state: RootState) => state.auth);
+  const {loginSuccess, error, isLoading} = useSelector((state: RootState) => state.auth);
   const formRefs = useInitializationRef(2);
 
   useEffect(() => {
@@ -39,14 +38,12 @@ const useLogin = () => {
     },
     validationSchema: loginSchema,
     onSubmit: function (values: LoginSchemaTypes) {
-      // to be completed in next pull request with redux and navigation
       dispatch(loginThunk(values));
     },
   });
 
   return {
     isLoading,
-    setIsLoading,
     formRefs,
     formik,
   };

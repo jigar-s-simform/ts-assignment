@@ -51,12 +51,14 @@ const authSlice = createSlice({
         ) => {
           state.loginSuccess = true;
           state.userDetails = action.payload;
+          state.isLoading = false
         },
       )
       .addCase(
         loginThunk.rejected,
         (state: Draft<InitialAuthStateType>, action: PayloadAction<unknown>) => {
-          state.error = action.payload as string; // typecasting to string because from rejectWithValue we are returning string
+          state.error = action.payload as string;
+          state.isLoading=false// typecasting to string because from rejectWithValue we are returning string
         },
       );
   },
