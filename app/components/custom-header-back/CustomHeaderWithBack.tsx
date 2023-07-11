@@ -16,7 +16,7 @@ const CustomHeaderWithBack = ({ title }: CustomHeaderTypes) => {
         <ArrowLeft size={moderateScale(25)} weight="fill" />
       </TouchableOpacity>
       <View style={styles.centerContent}>
-        <Text style={styles.textStyles}>{title}</Text>
+        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.textStyles}>{title}</Text>
       </View>
       <View style={styles.leftContent} />
     </SafeAreaView>

@@ -47,7 +47,7 @@ const HomeTabs = () => {
       />
       <Tabs.Screen
         options={{
-          header: () => <CustomHeaderWithoutBack title={Strings.screenTitles.videos} />,
+         headerShown: false,
           tabBarButton: props => (
             <TabButton
               {...props}

@@ -86,13 +86,11 @@ const useVideos = (
     if (width > height) {
       navigation.getParent()?.setOptions({
         tabBarStyle: styles.tabBarStylesLandScape,
-        headerShown: false,
       });
       StatusBar.setHidden(true);
     } else {
       navigation.getParent()?.setOptions({
         tabBarStyle: styles.tabBarStylesPotrait,
-        headerShown: true,
       });
     }
   }, [width]);
