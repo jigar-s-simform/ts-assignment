@@ -22,7 +22,7 @@ const RootMain: FC = (): JSX.Element => {
   
   return (
     <Stack.Navigator
-      initialRouteName={NavigationRoutes.DashBoardDrawer}
+      initialRouteName={NavigationRoutes.LoginScreen}
       screenOptions={{
         headerShown: false,
       }}>
