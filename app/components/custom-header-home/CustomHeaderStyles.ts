@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: horizontalScale(10),
-    paddingVertical: verticalScale(8),
+    paddingVertical: verticalScale(15),
     shadowColor: colors.black,
     shadowOffset: {
       width: 0,

@@ -10,7 +10,7 @@ import {
 import { images } from '../../assets';
 import { CustomInput, CustomLoader, LoaderSizeType } from '../../components';
 import { Strings } from '../../constants';
-import { colors, globalMetrics, verticalScale } from '../../theme';
+import { colors, globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import styles from './LoginStyles';
 import useLogin from './useLogin';

@@ -77,4 +77,7 @@ export default {
   pipe: '|',
   commentTitle: 'Comments',
   comment: 'I liked this video very much. Amazing content! keep it up',
+  settings: 'Settings',
+  appVersion: 'Version 7.0',
+  searchEmpty: 'No results found!',
 };

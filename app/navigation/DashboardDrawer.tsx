@@ -1,10 +1,11 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
 import { FC } from 'react';
 import { NavigationRoutes, Strings } from '../constants';
 import { ProfileScreen, SettingsScreen } from '../modules';
 import { DashBoardDrawerParamsList } from './NavigationTypes';
 import { HomeTab } from './home-tab';
 import { CustomHeaderWithBack } from '../components/custom-header-back';
+import { CustomDrawer } from '../components';
 
 // Create a drawer navigator using `createDrawerNavigator` from `@react-navigation/drawer`
 const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
@@ -22,7 +23,7 @@ const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
 const DashBoardDrawer: FC = (): JSX.Element => {
   
   return (
-    <DasboardDrawer.Navigator>
+    <DasboardDrawer.Navigator drawerContent={(props:DrawerContentComponentProps) => <CustomDrawer {...props} />}>
       <DasboardDrawer.Screen
         options={{
           headerShown:false

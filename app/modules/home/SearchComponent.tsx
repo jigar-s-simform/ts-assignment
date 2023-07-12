@@ -5,10 +5,10 @@ import { Strings } from '../../constants';
 import { homeSelector, searchUser, useAppDispatch, useAppSelector } from '../../redux';
 import { colors, moderateScale } from '../../theme';
 import styles from './HomeStyles';
-import { SearchFunctionType } from './useHome';
+import { FunctionType } from './useHome';
 
 interface SearchComponentPropsType extends TextInputProps {
-  search: SearchFunctionType;
+  search: FunctionType;
 }
 
 /**

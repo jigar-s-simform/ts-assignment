@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: moderateScale(10),
-    paddingVertical: verticalScale(20),
+    paddingVertical: verticalScale(10),
   },
   profileImgContainer: {
     position: 'relative',

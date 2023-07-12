@@ -1,10 +1,10 @@
 import { Camera } from 'phosphor-react-native';
 import { FC } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
 import { useInitializeRefs } from '../../hooks';
-import { colors, moderateScale } from '../../theme';
+import { colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import styles from './ProfileScreenStyles';
 import useProfile from './useProfile';
@@ -40,7 +40,11 @@ const ProfileScreen: FC = (): JSX.Element => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.bottomContainer}>
+      <KeyboardAvoidingView
+        style={styles.bottomContainer}
+        behavior={globalMetrics.isIos ? 'padding' : 'height'}
+        keyboardVerticalOffset={verticalScale(15)}>
+        <ScrollView showsVerticalScrollIndicator={false}>
         <CustomInput
           editable={editable}
           onBlur={formik.handleBlur(Strings.formInputNames.email)}
@@ -88,8 +92,9 @@ const ProfileScreen: FC = (): JSX.Element => {
           defaultValue={formik.values.password}
           touched={formik.touched.password}
           error={formik.errors.password}
-        />
-      </View>
+          />
+          </ScrollView>
+      </KeyboardAvoidingView>
       <TouchableOpacity
         style={styles.editProfileButton}
         onPress={handleEditOrSave}>

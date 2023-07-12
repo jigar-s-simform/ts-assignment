@@ -43,7 +43,7 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"
-          placeholderTextColor={colors.grey}
+          placeholderTextColor={colors.black}
           style={customInputStyles.inputs}
           onChangeText={props.onChangeText}
           onBlur={props.onBlur}
