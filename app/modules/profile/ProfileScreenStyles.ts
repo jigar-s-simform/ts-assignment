@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
 import {
-  colors,
+  Colors,
   horizontalScale,
   moderateScale,
   verticalScale,
 } from '../../theme';
+import { Strings } from '../../constants';
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Colors.white,
   },
   top: {
     justifyContent: 'center',
@@ -32,23 +33,23 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: verticalScale(5),
     padding: moderateScale(4),
-    backgroundColor: colors.black + colors.shade,
+    backgroundColor: Colors.black + Strings.opacity,
     borderRadius: moderateScale(20),
     borderWidth: horizontalScale(1.5),
-    borderColor: colors.themeBlueDark,
+    borderColor: Colors.themeBlueDark,
   },
   editProfileButton: {
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: verticalScale(40),
     paddingVertical: moderateScale(10),
-    backgroundColor: colors.themeBlueDark,
+    backgroundColor: Colors.themeBlueDark,
     borderRadius: moderateScale(10),
     width: 200,
   },
   editProfileText: {
     fontSize: moderateScale(16),
-    color: colors.white,
+    color: Colors.white,
     fontWeight: '500',
   },
   bottomContainer: {

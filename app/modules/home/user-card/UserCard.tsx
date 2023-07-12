@@ -1,14 +1,21 @@
+import { EnvelopeSimple } from 'phosphor-react-native';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../../constants';
+import { NavigationRoutes } from '../../../constants';
 import { UserSchemaType } from '../../../services';
+import { Colors, moderateScale } from '../../../theme';
+import { navigateWithParam } from '../../../utils';
 import styles from './UserCardStyles';
 
 const UserCard = ({ item: user }: { item: UserSchemaType }) => {
+
+  const handleOnPress = () => {
+    navigateWithParam(NavigationRoutes.DetailsScreen,user)
+  }
   
   return (
     <>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={handleOnPress}>
         <View>
           <Image
             source={{
@@ -23,13 +30,10 @@ const UserCard = ({ item: user }: { item: UserSchemaType }) => {
             <Text style={styles.name}>{user.last_name}</Text>
           </View>
           <View style={styles.emailContainer}>
-            <Text>{Strings.formInputNames.email}</Text>
+            <EnvelopeSimple size={moderateScale(20)} color={Colors.themeBlueDark} />
             <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteBtnStyles}>
-        <Text>{Strings.cancelBtn}</Text>
       </TouchableOpacity>
     </>
   );

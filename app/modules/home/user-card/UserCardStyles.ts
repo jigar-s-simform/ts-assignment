@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
-    colors,
+    Colors,
     horizontalScale,
     moderateScale,
     verticalScale,
@@ -15,10 +15,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(15),
     borderRadius: moderateScale(10),
     paddingVertical: verticalScale(10),
-    marginHorizontal: horizontalScale(10),
-    backgroundColor: colors.themeBluelight,
-    borderColor: colors.grey,
-    borderWidth: horizontalScale(0.4),
+    backgroundColor: Colors.white,
+    borderColor: Colors.themeBlueDark,
+    borderWidth: horizontalScale(0.7),
   },
   profileImg: {
     borderRadius: moderateScale(10),
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: '700',
-    color: colors.themeCyan,
+    color: Colors.themeBlueDark,
     fontSize: moderateScale(20),
   },
   emailContainer: {
@@ -44,9 +43,9 @@ const styles = StyleSheet.create({
     columnGap: horizontalScale(5),
   },
   email: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
     fontWeight: '600',
-    color: colors.white,
+    color: Colors.themeBlueDark,
   },
   deleteBtnStyles: {
     position: 'absolute',
