@@ -21,4 +21,5 @@ export type HomeTabsParamsList = {
 export type HomeStackParamsList = {
   [NavigationRoutes.HomeScreen]: undefined;
   [NavigationRoutes.NotificationScreen]: undefined;
+  [NavigationRoutes.DetailsScreen]:undefined
 };

@@ -12,8 +12,8 @@ const useSubmitEdit = (
   formRef: React.MutableRefObject<any[]>,
   currentIndex: number,
 ) => {
-  if (currentIndex < formRef.current.length - 1)
-    formRef.current[currentIndex + 1].focus();
+  if (currentIndex < formRef?.current?.length - 1)
+    formRef?.current[currentIndex + 1]?.focus();
 };
 
 export default useSubmitEdit;
