@@ -30,8 +30,8 @@ export default {
     nameInvalid: 'Please enter valid name',
   },
   formInputNames: {
-    firstName: 'first name',
-    lastName: 'last name',
+    firstName: 'firstName',
+    lastName: 'lastName',
     email: 'email',
     password: 'password',
   },
