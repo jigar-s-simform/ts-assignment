@@ -43,5 +43,7 @@ export default {
   },
   editProfile: 'Edit Profile',
   searchEmpty: 'No results found!',
-  opacity:'AA'
+  opacity:'AA',
+  phone: '909900909',
+  sendSms: 'sms:+909900909',
 };
