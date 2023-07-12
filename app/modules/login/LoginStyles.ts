@@ -15,9 +15,8 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: moderateScale(20),
     fontWeight: '600',
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(20),
     color: Colors.white,
-    alignSelf: 'center',
   },
   inputContainer: {
     paddingVertical: verticalScale(15),
@@ -65,10 +64,11 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 1,
     paddingHorizontal: horizontalScale(25),
-    paddingTop: verticalScale(20),
+    paddingTop: verticalScale(60),
     backgroundColor: Colors.themeBlue,
-    borderTopLeftRadius: moderateScale(60),
-    rowGap: verticalScale(45),
+    borderTopLeftRadius: moderateScale(40),
+    borderTopRightRadius: moderateScale(40),
+    rowGap: verticalScale(15),
   },
   notAUser: {
     alignItems: 'center',
