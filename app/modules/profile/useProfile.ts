@@ -1,7 +1,7 @@
 import { UserSchemaType } from '../../services';
 import { FormikProps, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { authSelector, setProfilePicture, useAppDispatch, useAppSelector } from '../../redux';
+import { authSelector, setProfilePicture, useAppDispatch, useAppSelector, saveProfileChanges } from '../../redux';
 import { SignUpSchemaTypes, signUpSchema } from '../../utils';
 import { launchImageLibrary } from 'react-native-image-picker';
 
@@ -9,6 +9,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
  * @description custom hook for implementing business logic
  *
  * @returns {Object} containing user details
+ *
  */
 export interface UseProfileReturnType {
   userDetails: UserSchemaType | undefined
@@ -20,6 +21,7 @@ export interface UseProfileReturnType {
 
 const useProfile = ():UseProfileReturnType => {
   const { userDetails } = useAppSelector(authSelector);
+  let picturePath = userDetails?.avatar; 
   const dispatch = useAppDispatch()
   const [editable, setEditable] = useState<boolean>(false);
 
@@ -28,31 +30,39 @@ const useProfile = ():UseProfileReturnType => {
       email: userDetails?.email ?? '',
       firstName: userDetails?.first_name ?? '',
       lastName: userDetails?.last_name ?? '',
-      password: '',
+      password: userDetails?.password ?? '',
     });
   }, []);
-
-  const handleEditProfile = () => {
+  const handleEditProfile = ():void => {
     setEditable(true);
   };
   const handleSaveProfile = (values: SignUpSchemaTypes) => {
     setEditable(false);
+    dispatch(
+      saveProfileChanges({
+        id: userDetails?.id,
+        first_name: values.firstName,
+        last_name: values.lastName,
+        avatar: picturePath,
+        email: values.email,
+        password: values.password,
+      }),
+    );
   };
-
-  const handleEditOrSave = () => {
+  const handleEditOrSave = ():void => {
     if (editable) formik.handleSubmit();
     else handleEditProfile();
   };
-
-  const handleEditProfilePicture = async () => {
-    const response = await launchImageLibrary({
-      mediaType: 'photo',
-    });
-    if (response.didCancel) {
-    } 
-    dispatch(setProfilePicture(response.assets? response.assets[0]?.uri : userDetails?.avatar))
-  }
-
+  const handleEditProfilePicture = async ():Promise<void> => {
+    if (editable) {
+      const response = await launchImageLibrary({mediaType: 'photo'});
+      if (response.didCancel) return;
+      picturePath = response.assets
+        ? response.assets[0]?.uri
+        : userDetails?.avatar;
+      dispatch(setProfilePicture(picturePath));
+    }
+  };
   const formik = useFormik<SignUpSchemaTypes>({
     initialValues: {
       email: '',
@@ -74,7 +84,7 @@ const useProfile = ():UseProfileReturnType => {
     userDetails,
     editable,
     handleEditOrSave,
-    handleEditProfilePicture
+    handleEditProfilePicture,
   };
 };
 

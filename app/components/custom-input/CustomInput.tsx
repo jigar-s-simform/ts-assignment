@@ -1,7 +1,8 @@
-import React, { useImperativeHandle, useRef } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Eye, EyeSlash } from 'phosphor-react-native';
+import React, { FC, useImperativeHandle, useRef, useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Strings } from '../../constants';
-import { Colors } from '../../theme';
+import { Colors, moderateScale } from '../../theme';
 import customInputStyles from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
 
@@ -16,8 +17,9 @@ import CustomTextInputType from './CustomInputTypes';
  * properties passed to the CustomInput component, and a ref, which is a forwarded ref to access the input element.
  * The function returns a JSX element representing the custom input component.
  */
-const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
+const CustomInput = React.forwardRef((props: CustomTextInputType, ref):JSX.Element => {
   const inputRef = useRef<TextInput>(null);
+  const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
   useImperativeHandle(ref, () => ({
     focus: () => {
@@ -25,13 +27,19 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
     },
   }));
 
+  const handlePasswordVisibility = ():void => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <>
       <View style={customInputStyles.inputContainer}>
         <TextInput
           editable={props.editable}
           ref={inputRef}
-          secureTextEntry={props.name === Strings.formInputNames.password}
+          secureTextEntry={
+            props.name === Strings.formInputNames.password && !passwordShown
+          }
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"
@@ -42,6 +50,15 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
           onSubmitEditing={props.onSubmitEditing}
           defaultValue={props.defaultValue}
         />
+        {props.name === Strings.formInputNames.password && (
+          <TouchableOpacity onPress={handlePasswordVisibility}>
+            {!passwordShown ? (
+              <EyeSlash size={moderateScale(20)} />
+            ) : (
+              <Eye size={moderateScale(20)} />
+            )}
+          </TouchableOpacity>
+        )}
       </View>
       {props.touched && props.error && (
         <Text style={customInputStyles.textWarning}>{props.error}</Text>

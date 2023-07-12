@@ -6,14 +6,14 @@ import {
 } from '@reduxjs/toolkit';
 import { UserSchemaType, getUsersThunk } from '../../services';
 
-interface InitialStateType {
+export interface InitialHomeStateType {
   users: UserSchemaType[] | undefined;
   page: number;
   isLoading: boolean;
   error: string;
 }
 
-const initialState: InitialStateType = {
+const initialState: InitialHomeStateType = {
   users: undefined,
   page: 1,
   isLoading: false,
@@ -24,15 +24,15 @@ const homeSlice = createSlice({
   name: 'homeSlice',
   initialState,
   reducers: {},
-  extraReducers: (builder: ActionReducerMapBuilder<InitialStateType>) => {
+  extraReducers: (builder: ActionReducerMapBuilder<InitialHomeStateType>) => {
     builder
-      .addCase(getUsersThunk.pending, (state: Draft<InitialStateType>) => {
+      .addCase(getUsersThunk.pending, (state: Draft<InitialHomeStateType>) => {
         state.isLoading = true;
       })
       .addCase(
         getUsersThunk.fulfilled,
         (
-          state: Draft<InitialStateType>,
+          state: Draft<InitialHomeStateType>,
           action: PayloadAction<UserSchemaType[]>,
         ) => {
           state.users = action.payload;
@@ -40,7 +40,7 @@ const homeSlice = createSlice({
       )
       .addCase(
         getUsersThunk.rejected,
-        (state: Draft<InitialStateType>, action: PayloadAction<unknown>) => {
+        (state: Draft<InitialHomeStateType>, action: PayloadAction<unknown>) => {
           state.error = action.payload as string;
         },
       );

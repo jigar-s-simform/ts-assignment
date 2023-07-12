@@ -5,11 +5,12 @@ import { Strings, allUsers, loginBase, loginThunkName } from '../constants';
 import { LoginSchemaTypes } from '../utils';
 
 export interface UserSchemaType {
-  id: number;
+  id: number | undefined;
   email: string;
   first_name: string;
   last_name: string;
-  avatar: string;
+  avatar: string | undefined;
+  password?:string
 }
 interface AxiosResponseDataType {
   data: UserSchemaType[];
@@ -29,7 +30,10 @@ const loginThunk = createAsyncThunk(
             await instance.get(allUsers);
           const users = response?.data?.data;
           const userData = users.filter(user => user.email === values.email)[0];
-          return userData;
+          return {
+            ...userData,
+            password: values.password
+          };
         } catch (e) {
           thunkAPI.rejectWithValue(Strings.someThingWentWrong);
         }
