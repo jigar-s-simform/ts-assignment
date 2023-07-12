@@ -76,5 +76,7 @@ export default {
   pipe: '|',
   commentTitle: 'Comments',
   comment: 'I liked this video very much. Amazing content! keep it up',
-  customHeaderNumberOfLines: 1
+  customHeaderNumberOfLines: 1,
+  settings: 'Settings',
+  appVersion: 'Version 7.0',
 };
