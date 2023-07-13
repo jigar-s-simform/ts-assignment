@@ -52,5 +52,10 @@ export default {
     create: 'Create User',
     videos: 'Videos',
     profile: 'Your Profile'
-  }
+  },
+  profilePictureModalText: 'Profile photo',
+  gallery: 'Gallery',
+  camera: 'Camera',
+  avatar: 'Avatar',
+  featureUnavaible:'This Feature Unavailble/Unsupported on your device!'
 };
