@@ -2,6 +2,7 @@ import { FormikProps, useFormik } from 'formik';
 import { Camera } from 'phosphor-react-native';
 import React, { useState } from 'react';
 import {
+  GestureResponderEvent,
   Image,
   KeyboardAvoidingView,
   ScrollView,
@@ -11,39 +12,34 @@ import {
 } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
-import { useInitializeRefs } from '../../hooks';
 import { Colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
-import { SignUpSchemaTypes, handleSubmitEdit, signUpSchema } from '../../utils';
+import { handleSubmitEdit } from '../../utils';
 import styles from './CreateUserScreenStyles';
 import ProfileOptionsModal from './PictureOptionsModal';
+import useCreate from './useCreate';
 import { Images } from '../../assets';
 
-const CreateUserScreen = (): JSX.Element => {
-  const [modalShown, setModalShown] = useState<boolean>(false);
-  const formRefs = useInitializeRefs(4);
+const CreateUserScreen = () => {
+  const [imagePath, setImagePath] = useState<string | number | undefined>(
+    Images.defaultImg,
+  );
 
-  const handleProfileSelect = (): void => {
-    setModalShown(true);
-  };
-  const formik: FormikProps<SignUpSchemaTypes> = useFormik<SignUpSchemaTypes>({
-    initialValues: {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
-    },
-    validationSchema: signUpSchema,
-    onSubmit: (values: SignUpSchemaTypes) => {
-      // to be completed in part two
-    },
-  });
+  const {
+    handleProfileSelect,
+    formik,
+    formRefs,
+    modalShown,
+    setModalShown,
+    handleCameraSelect,
+    handleGallerySelect,
+  } = useCreate({imagePath, setImagePath});
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.top}>
         <View style={styles.profileImgContainer}>
           <Image
-            source={Images.defaultImg}
+            source={typeof imagePath === 'number' ? imagePath : {uri: imagePath}}
             style={styles.profileImage}
             resizeMode="contain"
           />
@@ -109,13 +105,17 @@ const CreateUserScreen = (): JSX.Element => {
           />
         </ScrollView>
       </KeyboardAvoidingView>
-      <TouchableOpacity style={styles.addUserButton}>
+      <TouchableOpacity
+        style={styles.addUserButton}
+        onPress={formik.handleSubmit as (e?: GestureResponderEvent) => void}>
         <Text style={styles.addUserText}>{Strings.addUser}</Text>
       </TouchableOpacity>
       {modalShown && (
         <ProfileOptionsModal
           modalShown={modalShown}
           setModalShown={setModalShown}
+          handleCameraSelect={handleCameraSelect}
+          handleGallerySelect={handleGallerySelect}
         />
       )}
     </View>

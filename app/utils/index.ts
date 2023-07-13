@@ -7,3 +7,5 @@ export {
     type SignUpSchemaTypes
 } from './ValidationSchema';
 export { default as handleSubmitEdit } from './handleSubmitEdit';
+export * from './requestPermission'
+
