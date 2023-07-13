@@ -104,3 +104,13 @@ List all dependencies from the package.json file along with their usage. This li
 - **For Icons:**
 
   - [phospor-react-native](https://github.com/duongdev/phosphor-react-native)
+
+- **For Video player:**
+
+  - [react-native-video](https://github.com/react-native-video)
+
+- **For Image picker:**
+
+  - [react-native-image-picker](https://github.com/react-native-image-picker)  
+
+

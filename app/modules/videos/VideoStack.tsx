@@ -5,7 +5,7 @@ import VideoPlayer from './VideoPlayer';
 import VideosListScreen from './VideosListScreen';
 import { VideoType } from './useVideos';
 
-type VideoStackParamsList = {
+export type VideoStackParamsList = {
   [NavigationRoutes.VideoScreen]: undefined;
   [NavigationRoutes.VideoPlayer]: { video: VideoType };
 };
