@@ -4,6 +4,7 @@ import { NavigationRoutes } from '../constants';
 import { LoginScreen } from '../modules';
 import DashBoardDrawer from './DashboardDrawer';
 import { RootStackParamsList } from './NavigationTypes';
+import { authSelector, useAppSelector } from '../redux';
 
 // Create a stack navigator using `createNativeStackNavigator` from `@react-navigation/native-stack`
 const Stack = createNativeStackNavigator<RootStackParamsList>();
@@ -20,9 +21,11 @@ const Stack = createNativeStackNavigator<RootStackParamsList>();
  */
 const RootMain: FC = (): JSX.Element => {
   
+  const { loginSuccess } = useAppSelector(authSelector);
+
   return (
     <Stack.Navigator
-      initialRouteName={NavigationRoutes.LoginScreen}
+      initialRouteName={!loginSuccess ? NavigationRoutes.LoginScreen: NavigationRoutes.DashBoardDrawer}
       screenOptions={{
         headerShown: false,
       }}>

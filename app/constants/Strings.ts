@@ -80,4 +80,11 @@ export default {
   settings: 'Settings',
   appVersion: 'Version 7.0',
   searchEmpty: 'No results found!',
+  changePassword:'Change Password',
+  termsAndConditions: 'Terms and Conditions',
+  changeTheme: 'Change Theme',
+  privacyPolicy: 'Privacy policy',
+  googleUrl: 'https://www.google.com',
+  userDataKey: 'users_data',
+  passwordInvalid: 'Invalid Password!'
 };
