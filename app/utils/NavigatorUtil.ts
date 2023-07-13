@@ -1,7 +1,8 @@
 import {
-    CommonActions,
-    StackActions,
-    createNavigationContainerRef,
+  CommonActions,
+  DrawerActions,
+  StackActions,
+  createNavigationContainerRef,
 } from '@react-navigation/native';
 
 export const navigationRef = createNavigationContainerRef();
@@ -30,6 +31,13 @@ export const navigateBack = (): void => {
   navigationCheck(() => {
     const backAction = CommonActions.goBack();
     navigationRef.dispatch(backAction);
+  });
+};
+
+export const toggleDrawer = (): void => {
+  navigationCheck(() => {
+    const toggleAction = DrawerActions.toggleDrawer();
+    navigationRef.dispatch(toggleAction);
   });
 };
 

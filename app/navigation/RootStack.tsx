@@ -10,7 +10,6 @@ const Stack = createNativeStackNavigator<RootStackParamsList>();
 
 /**
  * RootMain Component
- *
  * @returns {JSX.Element} - The main navigation stack of the app.
  *
  * @description This component represents the main navigation stack of the app.
