@@ -51,7 +51,7 @@ export default {
     settings: 'Settings',
     create: 'Create User',
     videos: 'Videos',
-    profile: 'Your Profile'
+    profile: 'Your Profile',
   },
   profilePictureModalText: 'Profile photo',
   gallery: 'Gallery',
@@ -63,7 +63,17 @@ export default {
   permissions: 'PERMISSIONS',
   weNeedPermission: 'you need to provide permissions to use this feature!',
   providePermission: 'Provide Permission',
-  videosEndpoint: 'https://gist.githubusercontent.com/deepakpk009/99fd994da714996b296f11c3c371d5ee/raw/28c4094ae48892efb71d5122c1fd72904088439b/media.json',
+  videosEndpoint:
+    'https://gist.githubusercontent.com/deepakpk009/99fd994da714996b296f11c3c371d5ee/raw/28c4094ae48892efb71d5122c1fd72904088439b/media.json',
   http: 'http',
-  https: 'https'
+  https: 'https',
+  slash: '/',
+  colons: ':',
+  subscribe: 'Subscribe',
+  like: 'Like',
+  share: 'share',
+  liveChat: 'Live chat',
+  pipe: '|',
+  commentTitle: 'Comments',
+  comment: 'I liked this video very much. Amazing content! keep it up',
 };
