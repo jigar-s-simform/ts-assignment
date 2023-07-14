@@ -10,10 +10,10 @@ import {
 import { Images } from '../../assets';
 import { CustomInput, CustomLoader, LoaderSizeType } from '../../components';
 import { Strings } from '../../constants';
-import { Colors, globalMetrics, verticalScale } from '../../theme';
+import { Colors, globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import styles from './LoginStyles';
-import { useLogin } from './hooks';
+import { UseLoginReturnType, useLogin } from './hooks';
 
 /**
  * LoginScreen Component
@@ -23,19 +23,18 @@ import { useLogin } from './hooks';
  * @returns {JSX.Element} The rendered LoginScreen component.
  */
 const LoginScreen = (): JSX.Element => {
-  const { formRefs, formik, isLoading } = useLogin();
+  const { formRefs, formik, isLoading }: UseLoginReturnType = useLogin();
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.top}>
-        <Image source={Images.loginBanner} style={styles.shopIcon} />
-      </View>
-      <KeyboardAvoidingView
-        style={styles.bottom}
-        behavior={globalMetrics.isIos ? 'padding' : 'height'}
-        keyboardVerticalOffset={verticalScale(10)}>
-        <Text style={styles.loginText}>{Strings.loginToContinue}</Text>
-        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+    <KeyboardAvoidingView
+      style={styles.mainContainer}
+      behavior={globalMetrics.isIos ? 'padding' : 'height'}>
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <View style={styles.top}>
+          <Image source={Images.loginBanner} style={styles.shopIcon} />
+          <Text style={styles.loginText}>{Strings.loginToContinue}</Text>
+        </View>
+        <View style={styles.bottom}>
           <CustomInput
             onBlur={formik.handleBlur(Strings.formInputNames.email)}
             ref={ref => (formRefs.current[0] = ref)}
@@ -58,8 +57,10 @@ const LoginScreen = (): JSX.Element => {
             error={formik.errors.password}
             defaultValue={formik.values.password}
           />
-          <TouchableOpacity style={styles.loginBtn}
-           onPress={formik.handleSubmit as (e?: GestureResponderEvent) => void}
+          <TouchableOpacity
+            style={styles.loginBtn}
+            disabled={isLoading}
+            onPress={formik.handleSubmit as (e?: GestureResponderEvent) => void} // typecasting necessary because formik handlesubmit and onpress have incompatible types by default
           >
             {isLoading ? (
               <CustomLoader
@@ -74,9 +75,9 @@ const LoginScreen = (): JSX.Element => {
           <TouchableOpacity style={styles.notAUser}>
             <Text style={styles.notAUserText}>{Strings.notAUser}</Text>
           </TouchableOpacity>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

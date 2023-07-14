@@ -1,11 +1,10 @@
-import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { FormikProps, useFormik } from 'formik';
+import { useEffect } from 'react';
 import { Alert } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavigationRoutes } from '../../../constants';
 import { useInitializationRef } from '../../../hooks';
-import { AppDispatch, RootState } from '../../../redux/Store';
-import { clearError } from '../../../redux/auth/AuthSlice';
+import { AppDispatch, authSelector, clearError, useAppSelector } from '../../../redux';
 import { loginThunk } from '../../../services';
 import { LoginSchemaTypes, loginSchema, navigateWithParam } from '../../../utils';
 
@@ -16,11 +15,17 @@ import { LoginSchemaTypes, loginSchema, navigateWithParam } from '../../../utils
  *
  * @returns {Object} An object containing the formik object, loginStatus, formRefs, and navigation.
  */
-const useLogin = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+export interface UseLoginReturnType {
+  isLoading: boolean
+  formRefs: React.MutableRefObject<any[]>
+  formik: FormikProps<LoginSchemaTypes>
+}
+
+const useLogin = (): UseLoginReturnType => {
   const dispatch = useDispatch<AppDispatch>();
-  const {loginSuccess, error} = useSelector((state: RootState) => state.auth);
-  const formRefs = useInitializationRef(2);
+  const { loginSuccess, error, isLoading } = useAppSelector(authSelector);
+  const formRefs: React.MutableRefObject<any[]> = useInitializationRef(2);
 
   useEffect(() => {
     if (loginSuccess) {
@@ -32,21 +37,19 @@ const useLogin = () => {
     }
   }, [loginSuccess, error]);
 
-  const formik = useFormik<LoginSchemaTypes>({
+  const formik: FormikProps<LoginSchemaTypes> = useFormik<LoginSchemaTypes>({
     initialValues: {
       email: '',
       password: '',
     },
     validationSchema: loginSchema,
     onSubmit: function (values: LoginSchemaTypes) {
-      // to be completed in next pull request with redux and navigation
       dispatch(loginThunk(values));
     },
   });
 
   return {
     isLoading,
-    setIsLoading,
     formRefs,
     formik,
   };

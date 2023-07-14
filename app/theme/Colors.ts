@@ -11,5 +11,6 @@ export default {
   grey: '#767676',
   red: '#FF0000',
   blackWithOpacity: '#000000AA',
-  whiteWithOpacity: '#ffffffAA'
+  whiteWithOpacity: '#ffffffAA',
+  darkBlue: '#5193F2'
 };

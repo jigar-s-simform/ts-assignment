@@ -8,15 +8,15 @@ import {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: Colors.white,
-    paddingTop: verticalScale(50),
+    backgroundColor: Colors.darkBlue,
     flex: 1,
   },
   loginText: {
+    marginVertical: verticalScale(15),
     fontSize: moderateScale(20),
     fontWeight: '600',
-    marginBottom: verticalScale(20),
-    color: Colors.white,
+    color: Colors.black,
+    alignSelf: 'center',
   },
   inputContainer: {
     paddingVertical: verticalScale(15),
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(15),
     backgroundColor: Colors.themeBlueDark,
     alignItems: 'center',
-    borderRadius: moderateScale(15),
+    borderRadius: moderateScale(8),
     marginBottom: verticalScale(20),
   },
   loginBtnTxt: {
@@ -55,20 +55,22 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(20),
     marginBottom: verticalScale(10),
     paddingHorizontal: horizontalScale(20),
+    borderBottomLeftRadius: moderateScale(70),
+    borderBottomRightRadius: moderateScale(70)
   },
   shopIcon: {
-    width: horizontalScale(250),
-    height: verticalScale(250),
-    borderRadius: moderateScale(60),
+    width: moderateScale(150),
+    height: moderateScale(150),
+    borderRadius: moderateScale(110),
   },
   bottom: {
     flex: 1,
+    borderTopLeftRadius: moderateScale(30),
+    borderTopRightRadius:moderateScale(30),
     paddingHorizontal: horizontalScale(25),
-    paddingTop: verticalScale(60),
-    backgroundColor: Colors.themeBlue,
-    borderTopLeftRadius: moderateScale(40),
-    borderTopRightRadius: moderateScale(40),
-    rowGap: verticalScale(15),
+    paddingTop: verticalScale(20),
+    backgroundColor: Colors.darkBlue,
+    rowGap: verticalScale(10),
   },
   notAUser: {
     alignItems: 'center',
