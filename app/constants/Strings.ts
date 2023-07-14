@@ -34,6 +34,9 @@ export default {
     lastName: 'lastName',
     email: 'email',
     password: 'password',
+    currentPassword: 'currentPassword',
+    newPassword: 'newPassword',
+    confirmNewPassword: 'confirmNewPassword'
   },
   bottomNavigationTitles: {
     home: 'Home',
@@ -86,5 +89,12 @@ export default {
   privacyPolicy: 'Privacy policy',
   googleUrl: 'https://www.google.com',
   userDataKey: 'users_data',
-  passwordInvalid: 'Invalid Password!'
+  passwordInvalid: 'Invalid Password!',
+  passwordUpdated: 'Password updated successfully!',
+  pleaseTryAgain: 'Please try again!',
+  edit: 'Edit Password',
+  currentPassword: 'Current Password',
+  newPassword: 'New Password',
+  confirmNewPassword: 'Comfirm New Password',
+  passwordDidNotMatch:'please provide same passwords',
 };

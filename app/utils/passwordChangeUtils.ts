@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncLoginStatus, AsyncUpdateStatus, Strings } from '../constants';
 import { UserSchemaType } from '../services';
+import { Store, changePassword } from '../redux';
 
 export const getLoginStatusFromAsyncStorage = async (
   user: Partial<UserSchemaType>,
@@ -14,6 +15,7 @@ export const getLoginStatusFromAsyncStorage = async (
       const usersInStorage: Partial<UserSchemaType>[] = JSON.parse(
         usersInStorageResponse,
       );
+
       const userIndex = usersInStorage.findIndex(
         userStored => userStored.email === user.email,
       );
@@ -34,7 +36,7 @@ export const getLoginStatusFromAsyncStorage = async (
 };
 
 export const updatePassword = async (
-  user: UserSchemaType,
+  user: UserSchemaType | undefined,
   newPassword: string,
 ): Promise<string> => {
   const usersInStorageResponse: string | null = await AsyncStorage.getItem(
@@ -46,7 +48,7 @@ export const updatePassword = async (
         usersInStorageResponse,
       );
       const userIndex = usersInStorage.findIndex(
-        userStored => userStored.email === user.email,
+        userStored => userStored.email === user?.email,
       );
       if (userIndex !== -1) {
         usersInStorage[userIndex] = {
@@ -57,6 +59,7 @@ export const updatePassword = async (
           Strings.userDataKey,
           JSON.stringify(usersInStorage),
         );
+        Store.dispatch(changePassword(newPassword)) // dispatching action to reflect updated password
       }
       return AsyncUpdateStatus.success;
     } else return AsyncUpdateStatus.error;
@@ -71,14 +74,14 @@ export const saveToAsync = async (user: UserSchemaType): Promise<void> => {
   );
 
   if (usersInStorageResponse) {
-    const usersInStorage: UserSchemaType[] = JSON.parse(
-      usersInStorageResponse,
-    );
+    const usersInStorage: UserSchemaType[] = JSON.parse(usersInStorageResponse);
 
     usersInStorage.push(user);
     await AsyncStorage.setItem(
       Strings.userDataKey,
       JSON.stringify(usersInStorage),
-    ); 
+    );
+  } else {
+    await AsyncStorage.setItem(Strings.userDataKey, JSON.stringify([user]));
   }
-}
+};

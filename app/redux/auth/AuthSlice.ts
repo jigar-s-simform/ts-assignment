@@ -4,8 +4,8 @@ import {
   Draft,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import {loginThunk, UserSchemaType} from '../../services';
-import {RootState} from '../store';
+import { loginThunk, UserSchemaType } from '../../services';
+import { RootState } from '../store';
 
 export interface InitialAuthStateType {
   loginSuccess: boolean;
@@ -27,6 +27,17 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state: Draft<InitialAuthStateType>) => {
       state.error = '';
+    },
+    changePassword: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<string>,
+    ) => {
+      if (state.userDetails) {
+        state.userDetails = {
+          ...state.userDetails,
+          password: action.payload,
+        };
+      }
     },
     logout: (state: Draft<InitialAuthStateType>) => {
       state.loginSuccess = false;
@@ -76,7 +87,12 @@ const authSlice = createSlice({
   },
 });
 
-export const {clearError, setProfilePicture, saveProfileChanges,logout} =
-  authSlice.actions;
+export const {
+  clearError,
+  setProfilePicture,
+  saveProfileChanges,
+  logout,
+  changePassword,
+} = authSlice.actions;
 export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;

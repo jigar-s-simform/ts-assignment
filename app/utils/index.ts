@@ -3,8 +3,10 @@ export {
     loginSchema,
     signUpSchema,
     userDetailsSchema,
+    passwordUpdateSchema,
     type LoginSchemaTypes,
-    type SignUpSchemaTypes
+    type SignUpSchemaTypes,
+    type PasswordUpdateSchemaTypes
 } from './ValidationSchema';
 export { default as handleSubmitEdit } from './handleSubmitEdit';
 export * from './passwordChangeUtils';
