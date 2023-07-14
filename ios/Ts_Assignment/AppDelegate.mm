@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
-
+#import <React/RCTRootView.h>
 #import <React/RCTBundleURLProvider.h>
+#import "RNSplashScreen.h"  // here
 
 @implementation AppDelegate
 
@@ -9,9 +10,10 @@
   self.moduleName = @"Ts_Assignment";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
+  [super application:application didFinishLaunchingWithOptions:launchOptions];
+  [RNSplashScreen show];
   self.initialProps = @{};
-
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
