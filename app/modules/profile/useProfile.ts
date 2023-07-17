@@ -1,9 +1,8 @@
-import { UserSchemaType } from '../../services';
 import { FormikProps, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { launchImageLibrary } from 'react-native-image-picker';
 import { Alert } from 'react-native';
-import { Strings } from '../../constants';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { MediaTypes, Strings } from '../../constants';
 import {
   authSelector,
   saveProfileChanges,
@@ -11,6 +10,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
+import { UserSchemaType } from '../../services';
 import { SignUpSchemaTypes, signUpSchema } from '../../utils';
 
 /**
@@ -27,7 +27,7 @@ export interface UseProfileReturnType {
   handleEditProfilePicture: () => Promise<void>
 }
 
-const useProfile = ():UseProfileReturnType => {
+const useProfile = (): UseProfileReturnType => {
   const { userDetails } = useAppSelector(authSelector);
   let picturePath = userDetails?.avatar; 
   const dispatch = useAppDispatch()
@@ -42,7 +42,8 @@ const useProfile = ():UseProfileReturnType => {
       password: userDetails?.password ?? '',
     });
   }, []);
-  const handleEditProfile = ():void => {
+
+  const handleEditProfile = (): void => {
     setEditable(true);
   };
 
@@ -61,13 +62,15 @@ const useProfile = ():UseProfileReturnType => {
     );
     Alert.alert(Strings.dataSavedSuccessfully);
   };
-  const handleEditOrSave = ():void => {
+
+  const handleEditOrSave = (): void => {
     if (editable) formik.handleSubmit();
     else handleEditProfile();
   };
-  const handleEditProfilePicture = async ():Promise<void> => {
+
+  const handleEditProfilePicture = async (): Promise<void> => {
     if (editable) {
-      const response = await launchImageLibrary({mediaType: 'photo'});
+      const response = await launchImageLibrary({mediaType: MediaTypes.photo});
       if (response.didCancel) return;
       picturePath = response.assets
         ? response.assets[0]?.uri
@@ -76,7 +79,7 @@ const useProfile = ():UseProfileReturnType => {
     }
   };
 
-  const formik = useFormik<SignUpSchemaTypes>({
+  const formik: FormikProps<SignUpSchemaTypes> = useFormik<SignUpSchemaTypes>({
     initialValues: {
       email: '',
       password: '',

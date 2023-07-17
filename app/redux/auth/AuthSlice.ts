@@ -44,7 +44,7 @@ const authSlice = createSlice({
     },
     setProfilePicture: (
       state: Draft<InitialAuthStateType>,
-      action: PayloadAction<string | undefined>,
+      action: PayloadAction<string | undefined | number>,
     ) => {
       state.userDetails = {
         ...state.userDetails,
