@@ -1,5 +1,5 @@
 import { Camera } from 'phosphor-react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   GestureResponderEvent,
   Image,
@@ -10,10 +10,11 @@ import {
   View,
 } from 'react-native';
 import { CustomInput } from '../../components';
-import { Strings } from '../../constants';
-import { colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
+import { Colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './CreateUserScreenStyles';
+import stylesheet from './CreateUserScreenStyles';
 import ProfileOptionsModal from './PictureOptionsModal';
 import useCreate from './useCreate';
 
@@ -32,6 +33,9 @@ const CreateUserScreen = () => {
     handleGallerySelect,
   } = useCreate({imagePath, setImagePath});
 
+  const {theme} = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.top}>
@@ -44,7 +48,10 @@ const CreateUserScreen = () => {
           <TouchableOpacity
             style={styles.editIcon}
             onPress={handleProfileSelect}>
-            <Camera size={moderateScale(25)} color={colors.white} />
+            <Camera
+              size={moderateScale(25)}
+              color={Colors[theme || ThemeValues.light]?.white}
+            />
           </TouchableOpacity>
         </View>
       </View>

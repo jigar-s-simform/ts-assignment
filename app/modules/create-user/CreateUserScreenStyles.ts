@@ -1,17 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { ThemeValues } from '../../constants';
+import { ThemeType } from '../../context';
 import {
-  colors,
+  Colors,
   horizontalScale,
   moderateScale,
-  verticalScale,
+  verticalScale
 } from '../../theme';
-import { Strings } from '../../constants';
 
-const styles = StyleSheet.create({
+const stylesheet = (theme: ThemeType) => StyleSheet.create({
   mainContainer: {
     flex:1,
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Colors[theme]?.white,
   },
   top: {
     justifyContent: 'center',
@@ -27,30 +28,30 @@ const styles = StyleSheet.create({
     height: moderateScale(100),
     borderRadius: moderateScale(100),
     borderWidth: horizontalScale(2),
-    borderColor:colors.black
+    borderColor:Colors[theme]?.black
   },
   editIcon: {
     position: 'absolute',
     right: 0,
     bottom: verticalScale(5),
     padding: moderateScale(4),
-    backgroundColor: colors.black + colors.shade,
+    backgroundColor: Colors[theme]?.blackWithOpacity,
     borderRadius: moderateScale(20),
     borderWidth: horizontalScale(1.5),
-    borderColor: colors.themeBlueDark,
+    borderColor: Colors[theme]?.themeBlueLighter,
   },
   addUserButton: {
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: verticalScale(40),
     paddingVertical: moderateScale(10),
-    backgroundColor: colors.themeBlueDark,
+    backgroundColor: Colors[theme]?.themeBlueDark,
     borderRadius: moderateScale(10),
-    width: 200,
+    width: horizontalScale(200),
   },
   addUserText: {
     fontSize: moderateScale(16),
-    color: colors.white,
+    color: Colors[theme]?.white,
     fontWeight: '500',
   },
   bottomContainer: {
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: colors.black + Strings.opacity,
+    backgroundColor: Colors[theme]?.blackWithOpacity,
     justifyContent:'flex-end'
   },
   closeButtonContainer: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between'
   },
   cancelBtnText: {
-    color: colors.themeBlue,
+    color: Colors.commonColors.themeBlue,
     fontSize: moderateScale(16),
     fontWeight:'500'
   },
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(20),
     paddingVertical:verticalScale(15),
     alignSelf: 'flex-end',
-    backgroundColor: colors.white,
+    backgroundColor: Colors[theme]?.white,
     width:'100%'
   },
   optionItem: {
@@ -100,11 +101,19 @@ const styles = StyleSheet.create({
   optionIcon: {
     padding: moderateScale(8),
     borderRadius:moderateScale(30),
-    borderWidth:moderateScale(0.5)
+    borderWidth: moderateScale(0.5),
+    borderColor: Colors[theme || ThemeValues.light]?.themeCyan
   },
   profileSelectionModalText: {
     fontSize: moderateScale(15),
-    fontWeight:'500'
+    fontWeight:'500',
+    color: Colors[theme]?.themeBlueDark,
+  },
+  optionItemText: {
+    color: Colors[theme]?.themeCyan,
+    fontWeight: '500',
+    fontSize:moderateScale(15)
   }
 });
-export default styles;
+
+export default stylesheet;

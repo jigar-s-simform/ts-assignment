@@ -1,16 +1,19 @@
 import { EnvelopeSimple } from 'phosphor-react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationRoutes } from '../../../constants';
+import { NavigationRoutes, ThemeValues } from '../../../constants';
+import { ThemeContext, ThemeType } from '../../../context';
 import { UserSchemaType } from '../../../services';
-import { colors, moderateScale } from '../../../theme';
+import { Colors, moderateScale } from '../../../theme';
 import { navigateWithParam } from '../../../utils';
-import styles from './UserCardStyles';
+import stylesheet from './UserCardStyles';
 
 const UserCard = ({item: user}: {item: UserSchemaType}) => {
   const handleOnPress = () => {
     navigateWithParam(NavigationRoutes.DetailsScreen, {user});
   };
+  const {theme} = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   return (
     <>
@@ -31,7 +34,7 @@ const UserCard = ({item: user}: {item: UserSchemaType}) => {
           <View style={styles.emailContainer}>
             <EnvelopeSimple
               size={moderateScale(20)}
-              color={colors.themeBlueDark}
+              color={Colors[theme || ThemeValues.light]?.themeCyan}
             />
             <Text style={styles.email}>{user.email}</Text>
           </View>

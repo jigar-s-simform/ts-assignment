@@ -1,9 +1,10 @@
 import { Eye, EyeSlash } from 'phosphor-react-native';
-import React, { useImperativeHandle, useRef, useState } from 'react';
+import React, { useContext, useImperativeHandle, useRef, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../constants';
-import { colors, moderateScale } from '../../theme';
-import customInputStyles from './CustomInputStyles';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
+import { Colors, moderateScale } from '../../theme';
+import stylesheet from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
 
 /**
@@ -20,6 +21,8 @@ import CustomTextInputType from './CustomInputTypes';
 const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
   const inputRef = useRef<TextInput>(null);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
+  const {theme} = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   useImperativeHandle(ref, () => ({
     focus: () => {
@@ -27,13 +30,13 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
     },
   }));
 
-  const handlePasswordVisibility = () => {
+  const handlePasswordVisibility = (): void => {
     setPasswordShown(!passwordShown);
   };
 
   return (
     <>
-      <View style={customInputStyles.inputContainer}>
+      <View style={styles.inputContainer}>
         <TextInput
           editable={props.editable ?? true}
           ref={inputRef}
@@ -43,8 +46,8 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"
-          placeholderTextColor={colors.black}
-          style={customInputStyles.inputs}
+          placeholderTextColor={Colors[theme || ThemeValues.light]?.black}
+          style={styles.textInputStyles}
           onChangeText={props.onChangeText}
           onBlur={props.onBlur}
           onSubmitEditing={props.onSubmitEditing}
@@ -53,15 +56,21 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref) => {
         {props.name === Strings.formInputNames.password && (
           <TouchableOpacity onPress={handlePasswordVisibility}>
             {!passwordShown ? (
-              <EyeSlash size={moderateScale(20)} />
+              <EyeSlash
+                size={moderateScale(20)}
+                color={Colors[theme || ThemeValues.light]?.themeCyan}
+              />
             ) : (
-              <Eye size={moderateScale(20)} />
+              <Eye
+                size={moderateScale(20)}
+                color={Colors[theme || ThemeValues.light]?.themeCyan}
+              />
             )}
           </TouchableOpacity>
         )}
       </View>
       {props.touched && props.error && (
-        <Text style={customInputStyles.textWarning}>{props.error}</Text>
+        <Text style={styles.textWarning}>{props.error}</Text>
       )}
     </>
   );

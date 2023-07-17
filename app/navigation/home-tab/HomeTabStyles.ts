@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   colors,
   horizontalScale,
@@ -13,10 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.themeBlueDark,
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopLeftRadius: moderateScale(15),
-    borderTopRightRadius:moderateScale(15)
   },
-
   buttonImg: {
     width: moderateScale(30),
     height: moderateScale(30),
