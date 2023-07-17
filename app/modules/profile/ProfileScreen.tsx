@@ -1,12 +1,13 @@
 import { Camera } from 'phosphor-react-native';
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { Image, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { CustomInput } from '../../components';
-import { Strings } from '../../constants';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import { useInitializeRefs } from '../../hooks';
-import { colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
+import { Colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './ProfileScreenStyles';
+import stylesheet from './ProfileScreenStyles';
 import useProfile from './useProfile';
 
 /**
@@ -23,6 +24,8 @@ const ProfileScreen: FC = (): JSX.Element => {
     handleEditProfilePicture,
   } = useProfile();
   const formRefs = useInitializeRefs(4);
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   return (
     <View style={styles.mainContainer}>
@@ -36,7 +39,7 @@ const ProfileScreen: FC = (): JSX.Element => {
           <TouchableOpacity
             style={styles.editIcon}
             onPress={handleEditProfilePicture}>
-            <Camera size={moderateScale(25)} color={colors.white} />
+            <Camera size={moderateScale(25)} color={Colors[theme || ThemeValues.light]?.white} />
           </TouchableOpacity>
         </View>
       </View>

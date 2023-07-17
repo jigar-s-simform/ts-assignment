@@ -104,5 +104,6 @@ export default {
   themeValueDark: 'dark',
   theme: 'Theme',
   IsDefault: 'IsDefault',
-  IS_FIRST: 'IS_FIRST'
+  IS_FIRST: 'IS_FIRST',
+  videoControlsTimeoutValue: 1000
 };

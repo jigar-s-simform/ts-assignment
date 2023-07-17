@@ -1,37 +1,41 @@
 export interface CommonColorType {
-  themeBluelight: string
-  themeCyan: string
-  themeBlue: string
-  darkBlue: string
-  green: string
-  yellow: string
-  grey: string
-  red: string
+  themeBlueDark: string;
+  themeBluelight: string;
+  themeCyan: string;
+  themeBlue: string;
+  darkBlue: string;
+  green: string;
+  yellow: string;
+  grey: string;
+  red: string;
 }
 export interface LightColorType {
-  black: string
-  blackWithOpacity: string
-  white: string
-  whiteWithOpacity: string
-  themeCyan: string
-  themeBlueLighter: string
-  themeBlueDark: string
+  black: string;
+  blackWithOpacity: string;
+  white: string;
+  whiteWithOpacity: string;
+  themeCyan: string;
+  themeBlueLighter: string;
+  themeBlueDark: string;
+  themeColor: string;
 }
 export interface DarkColorType {
-  black: string
-  blackWithOpacity: string
-  white: string
-  whiteWithOpacity: string
-  themeBlueDark: string
-  themeCyan: string
-  themeBlueLighter: string
+  black: string;
+  blackWithOpacity: string;
+  white: string;
+  whiteWithOpacity: string;
+  themeBlueDark: string;
+  themeCyan: string;
+  themeBlueLighter: string;
+  themeColor: string;
 }
 export interface ColorsType {
-  commonColors: CommonColorType
-  light: LightColorType
-  dark: DarkColorType
+  commonColors: CommonColorType;
+  light: LightColorType;
+  dark: DarkColorType;
 }
 export const commonColors: CommonColorType = {
+  themeBlueDark: '#201A30',
   themeBluelight: '#38304C',
   themeCyan: '#0CF6E3',
   themeBlue: '#4491DE',
@@ -48,7 +52,8 @@ export const light: LightColorType = {
   whiteWithOpacity: '#FFFFFFAA',
   themeCyan: '#201A30',
   themeBlueLighter: '#FFFFFF',
-  themeBlueDark: '#201A30'
+  themeBlueDark: '#201A30',
+  themeColor: '#F5F5F5',
 };
 export const dark: DarkColorType = {
   black: '#FFFFFF',
@@ -57,7 +62,8 @@ export const dark: DarkColorType = {
   whiteWithOpacity: '#000000AA',
   themeBlueDark: '#F5F5F5',
   themeCyan: '#0CF6E3',
-  themeBlueLighter: '#38304C'
+  themeBlueLighter: '#38304C',
+  themeColor: '#F5F5F5',
 };
 export const Colors: ColorsType = {
   commonColors,

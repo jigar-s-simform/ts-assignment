@@ -1,8 +1,10 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationRoutes, Strings } from '../../constants';
-import styles from './VideoStyles';
+import stylesheet from './VideoStyles';
 import { VideoType } from './useVideos';
 import { navigateWithParam } from '../../utils';
+import { ThemeContext, ThemeType } from '../../context';
+import { useContext } from 'react';
 
 interface VideoComponentPropsType {
     video: VideoType
@@ -10,8 +12,10 @@ interface VideoComponentPropsType {
 
 const VideoComponent = ({ video }: VideoComponentPropsType): JSX.Element => {
   const navigateToVideoPlayer = () => {
-    navigateWithParam(NavigationRoutes.VideoPlayer, {video})
+    navigateWithParam(NavigationRoutes.VideoPlayer, { video })
   }
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
   
   return (
     <TouchableOpacity

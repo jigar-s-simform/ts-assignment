@@ -13,18 +13,21 @@ import {
   ThumbsDown,
   ThumbsUp,
 } from 'phosphor-react-native';
-import { FC, LegacyRef, useRef } from 'react';
+import { FC, LegacyRef, useContext, useRef } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Video from 'react-native-video';
-import { NavigationRoutes, Strings } from '../../constants';
+import { NavigationRoutes, Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import {
+  Colors,
   colors,
   globalMetrics,
   horizontalScale,
+  moderateScale,
   verticalScale,
 } from '../../theme';
 import { VideoStackParamsList } from './VideoStack';
-import styles from './VideoStyles';
+import stylesheet from './VideoStyles';
 import useVideos from './useVideos';
 
 type VideoPlayerRouteProp = RouteProp<
@@ -34,7 +37,7 @@ type VideoPlayerRouteProp = RouteProp<
 
 type VideoRefType = LegacyRef<Video> | undefined;
 
-const VideoPlayer:FC = () => {
+const VideoPlayer: FC = () => {
   const videoToPlay = useRoute<VideoPlayerRouteProp>();
   const {video} = videoToPlay.params;
   const videoRef = useRef<Video>();
@@ -58,11 +61,13 @@ const VideoPlayer:FC = () => {
     isAudible,
     toggleAudio,
   } = useVideos(videoRef);
-
+  const {theme} = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
+  // current position of slider
   const currentPosition = currentTime && duration ? currentTime / duration : 0;
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <View style={styles.VideoPlayerMainContainer}>
       <View
         style={
           width < height
@@ -110,9 +115,15 @@ const VideoPlayer:FC = () => {
           <View style={styles.audioContainer}>
             <TouchableOpacity onPress={toggleAudio}>
               {isAudible ? (
-                <SpeakerHigh size={30} color={colors.white} />
+                <SpeakerHigh
+                  size={moderateScale(30)}
+                  color={Colors[theme || ThemeValues.light]?.white}
+                />
               ) : (
-                <SpeakerSlash size={30} color={colors.white} />
+                <SpeakerSlash
+                  size={moderateScale(30)}
+                  color={Colors[theme || ThemeValues.light]?.white}
+                />
               )}
             </TouchableOpacity>
           </View>
@@ -123,17 +134,29 @@ const VideoPlayer:FC = () => {
                 : {...styles.centerContainer, width}
             }>
             <TouchableOpacity onPress={seekBackward}>
-              <ArrowFatLineLeft size={30} color={colors.white} />
+              <ArrowFatLineLeft
+                size={moderateScale(30)}
+                color={Colors[theme || ThemeValues.light]?.white}
+              />
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePlayPause}>
               {!isPlaying ? (
-                <Play size={30} color={colors.white} />
+                <Play
+                  size={moderateScale(30)}
+                  color={Colors[theme || ThemeValues.light]?.white}
+                />
               ) : (
-                <Pause size={30} color={colors.white} />
+                <Pause
+                  size={moderateScale(30)}
+                  color={Colors[theme || ThemeValues.light]?.white}
+                />
               )}
             </TouchableOpacity>
             <TouchableOpacity onPress={seekForward}>
-              <ArrowFatLineRight size={30} color={colors.white} />
+              <ArrowFatLineRight
+                size={moderateScale(30)}
+                color={Colors[theme || ThemeValues.light]?.white}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.controlsBottom}>
@@ -153,7 +176,10 @@ const VideoPlayer:FC = () => {
               <Text style={styles.durationText}>{durationObj.secs}</Text>
             </View>
             <TouchableOpacity onPress={presentFullScreen}>
-              <CornersOut size={30} color={colors.white} />
+              <CornersOut
+                size={moderateScale(30)}
+                color={Colors[theme || ThemeValues.light]?.white}
+              />
             </TouchableOpacity>
           </View>
           <Slider
@@ -173,45 +199,64 @@ const VideoPlayer:FC = () => {
                   }
             }
             value={currentPosition}
-            minimumTrackTintColor={colors.red}
+            minimumTrackTintColor={Colors.commonColors.red}
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.videoBottom}>
-        <View style={styles.videoBottomLeft}>
-          <Image
-            source={{uri: video.thumb.replace(Strings.http, Strings.https)}}
-            style={styles.bottomThumbRound}
-          />
-          <View style={styles.titleSubTitleContainer}>
-            <Text style={styles.title}>{video.title}</Text>
-            <Text style={styles.subtitle}>{video.subtitle}</Text>
+      <ScrollView contentContainerStyle={styles.videoBottomContainer}>
+        <View style={styles.videoBottom}>
+          <View style={styles.videoBottomLeft}>
+            <Image
+              source={{uri: video.thumb.replace(Strings.http, Strings.https)}}
+              style={styles.bottomThumbRound}
+            />
+            <View style={styles.titleSubTitleContainer}>
+              <Text style={styles.title}>{video.title}</Text>
+              <Text style={styles.subtitle}>{video.subtitle}</Text>
+            </View>
+          </View>
+          <TouchableOpacity style={styles.subscribeBtn}>
+            <Text style={styles.subscribeBtnText}>{Strings.subscribe}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.reactionContainer}>
+          <View style={styles.reactionItem}>
+            <ThumbsUp
+              size={moderateScale(28)}
+              color={Colors[theme || ThemeValues.light]?.black}
+            />
+            <Text
+              style={
+                styles.reactionItemText
+              }>{`${Strings.like} ${Strings.pipe}`}</Text>
+            <ThumbsDown
+              size={moderateScale(25)}
+              mirrored={true}
+              color={Colors[theme || ThemeValues.light]?.black}
+            />
+          </View>
+          <View style={styles.reactionItem}>
+            <Share
+              size={moderateScale(28)}
+              color={Colors[theme || ThemeValues.light]?.black}
+            />
+            <Text style={styles.reactionItemText}>{`${Strings.share}`}</Text>
+          </View>
+          <View style={styles.reactionItem}>
+            <Chats
+              size={moderateScale(28)}
+              color={Colors[theme || ThemeValues.light]?.black}
+            />
+            <Text style={styles.reactionItemText}>{`${Strings.liveChat}`}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.subscribeBtn}>
-          <Text style={styles.subscribeBtnText}>{Strings.subscribe}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.reactionContainer}>
-        <View style={styles.reactionItem}>
-          <ThumbsUp size={28} />
-          <Text>{`${Strings.like} ${Strings.pipe}`}</Text>
-          <ThumbsDown size={25} mirrored={true} />
+        <View style={styles.commentsConatiner}>
+          <Text
+            style={styles.commentTitleText}>{`${Strings.commentTitle}`}</Text>
+          <Text style={styles.commentContentText}>{`${Strings.comment}`}</Text>
         </View>
-        <View style={styles.reactionItem}>
-          <Share size={28} />
-          <Text>{`${Strings.share}`}</Text>
-        </View>
-        <View style={styles.reactionItem}>
-          <Chats size={28} />
-          <Text>{`${Strings.liveChat}`}</Text>
-        </View>
-      </View>
-      <View style={styles.commentsConatiner}>
-        <Text style={styles.commentTitleText}>{`${Strings.commentTitle}`}</Text>
-        <Text>{`${Strings.comment}`}</Text>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
