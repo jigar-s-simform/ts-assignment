@@ -1,43 +1,39 @@
+import BottomSheet from '@gorhom/bottom-sheet';
 import { useFormik } from 'formik';
+import { useContext, useRef, useState } from 'react';
 import { Alert, Linking } from 'react-native';
+import { AsyncUpdateStatus, NavigationRoutes, Strings, ThemeValues } from '../../constants';
+import { ThemeContext } from '../../context';
 import {
-    AsyncUpdateStatus,
-    NavigationRoutes,
-    Strings
-} from '../../constants';
-import {
-    authSelector,
-    logout,
-    persistor,
-    useAppDispatch,
-    useAppSelector,
+  authSelector,
+  logout,
+  persistor,
+  useAppDispatch,
+  useAppSelector,
 } from '../../redux';
 import {
-    PasswordUpdateSchemaTypes,
-    navigateWithParam,
-    navigateWithReplace,
-    passwordUpdateSchema,
-    updatePassword,
+  PasswordUpdateSchemaTypes,
+  navigateWithParam,
+  navigateWithReplace,
+  passwordUpdateSchema,
+  updatePassword,
 } from '../../utils';
-import { useRef, useState } from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { shallowEqual } from 'react-redux';
 
 const useSettings = (
   setModalShown: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector(authSelector);
-  const [bottomSheetShown, setBottomSheetShown] = useState<boolean>(false);
   const sheetRef = useRef<BottomSheet>(null);
+  const { setTheme } = useContext(ThemeContext);
 
   const formik = useFormik<PasswordUpdateSchemaTypes>({
     initialValues: {
       currentPassword: userDetails?.password ?? Strings.emptyString,
       newPassword: '',
       confirmNewPassword: '',
-      },
-      validationSchema: passwordUpdateSchema,
+    },
+    validationSchema: passwordUpdateSchema,
     onSubmit: async (values: PasswordUpdateSchemaTypes) => {
       if (values.newPassword !== values.confirmNewPassword) {
         Alert.alert(Strings.passwordDidNotMatch);
@@ -74,17 +70,26 @@ const useSettings = (
   };
 
   const handleToggleBottomSheet = (): void => {
-    if (bottomSheetShown) {
-      setBottomSheetShown(false);
-      sheetRef.current?.expand()
-    }
-    else {
-      setBottomSheetShown(true);
-      sheetRef.current?.close()
-    }
-  }
+      sheetRef.current?.expand();
+  };
 
-  return {handleOpenUrl, handleLogout, formik, sheetRef, handleToggleBottomSheet};
+  const handleTurnDarkTheme = (): void => {
+    if (setTheme) setTheme(ThemeValues.dark);
+  };
+
+  const handleTurnLightTheme = (): void => {
+    if (setTheme) setTheme(ThemeValues.light);
+  };
+
+  return {
+    handleOpenUrl,
+    handleLogout,
+    formik,
+    sheetRef,
+    handleToggleBottomSheet,
+    handleTurnDarkTheme,
+    handleTurnLightTheme,
+  };
 };
 
 export default useSettings;

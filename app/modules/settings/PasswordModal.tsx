@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useContext } from 'react';
 import {
     KeyboardAvoidingView,
     Modal,
@@ -11,8 +11,9 @@ import { Strings } from '../../constants';
 import { useInitializationRef } from '../../hooks';
 import { globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './SettingsStyles';
+import stylesheet from './SettingsStyles';
 import useSettings from './useSettings';
+import {ThemeContext, ThemeType} from '../../context';
 
 interface PasswordModalPropsType {
   modalShown: boolean;
@@ -24,7 +25,10 @@ const PasswordModal = ({
   setModalShown,
 }: PasswordModalPropsType): JSX.Element => {
   const formRefs = useInitializationRef(3);
-  const {formik} = useSettings(setModalShown);
+  const { formik } = useSettings(setModalShown);
+  const { theme } = useContext(ThemeContext);
+ 
+  const styles = stylesheet(theme as ThemeType);
 
   const handlePasswordChange = (): void => {
     formik.handleSubmit();

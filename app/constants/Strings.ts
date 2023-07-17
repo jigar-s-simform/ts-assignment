@@ -101,5 +101,8 @@ export default {
   lightThemeBtnText: 'Light Theme',
   systemDefaultThemeBtnText: 'System Default Theme',
   themeValueLight: 'light',
-  themeValueDark: 'dark'
+  themeValueDark: 'dark',
+  theme: 'Theme',
+  IsDefault: 'IsDefault',
+  IS_FIRST: 'IS_FIRST'
 };
