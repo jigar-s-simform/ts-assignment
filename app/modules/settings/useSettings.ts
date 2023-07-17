@@ -1,9 +1,9 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useFormik } from 'formik';
-import { useContext, useRef, useState } from 'react';
-import { Alert, Linking } from 'react-native';
+import { useContext, useRef } from 'react';
+import { Alert, Linking, useColorScheme } from 'react-native';
 import { AsyncUpdateStatus, NavigationRoutes, Strings, ThemeValues } from '../../constants';
-import { ThemeContext } from '../../context';
+import { ThemeContext, ThemeType } from '../../context';
 import {
   authSelector,
   logout,
@@ -16,6 +16,7 @@ import {
   navigateWithParam,
   navigateWithReplace,
   passwordUpdateSchema,
+  save,
   updatePassword,
 } from '../../utils';
 
@@ -26,6 +27,7 @@ const useSettings = (
   const { userDetails } = useAppSelector(authSelector);
   const sheetRef = useRef<BottomSheet>(null);
   const { setTheme } = useContext(ThemeContext);
+  const appearance = useColorScheme();
 
   const formik = useFormik<PasswordUpdateSchemaTypes>({
     initialValues: {
@@ -73,13 +75,21 @@ const useSettings = (
       sheetRef.current?.expand();
   };
 
-  const handleTurnDarkTheme = (): void => {
+  const handleTurnDarkTheme = async (): Promise<void> => {
     if (setTheme) setTheme(ThemeValues.dark);
+    await save(Strings.theme, ThemeValues.dark);
   };
 
-  const handleTurnLightTheme = (): void => {
+  const handleTurnLightTheme = async (): Promise<void> => {
     if (setTheme) setTheme(ThemeValues.light);
+    await save(Strings.theme, ThemeValues.light);
   };
+
+  const handleTurnSystemDefaultTheme = async (): Promise<void> => {
+    if (setTheme) setTheme(appearance as ThemeType);
+    await save(Strings.theme, appearance);
+  };
+
 
   return {
     handleOpenUrl,
@@ -89,6 +99,7 @@ const useSettings = (
     handleToggleBottomSheet,
     handleTurnDarkTheme,
     handleTurnLightTheme,
+    handleTurnSystemDefaultTheme
   };
 };
 

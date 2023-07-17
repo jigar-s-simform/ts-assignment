@@ -6,17 +6,24 @@ import {
   Password,
   SignOut,
 } from 'phosphor-react-native';
-import React, { useContext, useMemo, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
-import { colors, moderateScale } from '../../theme';
+import React, {useContext, useId, useMemo, useState} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {Strings} from '../../constants';
+import {ThemeContext, ThemeType} from '../../context';
+import {colors, moderateScale} from '../../theme';
 import PasswordModal from './PasswordModal';
 import stylesheet from './SettingsStyles';
 import useSettings from './useSettings';
+import BottomSheetButton from './BottomSheetButton';
 
 const SettingsScreen = () => {
   const [modalShown, setModalShown] = useState<boolean>(false);
+  const buttonIdOne = useId();
+  const buttonIdTwo = useId();
+  const buttonIdThree = useId();
+
+  const [selected, setSelected] = useState<string>('');
+
   const {
     handleOpenUrl,
     handleLogout,
@@ -24,8 +31,9 @@ const SettingsScreen = () => {
     handleToggleBottomSheet,
     handleTurnDarkTheme,
     handleTurnLightTheme,
+    handleTurnSystemDefaultTheme
   } = useSettings(setModalShown);
-  const { theme } = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
   const snapPoints = useMemo(() => ['40%', '90%'], []);
   const handleChangePassword = (): void => {
     setModalShown(true);
@@ -85,25 +93,27 @@ const SettingsScreen = () => {
         snapPoints={snapPoints}
         index={-1}
         style={styles.bottomSheetButtonContainer}>
-        <TouchableOpacity
-          style={styles.bottomSheetButton}
-          onPress={handleTurnDarkTheme}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.darkThemeBtnText}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottomSheetButton}
-          onPress={handleTurnLightTheme}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.lightThemeBtnText}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomSheetButton}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.systemDefaultThemeBtnText}
-          </Text>
-        </TouchableOpacity>
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdOne}
+          onPress={handleTurnDarkTheme}
+          name={Strings.darkThemeBtnText}
+          setSelected={setSelected}
+        />
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdTwo}
+          onPress={handleTurnLightTheme}
+          name={Strings.lightThemeBtnText}
+          setSelected={setSelected}
+        />
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdThree}
+          onPress={handleTurnSystemDefaultTheme}
+          name={Strings.systemDefaultThemeBtnText}
+          setSelected={setSelected}
+        />
       </BottomSheet>
     </View>
   );

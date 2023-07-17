@@ -22,6 +22,12 @@ const App = (): JSX.Element => {
       save(Strings.IS_FIRST, true);
       if(setTheme) setTheme(appearance as ThemeType);
     }
+    else {
+      const themeFromStorage = await get(Strings.theme);
+      if (themeFromStorage === appearance && setTheme) setTheme(themeFromStorage as ThemeType);
+      else 
+        if(setTheme) setTheme(appearance as ThemeType);      
+    }
   }, []);
   
   useEffect(() => {
