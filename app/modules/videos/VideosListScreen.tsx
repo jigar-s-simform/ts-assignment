@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { FC, useContext } from 'react';
 import { FlatList, View } from 'react-native';
+import { ThemeContext, ThemeType } from '../../context';
+import { EmptySearchComponent } from '../home/HomeScreen';
 import VideoComponent from './VideoComponent';
-import styles from './VideoStyles';
-import useVideos, { UseVideoReturnType } from './useVideos';
+import stylesheet from './VideoStyles';
+import useVideos, { UseVideosReturnType } from './useVideos';
 
-
-const VideosListScreen = (): JSX.Element => {
-  const { videos }: UseVideoReturnType = useVideos();
+const VideosListScreen: FC = () => {
+  const { videos }: UseVideosReturnType = useVideos();
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   return (
     <View style={styles.mainContainer}>

@@ -1,11 +1,12 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ScaledSize, StatusBar, useWindowDimensions } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Video, { OnLoadData, OnProgressData } from 'react-native-video';
-import { data } from '../../constants';
+import { Strings, data } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import { globalMetrics } from '../../theme';
-import styles from './VideoStyles';
+import stylesheet from './VideoStyles';
 export interface VideoType {
   description: string;
   sources: string[];
@@ -52,6 +53,7 @@ const useVideos = (
   const { width, height }: ScaledSize = useWindowDimensions();
   const navigation: NavigationProp<ReactNavigation.RootParamList> =
     useNavigation();
+  const { theme } = useContext(ThemeContext);
 
   const videos: VideoType[] = data?.categories[0]?.videos
  
@@ -59,19 +61,25 @@ const useVideos = (
     if (controlsVisible) {
       setTimeout(() => {
         setControlsVisible(false);
-      }, 1000);
+      }, Strings.videoControlsTimeoutValue);
     }
   }, [controlsVisible]);
 
   useEffect(() => {
     if (width > height) {
       navigation.getParent()?.setOptions({
-        tabBarStyle: styles.tabBarStylesLandScape,
+        tabBarStyle: stylesheet(theme as ThemeType).tabBarStylesLandScape,
+      });
+      navigation.setOptions({
+        headerShown: false,
       });
       StatusBar.setHidden(true);
     } else {
       navigation.getParent()?.setOptions({
-        tabBarStyle: styles.tabBarStylesPotrait,
+        tabBarStyle: stylesheet(theme as ThemeType).tabBarStylesPotrait,
+      });
+      navigation.setOptions({
+        headerShown: true,
       });
     }
   }, [width]);
