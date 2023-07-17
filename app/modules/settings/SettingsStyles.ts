@@ -88,6 +88,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: moderateScale(10),
     marginVertical: verticalScale(15)
+  },
+  bottomSheetButtonContainer: {
+    paddingHorizontal: horizontalScale(15),
+    paddingVertical: verticalScale(10),
+    width: '100%',
+    borderWidth: moderateScale(1),
+    borderColor: Colors.black,
+    borderRadius:moderateScale(15)
+  },
+  bottomSheetButton: {
+    backgroundColor: Colors.white,
+    width: '100%',
+    paddingVertical: verticalScale(15),
+    marginVertical: verticalScale(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: moderateScale(1),
+    borderColor: Colors.black
   }
 });
 

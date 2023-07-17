@@ -1,3 +1,4 @@
+import BottomSheet from '@gorhom/bottom-sheet';
 import {
   Lock,
   Newspaper,
@@ -5,30 +6,52 @@ import {
   Password,
   SignOut,
 } from 'phosphor-react-native';
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../constants';
+import {
+  BottomSheetConstants,
+  SnapPointsType,
+  Strings,
+  bottomsheetInitialIndex,
+} from '../../constants';
 import { Colors, moderateScale } from '../../theme';
+import PasswordModal from './PasswordModal';
 import styles from './SettingsStyles';
 import useSettings, { UseSettingsReturnType } from './useSettings';
-import PasswordModal from './PasswordModal';
 
 const SettingsScreen: FC = () => {
-  
   const [modalShown, setModalShown] = useState<boolean>(false);
-  const { handleOpenUrl, handleLogout }: UseSettingsReturnType = useSettings(setModalShown);
+  const {
+    handleOpenUrl,
+    handleLogout,
+    sheetRef,
+    handleToggleBottomSheet,
+  }: UseSettingsReturnType = useSettings(setModalShown);
+
+  const snapPoints: SnapPointsType = useMemo(
+    () => [BottomSheetConstants.minimum, BottomSheetConstants.maximum],
+    [],
+  );
 
   const handleChangePassword = (): void => {
     setModalShown(true);
-  }
+  };
 
   return (
     <View style={styles.mainContainer}>
-      <TouchableOpacity style={styles.settingItem} onPress={handleChangePassword}>
-        <Password size={moderateScale(25)} color={Colors.themeBlue} weight='bold'/>
+      <TouchableOpacity
+        style={styles.settingItem}
+        onPress={handleChangePassword}>
+        <Password
+          size={moderateScale(25)}
+          color={Colors.themeBlue}
+          weight="bold"
+        />
         <Text style={styles.settingItemText}>{Strings.changePassword}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.settingItem}>
+      <TouchableOpacity
+        style={styles.settingItem}
+        onPress={handleToggleBottomSheet}>
         <Palette
           size={moderateScale(25)}
           color={Colors.themeBlue}
@@ -56,7 +79,24 @@ const SettingsScreen: FC = () => {
         />
         <Text style={styles.settingItemText}>{Strings.logout}</Text>
       </TouchableOpacity>
-      {modalShown && <PasswordModal modalShown={modalShown} setModalShown={setModalShown} />}
+      {modalShown && (
+        <PasswordModal modalShown={modalShown} setModalShown={setModalShown} />
+      )}
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={snapPoints}
+        index={bottomsheetInitialIndex}
+        style={styles.bottomSheetButtonContainer}>
+        <TouchableOpacity style={styles.bottomSheetButton}>
+          <Text>{Strings.darkThemeBtnText}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomSheetButton}>
+          <Text>{Strings.lightThemeBtnText}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomSheetButton}>
+          <Text>{Strings.systemDefaultThemeBtnText}</Text>
+        </TouchableOpacity>
+      </BottomSheet>
     </View>
   );
 };
