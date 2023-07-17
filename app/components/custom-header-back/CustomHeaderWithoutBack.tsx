@@ -1,12 +1,16 @@
 import { SafeAreaView, Text, View } from 'react-native';
-import styles from './CustomHeaderStyles';
+import stylesheet from './CustomHeaderStyles';
+import { useContext } from 'react';
+import { ThemeContext, ThemeType } from '../../context';
 
 interface CustomHeaderTypes {
   title: string;
 }
 
 const CustomHeaderWithoutBack = ({ title }: CustomHeaderTypes) => {
-    
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType)
+   
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.leftContent} />

@@ -1,44 +1,48 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ThemeType } from '../../context';
 import {
-  colors,
+  Colors,
   horizontalScale,
   moderateScale,
-  verticalScale,
+  verticalScale
 } from '../../theme';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.white,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: horizontalScale(10),
-    paddingVertical: verticalScale(10),
-    shadowColor: colors.black,
-    shadowOffset: {
-      width: 0,
-      height: verticalScale(1),
+const stylesheet = (theme: ThemeType) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: Colors[theme]?.white,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: horizontalScale(10),
+      paddingVertical: verticalScale(10),
+      shadowColor: Colors[theme]?.black,
+      shadowOffset: {
+        width: 0,
+        height: verticalScale(1),
+      },
+      shadowOpacity: moderateScale(0.4),
+      shadowRadius: moderateScale(1.5),
+      elevation: 5,
     },
-    shadowOpacity: moderateScale(0.4),
-    shadowRadius: moderateScale(1.5),
-    elevation: 5,
-  },
-  textStyles: {
-    textAlign: 'center',
-    fontSize: moderateScale(16),
-    fontWeight: '500',
-    paddingVertical: verticalScale(8),
-  },
-  leftContent: {
-    flex: 1,
-    paddingLeft: horizontalScale(10),
-    paddingVertical: verticalScale(8),
-  },
-  centerContent: {
-    flex: 2,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-});
-export default styles;
+    textStyles: {
+      textAlign: 'center',
+      fontSize: moderateScale(16),
+      fontWeight: '500',
+      paddingVertical: verticalScale(8),
+      color: Colors[theme]?.black,
+    },
+    leftContent: {
+      flex: 1,
+      paddingLeft: horizontalScale(10),
+      paddingVertical: verticalScale(8),
+    },
+    centerContent: {
+      flex: 2,
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+  });
+  
+export default stylesheet;

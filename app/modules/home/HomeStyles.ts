@@ -5,7 +5,7 @@ import {
   globalMetrics,
   horizontalScale,
   moderateScale,
-  verticalScale
+  verticalScale,
 } from '../../theme';
 
 const stylesheet = (theme: ThemeType) =>
@@ -43,6 +43,9 @@ const stylesheet = (theme: ThemeType) =>
       color: Colors[theme]?.black,
       fontSize: moderateScale(18),
       fontWeight: '500',
+    },
+    searchTextInput: {
+      color: Colors[theme]?.black,
     },
   });
 

@@ -1,15 +1,17 @@
 import { StyleSheet } from 'react-native';
 import {
+  Colors,
     colors,
     horizontalScale,
     moderateScale,
     verticalScale,
 } from '../../theme';
+import { ThemeType } from '../../context';
 
-const styles = StyleSheet.create({
+const stylesheet = (theme: ThemeType) => StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: Colors[theme]?.white,
     justifyContent: 'space-between',
   },
   profileImgStyles: {
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: moderateScale(1),
   },
   detailsContainer: {
-    backgroundColor: colors.themeBlue,
+    backgroundColor: Colors[theme]?.themeBlue,
     alignItems: 'center',
     paddingVertical: verticalScale(15),
     rowGap: verticalScale(20),
@@ -41,11 +43,11 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: moderateScale(16),
-    color: colors.white,
+    color: Colors[theme]?.white,
     fontWeight: '500',
   },
   imgContainer: {
-    backgroundColor: colors.themeBlue,
+    backgroundColor: Colors[theme]?.themeBlue,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: verticalScale(22),
@@ -61,14 +63,14 @@ const styles = StyleSheet.create({
   labelStyle: {
     fontWeight: '600',
     fontSize: moderateScale(16),
-    color: colors.black,
+    color: Colors[theme]?.black,
   },
   drawerItemActive: {
-    backgroundColor: colors.themeBlue
+    backgroundColor: Colors[theme]?.themeBlue
   },
   drawerItemInActive: {
-    backgroundColor:colors.white
+    backgroundColor:Colors[theme]?.white
   }
 });
 
-export default styles;
+export default stylesheet;
