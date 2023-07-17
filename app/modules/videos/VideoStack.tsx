@@ -20,9 +20,7 @@ const VideoNavigator = createNativeStackNavigator<VideoStackParamsList>();
 const VideoStack = (): JSX.Element => {
   
   return (
-    <VideoNavigator.Navigator screenOptions={{
-      headerShown: false
-    }}>
+    <VideoNavigator.Navigator>
       <VideoNavigator.Screen
         options={{
           header: () => <CustomHeaderWithoutBack title={Strings.bottomNavigationTitles.videos} />

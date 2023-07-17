@@ -96,5 +96,10 @@ export default {
   currentPassword: 'Current Password',
   newPassword: 'New Password',
   confirmNewPassword: 'Comfirm New Password',
-  passwordDidNotMatch:'please provide same passwords',
+  passwordDidNotMatch: 'please provide same passwords',
+  darkThemeBtnText: 'Dark Theme',
+  lightThemeBtnText: 'Light Theme',
+  systemDefaultThemeBtnText: 'System Default Theme',
+  themeValueLight: 'light',
+  themeValueDark: 'dark'
 };

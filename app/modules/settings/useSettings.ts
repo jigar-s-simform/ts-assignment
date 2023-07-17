@@ -19,12 +19,17 @@ import {
     passwordUpdateSchema,
     updatePassword,
 } from '../../utils';
+import { useRef, useState } from 'react';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { shallowEqual } from 'react-redux';
 
 const useSettings = (
   setModalShown: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const dispatch = useAppDispatch();
-  const {userDetails} = useAppSelector(authSelector);
+  const { userDetails } = useAppSelector(authSelector);
+  const [bottomSheetShown, setBottomSheetShown] = useState<boolean>(false);
+  const sheetRef = useRef<BottomSheet>(null);
 
   const formik = useFormik<PasswordUpdateSchemaTypes>({
     initialValues: {
@@ -33,7 +38,7 @@ const useSettings = (
       confirmNewPassword: '',
       },
       validationSchema: passwordUpdateSchema,
-    onSubmit: async values => {
+    onSubmit: async (values: PasswordUpdateSchemaTypes) => {
       if (values.newPassword !== values.confirmNewPassword) {
         Alert.alert(Strings.passwordDidNotMatch);
         return;
@@ -62,13 +67,24 @@ const useSettings = (
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     dispatch(logout());
     persistor.purge();
     navigateWithReplace(NavigationRoutes.LoginScreen);
   };
 
-  return {handleOpenUrl, handleLogout, formik};
+  const handleToggleBottomSheet = (): void => {
+    if (bottomSheetShown) {
+      setBottomSheetShown(false);
+      sheetRef.current?.expand()
+    }
+    else {
+      setBottomSheetShown(true);
+      sheetRef.current?.close()
+    }
+  }
+
+  return {handleOpenUrl, handleLogout, formik, sheetRef, handleToggleBottomSheet};
 };
 
 export default useSettings;
