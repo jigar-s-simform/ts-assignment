@@ -1,19 +1,22 @@
-import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import {
-  EnvelopeSimple,
-  Gear,
-  House,
-  User
-} from 'phosphor-react-native';
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItem,
+} from '@react-navigation/drawer';
+import { EnvelopeSimple, Gear, House, User } from 'phosphor-react-native';
+import { useContext } from 'react';
 import { Image, SafeAreaView, Text, View } from 'react-native';
 import { NavigationRoutes, Strings } from '../../constants';
+import { ThemeContext } from '../../context';
 import { authSelector, useAppSelector } from '../../redux';
 import { Colors, moderateScale } from '../../theme';
 import { navigateWithParam, navigateWithReplace } from '../../utils';
-import customDrawerStyles from './CustomDrawerStyles';
+import stylesheet from './CustomDrawerStyles';
 
 const CustomDrawer = (props: DrawerContentComponentProps): JSX.Element => {
   const { userDetails } = useAppSelector(authSelector);
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme);
 
   const handleLogout = (): void => {
     navigateWithReplace(NavigationRoutes.LoginScreen);
@@ -22,51 +25,59 @@ const CustomDrawer = (props: DrawerContentComponentProps): JSX.Element => {
   return (
     <DrawerContentScrollView
       scrollEnabled={false}
-      contentContainerStyle={customDrawerStyles.mainContainer}
+      contentContainerStyle={styles.mainContainer}
       {...props}>
       <SafeAreaView>
-        <View style={customDrawerStyles.detailsContainer}>
+        <View style={styles.detailsContainer}>
           <Image
-            source={typeof userDetails?.avatar !== 'number' ? {
-              uri: userDetails?.avatar,
-            } : userDetails.avatar}
-            style={customDrawerStyles.profileImgStyles}
+            source={
+              typeof userDetails?.avatar !== 'number'
+                ? {
+                    uri: userDetails?.avatar,
+                  }
+                : userDetails.avatar
+            }
+            style={styles.profileImgStyles}
           />
-          <View style={customDrawerStyles.nameEmailContainer}>
-            <Text style={customDrawerStyles.detailNameText}>
+          <View style={styles.nameEmailContainer}>
+            <Text style={styles.detailNameText}>
               {`${userDetails?.first_name} ${userDetails?.last_name}`}
             </Text>
-            <View style={customDrawerStyles.emailContainer}>
+            <View style={styles.emailContainer}>
               <EnvelopeSimple
                 size={moderateScale(25)}
                 weight="bold"
-                color={Colors.white}
+                color={Colors[theme]?.white}
               />
-              <Text style={customDrawerStyles.detailText}>
-                {userDetails?.email}
-              </Text>
+              <Text style={styles.detailText}>{userDetails?.email}</Text>
             </View>
           </View>
         </View>
         <DrawerItem
-          activeBackgroundColor={Colors.themeColor}
-          labelStyle={customDrawerStyles.labelStyle}
+          activeBackgroundColor={Colors[theme]?.themeColor}
+          labelStyle={styles.labelStyle}
           icon={() => (
             <House
               size={moderateScale(25)}
               weight="bold"
-              color={Colors.themeBlueDark}
+              color={Colors[theme]?.black}
             />
           )}
           label={Strings.home}
-          onPress={() => { navigateWithParam(NavigationRoutes.HomeScreen) }}
+          onPress={() => {
+            navigateWithParam(NavigationRoutes.HomeScreen);
+          }}
         />
         <DrawerItem
-          activeTintColor={Colors.themeBlue}
-          activeBackgroundColor={Colors.themeBlueDark}
-          labelStyle={customDrawerStyles.labelStyle}
+          activeTintColor={Colors[theme]?.themeBlue}
+          activeBackgroundColor={Colors[theme]?.themeBlueDark}
+          labelStyle={styles.labelStyle}
           icon={() => (
-            <User size={moderateScale(25)} weight="bold" color={Colors.themeBlueDark} />
+            <User
+              size={moderateScale(25)}
+              weight="bold"
+              color={Colors[theme]?.black}
+            />
           )}
           label={Strings.bottomNavigationTitles.profile}
           onPress={() => {
@@ -74,10 +85,14 @@ const CustomDrawer = (props: DrawerContentComponentProps): JSX.Element => {
           }}
         />
         <DrawerItem
-          activeBackgroundColor={Colors.themeColor}
-          labelStyle={customDrawerStyles.labelStyle}
+          activeBackgroundColor={Colors[theme]?.themeColor}
+          labelStyle={styles.labelStyle}
           icon={() => (
-            <Gear size={moderateScale(25)} weight="bold" color={Colors.themeBlueDark} />
+            <Gear
+              size={moderateScale(25)}
+              weight="bold"
+              color={Colors[theme]?.black}
+            />
           )}
           label={Strings.settings}
           onPress={() => {
@@ -85,9 +100,9 @@ const CustomDrawer = (props: DrawerContentComponentProps): JSX.Element => {
           }}
         />
       </SafeAreaView>
-      <View style={customDrawerStyles.signOutContainer}>
+      <View style={styles.signOutContainer}>
         <DrawerItem
-          labelStyle={customDrawerStyles.labelStyle}
+          labelStyle={styles.labelStyle}
           label={Strings.appVersion}
           onPress={handleLogout}
         />

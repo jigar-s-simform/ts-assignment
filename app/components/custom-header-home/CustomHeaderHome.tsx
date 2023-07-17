@@ -1,11 +1,13 @@
 import { BellRinging, List } from 'phosphor-react-native';
+import { useContext } from 'react';
 import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationRoutes, Strings } from '../../constants';
-import { moderateScale } from '../../theme';
+import { ThemeContext } from '../../context';
+import { Colors, moderateScale } from '../../theme';
 import { navigateWithParam, toggleDrawer } from '../../utils';
-import styles from './CustomHeaderStyles';
+import stylesheet from './CustomHeaderStyles';
 
 /**
  * CustomHeader Function
@@ -16,17 +18,28 @@ import styles from './CustomHeaderStyles';
  * The function returns a JSX element representing the custom header component.
  */
 const CustomHeaderHome = (): JSX.Element => {
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme);
 
-const navigateToNotifications = () => navigateWithParam(NavigationRoutes.NotificationScreen)
-  
+  const navigateToNotifications = (): void =>
+    navigateWithParam(NavigationRoutes.NotificationScreen);
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={toggleDrawer}>
-        <List size={moderateScale(25)} />
+        <List
+          size={moderateScale(25)}
+          color={Colors[theme].themeCyan}
+        />
       </TouchableOpacity>
-      <Text style={styles.headerText}>{Strings.bottomNavigationTitles.home}</Text>
+      <Text style={styles.headerText}>
+        {Strings.bottomNavigationTitles.home}
+      </Text>
       <TouchableOpacity onPress={navigateToNotifications}>
-        <BellRinging size={moderateScale(25)} />
+        <BellRinging
+          size={moderateScale(25)}
+          color={Colors[theme].themeCyan}
+        />
       </TouchableOpacity>
     </SafeAreaView>
   );

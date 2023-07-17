@@ -3,7 +3,12 @@ import React, { useContext, useRef } from 'react';
 import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native';
 import { Strings, ThemeValues } from '../../constants';
 import { ThemeContext, ThemeType } from '../../context';
-import { homeSelector, searchUser, useAppDispatch, useAppSelector } from '../../redux';
+import {
+  homeSelector,
+  searchUser,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import { Colors, moderateScale } from '../../theme';
 import stylesheet from './HomeStyles';
 import { FunctionType } from './useHome';
@@ -13,15 +18,15 @@ interface SearchComponentPropsType extends TextInputProps {
 }
 
 /**
- * 
+ *
  * @param {SearchComponentPropsType} props
  * @returns {JSX.Element}
  */
 const SearchComponent = (props: SearchComponentPropsType): JSX.Element => {
   const inputRef = useRef<TextInput>(null);
   const dispatch = useAppDispatch();
-  const { searchText } = useAppSelector(homeSelector);
-  const { theme } = useContext(ThemeContext);
+  const {searchText} = useAppSelector(homeSelector);
+  const {theme} = useContext(ThemeContext);
 
   const styles = stylesheet(theme as ThemeType);
 
@@ -40,6 +45,7 @@ const SearchComponent = (props: SearchComponentPropsType): JSX.Element => {
         />
         <TextInput
           ref={inputRef}
+          style={styles.searchTextInput}
           placeholder={Strings.searchUser}
           onChangeText={props.search}
           placeholderTextColor={Colors[theme ?? ThemeValues.light]?.black}
@@ -47,7 +53,10 @@ const SearchComponent = (props: SearchComponentPropsType): JSX.Element => {
       </View>
       {inputRef.current?.isFocused() && searchText && (
         <TouchableOpacity onPress={clearInput}>
-          <XCircle size={moderateScale(24)} color={Colors[theme ?? ThemeValues.light]?.themeCyan} />
+          <XCircle
+            size={moderateScale(24)}
+            color={Colors[theme ?? ThemeValues.light]?.themeCyan}
+          />
         </TouchableOpacity>
       )}
     </View>
