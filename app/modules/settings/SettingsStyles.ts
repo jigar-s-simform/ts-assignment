@@ -104,13 +104,16 @@ const stylesheet = (theme: ThemeType) =>
       borderRadius: moderateScale(15),
     },
     bottomSheetButton: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingLeft: horizontalScale(15),
+      columnGap: horizontalScale(20),
       borderRadius: moderateScale(10),
       backgroundColor: Colors[theme]?.white,
       width: '100%',
       paddingVertical: verticalScale(15),
       marginVertical: verticalScale(10),
-      justifyContent: 'center',
-      alignItems: 'center',
       borderWidth: moderateScale(1),
       borderColor: Colors[theme]?.black,
     },
@@ -119,6 +122,23 @@ const stylesheet = (theme: ThemeType) =>
       fontWeight: '500',
       fontSize: moderateScale(16),
     },
+    radioButtonOuterCircle: {
+      width: moderateScale(5),
+      height: moderateScale(5),
+      borderRadius: moderateScale(2.5)
+    },
+    radioButtonInnerCircleSelected: {
+      width: moderateScale(4),
+      height: moderateScale(4),
+      margin: moderateScale(1),
+      backgroundColor: Colors[theme]?.white
+    },
+    radioButtonInnerCircleNotSelected: {
+      width: moderateScale(4),
+      height: moderateScale(4),
+      margin: moderateScale(1),
+      opacity:0
+    }
   });
 
 export default stylesheet;

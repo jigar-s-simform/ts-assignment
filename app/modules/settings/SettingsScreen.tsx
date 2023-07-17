@@ -6,17 +6,28 @@ import {
   Password,
   SignOut,
 } from 'phosphor-react-native';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { FC, useContext, useId, useMemo, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { BottomSheetConstants, SnapPointsType, Strings } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import {
+  BottomSheetConstants,
+  Strings,
+  bottomsheetInitialIndex,
+} from '../../constants';
+import { ThemeContext } from '../../context';
 import { Colors, moderateScale } from '../../theme';
+import BottomSheetButton from './BottomSheetButton';
 import PasswordModal from './PasswordModal';
 import stylesheet from './SettingsStyles';
 import useSettings, { UseSettingsReturnType } from './useSettings';
 
-const SettingsScreen = () => {
+const SettingsScreen: FC = () => {
   const [modalShown, setModalShown] = useState<boolean>(false);
+  const buttonIdOne: string = useId();
+  const buttonIdTwo: string = useId();
+  const buttonIdThree: string = useId();
+
+  const [selected, setSelected] = useState<string>('');
+
   const {
     handleOpenUrl,
     handleLogout,
@@ -24,17 +35,20 @@ const SettingsScreen = () => {
     handleToggleBottomSheet,
     handleTurnDarkTheme,
     handleTurnLightTheme,
+    handleTurnSystemDefaultTheme,
   }: UseSettingsReturnType = useSettings(setModalShown);
-  const {theme} = useContext(ThemeContext);
-  const snapPoints: SnapPointsType = useMemo(
+  
+  const { theme } = useContext(ThemeContext);
+  const snapPoints = useMemo(
     () => [BottomSheetConstants.minimum, BottomSheetConstants.maximum],
     [],
   );
+
   const handleChangePassword = (): void => {
     setModalShown(true);
   };
 
-  const styles = stylesheet(theme as ThemeType);
+  const styles = stylesheet(theme);
 
   return (
     <View style={styles.mainContainer}>
@@ -67,7 +81,11 @@ const SettingsScreen = () => {
         <Text style={styles.settingItemText}>{Strings.termsAndConditions}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.settingItem} onPress={handleOpenUrl}>
-        <Lock size={moderateScale(25)} color={Colors.commonColors.themeBlue} weight="bold" />
+        <Lock
+          size={moderateScale(25)}
+          color={Colors.commonColors.themeBlue}
+          weight="bold"
+        />
         <Text style={styles.settingItemText}>{Strings.privacyPolicy}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.settingItem} onPress={handleLogout}>
@@ -85,27 +103,29 @@ const SettingsScreen = () => {
         ref={sheetRef}
         enablePanDownToClose
         snapPoints={snapPoints}
-        index={-1}
+        index={bottomsheetInitialIndex}
         style={styles.bottomSheetButtonContainer}>
-        <TouchableOpacity
-          style={styles.bottomSheetButton}
-          onPress={handleTurnDarkTheme}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.darkThemeBtnText}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottomSheetButton}
-          onPress={handleTurnLightTheme}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.lightThemeBtnText}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomSheetButton}>
-          <Text style={styles.bottomSheetButtonText}>
-            {Strings.systemDefaultThemeBtnText}
-          </Text>
-        </TouchableOpacity>
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdOne}
+          onPress={handleTurnDarkTheme}
+          name={Strings.darkThemeBtnText}
+          setSelected={setSelected}
+        />
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdTwo}
+          onPress={handleTurnLightTheme}
+          name={Strings.lightThemeBtnText}
+          setSelected={setSelected}
+        />
+        <BottomSheetButton
+          active={selected}
+          id={buttonIdThree}
+          onPress={handleTurnSystemDefaultTheme}
+          name={Strings.systemDefaultThemeBtnText}
+          setSelected={setSelected}
+        />
       </BottomSheet>
     </View>
   );
