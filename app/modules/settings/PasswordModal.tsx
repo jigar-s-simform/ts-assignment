@@ -1,17 +1,18 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useContext } from 'react';
 import {
-    KeyboardAvoidingView,
-    Modal,
-    Text,
-    TouchableOpacity,
-    View
+  KeyboardAvoidingView,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import { useInitializationRef } from '../../hooks';
 import { globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './SettingsStyles';
+import stylesheet from './SettingsStyles';
 import useSettings from './useSettings';
 
 interface PasswordModalPropsType {
@@ -25,6 +26,9 @@ const PasswordModal = ({
 }: PasswordModalPropsType): JSX.Element => {
   const formRefs = useInitializationRef(3);
   const {formik} = useSettings(setModalShown);
+  const {theme} = useContext(ThemeContext);
+
+  const styles = stylesheet(theme as ThemeType);
 
   const handlePasswordChange = (): void => {
     formik.handleSubmit();

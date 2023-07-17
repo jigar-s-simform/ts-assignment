@@ -5,7 +5,16 @@
 import {AppRegistry} from 'react-native';
 import 'react-native-gesture-handler';
 import App from './app/App';
-import { name as appName } from './app.json';
-import SplashScreen from 'react-native-splash-screen'
+import {name as appName} from './app.json';
+import { ThemeProvider } from './app/context';
 
-AppRegistry.registerComponent(appName, () => App);
+const AppContainer = () => {
+    
+  return(
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>
+  )
+};
+
+AppRegistry.registerComponent(appName, () => AppContainer);

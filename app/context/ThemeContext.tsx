@@ -1,14 +1,17 @@
 import React, { createContext, useState } from 'react';
+import { ThemeValues } from '../constants';
 
-interface ThemeValueInterface {
-  theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
+export type ThemeType = 'light' | 'dark'
+
+export interface ThemeValueInterface {
+  theme: ThemeType;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeType>>;
 }
 
 export const ThemeContext = createContext<Partial<ThemeValueInterface>>({});
 
 const ThemeProvider = ({ children }: { children: JSX.Element }): JSX.Element => {
-const [theme, setTheme] = useState<string>('');
+const [theme, setTheme] = useState<ThemeType>(ThemeValues.light);
     
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>

@@ -11,4 +11,4 @@ export {
 export { default as handleSubmitEdit } from './handleSubmitEdit';
 export * from './passwordChangeUtils';
 export * from './requestPermission';
-
+export * from './ThemeUtils';

@@ -6,3 +6,4 @@ export { default as Strings } from './Strings';
 export * from './Media';
 export * from './DummyData';
 export * from './BottomSheetConstants';
+export * from './ThemeValues';
