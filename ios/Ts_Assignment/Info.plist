@@ -9,7 +9,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string></string>
 	<key>CFBundleDisplayName</key>
-	<string>Ts_Assignment</string>
+	<string>Userz</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
