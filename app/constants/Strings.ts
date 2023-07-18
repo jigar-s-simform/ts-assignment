@@ -104,5 +104,6 @@ export default {
   theme: 'Theme',
   IsDefault: 'IsDefault',
   IS_FIRST: 'IS_FIRST',
-  videoControlsTimeoutValue: 1000
+  videoControlsTimeoutValue: 1000,
+  fcmToken: 'fcm_token'
 };
