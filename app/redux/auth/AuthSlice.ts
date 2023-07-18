@@ -4,14 +4,16 @@ import {
   Draft,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import { loginThunk, UserSchemaType } from '../../services';
-import { RootState } from '../store';
+import {loginThunk, UserSchemaType} from '../../services';
+import {RootState} from '../store';
+import {NotificationType} from '../../types';
 
 export interface InitialAuthStateType {
   loginSuccess: boolean;
   userDetails: UserSchemaType | undefined;
   isLoading: boolean;
   error: string;
+  notifications: NotificationType[];
 }
 
 const initialState: InitialAuthStateType = {
@@ -19,6 +21,7 @@ const initialState: InitialAuthStateType = {
   userDetails: undefined,
   isLoading: false,
   error: '',
+  notifications: [],
 };
 
 const authSlice = createSlice({
@@ -57,6 +60,20 @@ const authSlice = createSlice({
     ) => {
       state.userDetails = action.payload;
     },
+    addNotification: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<NotificationType>,
+    ) => {
+      state.notifications = [action.payload, ...state.notifications];
+    },
+    deleteNotification: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<NotificationType>,
+    ) => {
+      state.notifications = state.notifications.filter(
+        notification => notification.messageId !== action.payload.messageId,
+      );
+    },
   },
   extraReducers: (builder: ActionReducerMapBuilder<InitialAuthStateType>) => {
     builder
@@ -90,6 +107,8 @@ export const {
   saveProfileChanges,
   logout,
   changePassword,
+  addNotification,
+  deleteNotification
 } = authSlice.actions;
 export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;

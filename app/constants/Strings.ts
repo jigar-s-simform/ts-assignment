@@ -105,5 +105,8 @@ export default {
   IsDefault: 'IsDefault',
   IS_FIRST: 'IS_FIRST',
   videoControlsTimeoutValue: 1000,
-  fcmToken: 'fcm_token'
+  fcmToken: 'fcm_token',
+  areYouSure: 'Are you sure!',
+  deleteNotification: 'Do you want to delete this notification?',
+  notificationsEmpty: 'No notifications found!'
 };
