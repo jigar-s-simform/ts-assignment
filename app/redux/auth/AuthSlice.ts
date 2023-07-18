@@ -28,15 +28,24 @@ const authSlice = createSlice({
     clearError: (state: Draft<InitialAuthStateType>) => {
       state.error = '';
     },
-    setProfilePicture: (state: Draft<InitialAuthStateType>, action: PayloadAction<string | undefined>) => {
+    logout: (state: Draft<InitialAuthStateType>) => {
+      state.loginSuccess = false;
+    },
+    setProfilePicture: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<string | undefined>,
+    ) => {
       state.userDetails = {
         ...state.userDetails,
-        avatar:action.payload
-      } as UserSchemaType
+        avatar: action.payload,
+      } as UserSchemaType;
     },
-    saveProfileChanges: (state: Draft<InitialAuthStateType>, action: PayloadAction<UserSchemaType>) => {
-      state.userDetails = action.payload
-    }
+    saveProfileChanges: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<UserSchemaType>,
+    ) => {
+      state.userDetails = action.payload;
+    },
   },
   extraReducers: (builder: ActionReducerMapBuilder<InitialAuthStateType>) => {
     builder
@@ -51,7 +60,7 @@ const authSlice = createSlice({
         ) => {
           state.loginSuccess = true;
           state.userDetails = action.payload;
-          state.isLoading = false
+          state.isLoading = false;
         },
       )
       .addCase(
@@ -64,6 +73,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError, setProfilePicture, saveProfileChanges } = authSlice.actions;
+export const {clearError, setProfilePicture, saveProfileChanges,logout} =
+  authSlice.actions;
 export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;

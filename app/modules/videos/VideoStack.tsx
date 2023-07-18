@@ -34,7 +34,8 @@ const VideoStack = (): JSX.Element => {
         name={NavigationRoutes.VideoPlayer}
         component={VideoPlayer}
         options={{
-          header: ({ route }: VideoPlayerRoutePropType): JSX.Element => <CustomHeaderWithBack title={(route.params?.video.title)} /> 
+          header: ({ route }: VideoPlayerRoutePropType) => <CustomHeaderWithBack title={(route.params?.video.title)} />
+      
         }}
       />
     </VideoNavigator.Navigator>
