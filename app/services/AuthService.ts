@@ -30,14 +30,28 @@ const loginThunk = createAsyncThunk(
   loginThunkName,
   async (values: LoginSchemaTypes, thunkAPI) => {
     try {
+      const response: AxiosResponse<AxiosResponseDataType> = await instance.get(
+        allUsers,
+      );
+      const users: UserSchemaType[] = response?.data?.data;
+      const userData: UserSchemaType = users.filter(user => user.email === values.email)[0];
+
       const loginStausFromAsync: string = await getLoginStatusFromAsyncStorage({
         email: values.email,
         password: values.password,
       });
 
+      if (loginStausFromAsync === AsyncLoginStatus.success) {
+        return {
+          ...userData,
+          password: values.password,
+        };
+      }
+
       if (loginStausFromAsync === AsyncLoginStatus.invalidPassword)
         // if password invalid from AsyncStorage throw error invalid credentials
         throw Strings.invalidCredentials;
+      
       else if (loginStausFromAsync === AsyncLoginStatus.userNotFound) {
         // if user is not stored in Async Storage fetch from api and perform authorization
         const res = await instance.post(loginBase, {
@@ -47,13 +61,6 @@ const loginThunk = createAsyncThunk(
 
         if (res.status === 200) {
           try {
-            const response: AxiosResponse<AxiosResponseDataType> =
-              await instance.get(allUsers);
-            const users = response?.data?.data;
-            const userData = users.filter(
-              user => user.email === values.email,
-            )[0];
-
             await saveToAsync({
               // saved logged in user to AsyncSorage
               ...userData,

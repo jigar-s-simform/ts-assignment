@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncLoginStatus, AsyncUpdateStatus, Strings } from '../constants';
+import { Store, changePassword } from '../redux';
 import { UserSchemaType } from '../services';
 
 export const getLoginStatusFromAsyncStorage = async (
@@ -14,6 +15,7 @@ export const getLoginStatusFromAsyncStorage = async (
       const usersInStorage: Partial<UserSchemaType>[] = JSON.parse(
         usersInStorageResponse,
       );
+
       const userIndex = usersInStorage.findIndex(
         userStored => userStored.email === user.email,
       );
@@ -34,7 +36,7 @@ export const getLoginStatusFromAsyncStorage = async (
 };
 
 export const updatePassword = async (
-  user: UserSchemaType,
+  user: UserSchemaType | undefined,
   newPassword: string,
 ): Promise<string> => {
   const usersInStorageResponse: string | null = await AsyncStorage.getItem(
@@ -46,7 +48,7 @@ export const updatePassword = async (
         usersInStorageResponse,
       );
       const userIndex = usersInStorage.findIndex(
-        userStored => userStored.email === user.email,
+        userStored => userStored.email === user?.email,
       );
 
       if (userIndex !== -1) {
@@ -58,6 +60,7 @@ export const updatePassword = async (
           Strings.userDataKey,
           JSON.stringify(usersInStorage),
         );
+        Store.dispatch(changePassword(newPassword)); // dispatching action to reflect updated password
       }
 
       return AsyncUpdateStatus.success;
@@ -78,5 +81,7 @@ export const saveToAsync = async (user: UserSchemaType): Promise<void> => {
       Strings.userDataKey,
       JSON.stringify(usersInStorage),
     );
+  } else {
+    await AsyncStorage.setItem(Strings.userDataKey, JSON.stringify([user]));
   }
 };

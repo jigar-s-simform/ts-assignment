@@ -28,6 +28,17 @@ const authSlice = createSlice({
     clearError: (state: Draft<InitialAuthStateType>) => {
       state.error = '';
     },
+    changePassword: (
+      state: Draft<InitialAuthStateType>,
+      action: PayloadAction<string>,
+    ) => {
+      if (state.userDetails) {
+        state.userDetails = {
+          ...state.userDetails,
+          password: action.payload,
+        };
+      }
+    },
     logout: (state: Draft<InitialAuthStateType>) => {
       state.loginSuccess = false;
     },
@@ -73,7 +84,12 @@ const authSlice = createSlice({
   },
 });
 
-export const {clearError, setProfilePicture, saveProfileChanges,logout} =
-  authSlice.actions;
+export const {
+  clearError,
+  setProfilePicture,
+  saveProfileChanges,
+  logout,
+  changePassword,
+} = authSlice.actions;
 export const authSelector = (state: RootState) => state.auth;
 export default authSlice.reducer;
