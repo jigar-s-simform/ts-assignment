@@ -1,12 +1,7 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Text } from 'react-native';
+import { Strings } from '../../constants';
 
-const NotificationsScreen = () => {
-  return (
-    <View>
-      <Text>NotificationsScreen</Text>
-    </View>
-  )
-}
+const NotificationsScreen = (): JSX.Element => <Text>{Strings.emptyString}</Text>;
 
-export default NotificationsScreen
+export default NotificationsScreen;

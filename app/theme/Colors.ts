@@ -8,6 +8,8 @@ export interface CommonColorType {
   yellow: string;
   grey: string;
   red: string;
+  white: string;
+  black: string
 }
 export interface LightColorType {
   black: string;
@@ -46,6 +48,8 @@ export const commonColors: CommonColorType = {
   yellow: '#E7B10A',
   grey: '#767676',
   red: '#FF0000',
+  white: '#FFFFFF',
+  black:'#000000'
 };
 export const light: LightColorType = {
   black: '#000000',

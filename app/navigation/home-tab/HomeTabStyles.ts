@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import {
   colors,
+  Colors,
   horizontalScale,
   moderateScale,
   verticalScale,
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
   navigatorStyles: {
     height: verticalScale(65),
     display: 'flex',
-    backgroundColor: colors.themeBlueDark,
+    backgroundColor: Colors.commonColors.themeBlueDark,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -19,9 +20,9 @@ const styles = StyleSheet.create({
     height: moderateScale(30),
     borderWidth: horizontalScale(2),
     borderRadius: moderateScale(15),
-    backgroundColor: colors.themeCyan,
-    borderColor: colors.white,
-    tintColor: colors.themeBluelight,
+    backgroundColor: Colors.commonColors.themeCyan,
+    borderColor: Colors.commonColors.white,
+    tintColor: Colors.commonColors.themeBluelight,
     resizeMode: 'contain',
     marginBottom: verticalScale(5),
   },
@@ -32,8 +33,8 @@ const styles = StyleSheet.create({
     borderWidth: horizontalScale(2),
     borderRadius: moderateScale(15),
     resizeMode: 'contain',
-    borderColor: colors.white,
-    tintColor: colors.black,
+    borderColor: Colors.commonColors.white,
+    tintColor: Colors.commonColors.black,
   },
   buttonContainerMain: {
     justifyContent: 'center',
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   },
   titleTextActive: {
     display: 'flex',
-    color: colors.themeCyan,
+    color: Colors.commonColors.themeCyan,
     fontSize: moderateScale(14),
     fontWeight: '500',
   },
