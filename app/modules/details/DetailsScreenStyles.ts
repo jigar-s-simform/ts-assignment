@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
+
 import {
   Colors,
   horizontalScale,
   moderateScale,
   verticalScale,
 } from '../../theme';
-import { Strings } from '../../constants';
 
 const styles = StyleSheet.create({
   mainContainer: {
