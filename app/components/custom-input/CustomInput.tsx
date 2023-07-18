@@ -17,7 +17,7 @@ import CustomTextInputType from './CustomInputTypes';
  * properties passed to the CustomInput component, and a ref, which is a forwarded ref to access the input element.
  * The function returns a JSX element representing the custom input component.
  */
-const CustomInput = React.forwardRef((props: CustomTextInputType, ref):JSX.Element => {
+const CustomInput = React.forwardRef((props: CustomTextInputType, ref): JSX.Element => {
   const inputRef = useRef<TextInput>(null);
   const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
@@ -43,7 +43,7 @@ const CustomInput = React.forwardRef((props: CustomTextInputType, ref):JSX.Eleme
           placeholder={props.name}
           returnKeyType={props.returnKeyType}
           autoCapitalize="none"
-          placeholderTextColor={Colors.grey}
+          placeholderTextColor={Colors.black}
           style={customInputStyles.inputs}
           onChangeText={props.onChangeText}
           onBlur={props.onBlur}
