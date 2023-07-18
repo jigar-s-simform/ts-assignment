@@ -17,32 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-M9-nvn">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-M9-nvn">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Fcq-M9-nvn" secondAttribute="height" multiplier="375:667" id="hsm-43-TEK"/>
-                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="23H-uj-MO1"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="94Y-8B-q8a"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="H04-C0-5uy"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="HMG-ZW-Keh"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="IkK-GD-sWa"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="Jey-al-z2u"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="VPI-S5-f4s"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="ZyJ-RT-6vn"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="dMS-I0-6jv"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="eL7-0D-Qlb"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="h07-2C-o91"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="m5N-Mn-LrZ"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="qFi-1K-YGr"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="rNn-0M-bHB"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="sLt-PW-Qzp"/>
-                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="sox-w7-fvX"/>
+                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="23H-uj-MO1"/>
+                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="dMS-I0-6jv"/>
+                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="h07-2C-o91"/>
+                            <constraint firstItem="Fcq-M9-nvn" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="qFi-1K-YGr"/>
                         </constraints>
                     </view>
                 </viewController>
