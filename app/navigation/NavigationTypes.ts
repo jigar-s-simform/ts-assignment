@@ -1,5 +1,6 @@
 import { NavigationRoutes } from '../constants';
 import { UserSchemaType } from '../services';
+import { NotificationType } from '../types';
 
 export type RootStackParamsList = {
   [NavigationRoutes.LoginScreen]: undefined;
@@ -21,6 +22,6 @@ export type HomeTabsParamsList = {
 
 export type HomeStackParamsList = {
   [NavigationRoutes.HomeScreen]: undefined;
-  [NavigationRoutes.NotificationScreen]: undefined;
+  [NavigationRoutes.NotificationScreen]: {notification: NotificationType};
   [NavigationRoutes.DetailsScreen]: {user: UserSchemaType};
 };
