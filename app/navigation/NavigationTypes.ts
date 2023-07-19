@@ -11,6 +11,7 @@ export type DashBoardDrawerParamsList = {
   [NavigationRoutes.HomeTabs]: undefined;
   [NavigationRoutes.ProfileScreen]: undefined;
   [NavigationRoutes.SettingsScreen]: undefined;
+  [NavigationRoutes.WebView]: undefined;
 };
 
 export type HomeTabsParamsList = {

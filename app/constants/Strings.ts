@@ -36,7 +36,7 @@ export default {
     password: 'password',
     currentPassword: 'currentPassword',
     newPassword: 'newPassword',
-    confirmNewPassword: 'confirmNewPassword'
+    confirmNewPassword: 'confirmNewPassword',
   },
   bottomNavigationTitles: {
     home: 'Home',
@@ -82,11 +82,11 @@ export default {
   customHeaderNumberOfLines: 1,
   settings: 'Settings',
   appVersion: 'Version 7.0',
-  changePassword:'Change Password',
+  changePassword: 'Change Password',
   termsAndConditions: 'Terms and Conditions',
   changeTheme: 'Change Theme',
   privacyPolicy: 'Privacy policy',
-  googleUrl: 'https://www.google.com',
+  googleUrl: 'https://www.google.com/',
   userDataKey: 'users_data',
   passwordInvalid: 'Invalid Password!',
   passwordUpdated: 'Password updated successfully!',
@@ -108,5 +108,6 @@ export default {
   fcmToken: 'fcm_token',
   areYouSure: 'Are you sure!',
   deleteNotification: 'Do you want to delete this notification?',
-  notificationsEmpty: 'No notifications found!'
+  notificationsEmpty: 'No notifications found!',
+  google: 'Google'
 };

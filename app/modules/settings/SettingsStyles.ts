@@ -137,7 +137,10 @@ const stylesheet = (theme: ThemeType) =>
       width: moderateScale(4),
       height: moderateScale(4),
       margin: moderateScale(1),
-      opacity:0
+      opacity: 0
+    },
+    webViewContainerStyles: {
+      flex: 1
     }
   });
 

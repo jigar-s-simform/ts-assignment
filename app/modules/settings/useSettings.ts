@@ -1,7 +1,8 @@
 import BottomSheet from '@gorhom/bottom-sheet';
+import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { FormikProps, useFormik } from 'formik';
 import { useContext, useRef } from 'react';
-import { Alert, Linking, useColorScheme } from 'react-native';
+import { Alert, useColorScheme } from 'react-native';
 import { AsyncUpdateStatus, NavigationRoutes, Strings, ThemeValues } from '../../constants';
 import { ThemeContext, ThemeType } from '../../context';
 import {
@@ -19,7 +20,6 @@ import {
   save,
   updatePassword,
 } from '../../utils';
-import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 
 export interface UseSettingsReturnType {
   handleOpenUrl: () => Promise<void>;
@@ -69,12 +69,7 @@ const useSettings = (
   });
 
   const handleOpenUrl = async (): Promise<void> => {
-    try {
-      const canOpen: boolean = await Linking.canOpenURL(Strings.googleUrl);
-      if (canOpen) Linking.openURL(Strings.googleUrl);
-    } catch (e) {
-      Alert.alert(Strings.featureUnavailable);
-    }
+    navigateWithParam(NavigationRoutes.WebView);
   };
 
   const handleLogout = (): void => {

@@ -13,5 +13,6 @@ export enum NavigationRoutes {
   SignUpScreen = 'SIGNUP_SCREEN',
   HomeTabs = 'HOME_TABS',
   VideoPlayer = 'VIDEO_PLAYER',
-  VideoStack = 'VIDEO_STACK'
+  VideoStack = 'VIDEO_STACK',
+  WebView = 'WEB_VIEW'
 }

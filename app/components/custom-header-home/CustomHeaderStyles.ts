@@ -31,6 +31,19 @@ const stylesheet = (theme: ThemeType) =>
       fontSize: moderateScale(16),
       fontWeight: '500',
     },
+    notificationContainerDisplayed: {
+      backgroundColor: Colors.commonColors.red,
+      position: 'absolute',
+      top: -verticalScale(2),
+      right: -horizontalScale(2),
+      padding: moderateScale(6),
+      borderRadius: moderateScale(6),
+      opacity: 1
+    },
+    notificationContainerHidden: {
+      opacity: 0
+    },
+
   });
 
 export default stylesheet;
