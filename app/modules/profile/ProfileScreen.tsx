@@ -1,35 +1,58 @@
 import { Camera } from 'phosphor-react-native';
-import { Colors, moderateScale } from '../../theme';
-import styles from './ProfileScreenStyles';
-import useProfile, { UseProfileReturnType } from './useProfile';
-import { FC } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { CustomInput } from '../../components';
-import { Strings } from '../../constants';
-import { useInitializationRef } from '../../hooks';
-import { handleSubmitEdit } from '../../utils';
+import { FC, useContext } from 'react';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import { Images } from '../../assets';
+import { CustomInput } from '../../components';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext } from '../../context';
+import { useInitializeRefs } from '../../hooks';
+import { Colors, moderateScale } from '../../theme';
+import { handleSubmitEdit } from '../../utils';
+import stylesheet from './ProfileScreenStyles';
+import useProfile from './useProfile';
 
 /**
  * @description Profile screen component that will show the profile details of the user
  *
  * @returns {JSX.Element}
  */
-const ProfileScreen:FC = () => {
-  const { userDetails, formik, editable, handleEditOrSave, handleEditProfilePicture }:UseProfileReturnType = useProfile();
-  const formRefs = useInitializationRef(4);
+const ProfileScreen: FC = () => {
+  const {
+    userDetails,
+    formik,
+    editable,
+    handleEditOrSave,
+    handleEditProfilePicture,
+  } = useProfile();
+  const formRefs = useInitializeRefs(4);
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme);
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.top}>
-        <View style={styles.profileImgContainer}>
+        <View>
           <Image
-            source={typeof userDetails?.avatar === 'string' ? {uri: userDetails?.avatar} : Images.defaultImg}
+            source={
+              typeof userDetails?.avatar === 'string'
+                ? {uri: userDetails?.avatar}
+                : Images.defaultImg
+            }
             style={styles.profileImage}
             resizeMode="contain"
           />
-          <TouchableOpacity style={styles.editIcon} onPress={handleEditProfilePicture}>
-            <Camera size={moderateScale(25)} color={Colors.white} />
+          <TouchableOpacity
+            style={styles.editIcon}
+            onPress={handleEditProfilePicture}>
+            <Camera
+              size={moderateScale(25)}
+              color={Colors[theme]?.white}
+            />
           </TouchableOpacity>
         </View>
       </View>
