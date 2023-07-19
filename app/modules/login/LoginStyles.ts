@@ -5,27 +5,28 @@ import {
   moderateScale,
   verticalScale,
 } from '../../theme';
+import { ThemeType } from '../../context';
 
-const styles = StyleSheet.create({
+const stylesheet = (theme: ThemeType) => StyleSheet.create({
   mainContainer: {
-    backgroundColor: Colors.darkBlue,
+    backgroundColor: Colors.commonColors.darkBlue,
     flex: 1,
   },
   loginText: {
     marginVertical: verticalScale(15),
     fontSize: moderateScale(20),
     fontWeight: '600',
-    color: Colors.black,
+    color: Colors.commonColors.black,
     alignSelf: 'center',
   },
   inputContainer: {
     paddingVertical: verticalScale(15),
     marginTop: verticalScale(10),
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.commonColors.white,
     paddingHorizontal: horizontalScale(15),
     borderRadius: moderateScale(15),
     borderWidth: moderateScale(2),
-    borderColor: Colors.grey,
+    borderColor: Colors.commonColors.grey,
   },
   inputs: {
     fontSize: moderateScale(16),
@@ -39,18 +40,18 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
     width: '100%',
     paddingVertical: verticalScale(15),
-    backgroundColor: Colors.themeBlueDark,
+    backgroundColor: Colors.commonColors.themeBlueDark,
     alignItems: 'center',
     borderRadius: moderateScale(8),
     marginBottom: verticalScale(20),
   },
   loginBtnTxt: {
-    color: Colors.white,
+    color: Colors.commonColors.white,
     fontSize: moderateScale(18),
     fontWeight: '600',
   },
   top: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.commonColors.white,
     alignItems: 'center',
     paddingVertical: verticalScale(20),
     marginBottom: verticalScale(10),
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius:moderateScale(30),
     paddingHorizontal: horizontalScale(25),
     paddingTop: verticalScale(20),
-    backgroundColor: Colors.darkBlue,
+    backgroundColor: Colors.commonColors.darkBlue,
     rowGap: verticalScale(10),
   },
   notAUser: {
@@ -80,8 +81,8 @@ const styles = StyleSheet.create({
   notAUserText: {
     fontSize: moderateScale(16),
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors.commonColors.white,
   },
 });
 
-export default styles;
+export default stylesheet;
