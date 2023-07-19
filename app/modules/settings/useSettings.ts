@@ -1,9 +1,15 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { FormikProps, useFormik } from 'formik';
-import { useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import { Alert, Linking } from 'react-native';
-import { AsyncUpdateStatus, NavigationRoutes, Strings } from '../../constants';
+import {
+  AsyncUpdateStatus,
+  NavigationRoutes,
+  Strings,
+  ThemeValues,
+} from '../../constants';
+import { ThemeContext } from '../../context';
 import {
   authSelector,
   logout,
@@ -25,6 +31,8 @@ export interface UseSettingsReturnType {
   formik: FormikProps<PasswordUpdateSchemaTypes>;
   sheetRef: React.RefObject<BottomSheetMethods>;
   handleToggleBottomSheet: () => void;
+  handleTurnDarkTheme: () => void;
+  handleTurnLightTheme: () => void;
 }
 
 const useSettings = (
@@ -32,9 +40,8 @@ const useSettings = (
 ): UseSettingsReturnType => {
   const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector(authSelector);
-  const [bottomSheetShown, setBottomSheetShown] = useState<boolean>(false);
-  const sheetRef: React.RefObject<BottomSheetMethods> =
-    useRef<BottomSheet>(null);
+  const sheetRef = useRef<BottomSheet>(null);
+  const { setTheme } = useContext(ThemeContext);
 
   const formik = useFormik<PasswordUpdateSchemaTypes>({
     initialValues: {
@@ -79,13 +86,15 @@ const useSettings = (
   };
 
   const handleToggleBottomSheet = (): void => {
-    if (bottomSheetShown) {
-      setBottomSheetShown(false);
-      sheetRef.current?.expand();
-    } else {
-      setBottomSheetShown(true);
-      sheetRef.current?.close();
-    }
+    sheetRef.current?.expand();
+  };
+
+  const handleTurnDarkTheme = (): void => {
+    if (setTheme) setTheme(ThemeValues.dark);
+  };
+
+  const handleTurnLightTheme = (): void => {
+    if (setTheme) setTheme(ThemeValues.light);
   };
 
   return {
@@ -94,6 +103,8 @@ const useSettings = (
     formik,
     sheetRef,
     handleToggleBottomSheet,
+    handleTurnDarkTheme,
+    handleTurnLightTheme,
   };
 };
 
