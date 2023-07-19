@@ -1,25 +1,31 @@
 import { EnvelopeSimple } from 'phosphor-react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationRoutes } from '../../../constants';
+import { Images } from '../../../assets';
+import { NavigationRoutes, ThemeValues } from '../../../constants';
+import { ThemeContext, ThemeType } from '../../../context';
 import { UserSchemaType } from '../../../services';
 import { Colors, moderateScale } from '../../../theme';
 import { navigateWithParam } from '../../../utils';
-import styles from './UserCardStyles';
+import stylesheet from './UserCardStyles';
 
-const UserCard = ({item: user}: {item: UserSchemaType}) => {
+const UserCard = ({ item: user }: { item: UserSchemaType }) => {
   const handleOnPress = () => {
-    navigateWithParam(NavigationRoutes.DetailsScreen, {user});
+    navigateWithParam(NavigationRoutes.DetailsScreen, { user });
   };
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   return (
     <>
       <TouchableOpacity style={styles.card} onPress={handleOnPress}>
         <View>
           <Image
-            source={{
-              uri: user.avatar,
-            }}
+            source={
+              user.avatar && typeof user.avatar === 'string'
+                ? { uri: user.avatar }
+                : Images.defaultImg
+            }
             style={styles.profileImg}
           />
         </View>
@@ -29,7 +35,10 @@ const UserCard = ({item: user}: {item: UserSchemaType}) => {
             <Text style={styles.name}>{user.last_name}</Text>
           </View>
           <View style={styles.emailContainer}>
-            <EnvelopeSimple size={moderateScale(20)} color={Colors.themeBlueDark} />
+            <EnvelopeSimple
+              size={moderateScale(20)}
+              color={Colors[theme || ThemeValues.light]?.themeCyan}
+            />
             <Text style={styles.email}>{user.email}</Text>
           </View>
         </View>

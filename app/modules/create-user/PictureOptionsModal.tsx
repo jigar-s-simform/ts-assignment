@@ -1,9 +1,10 @@
 import { Camera, FinnTheHuman, Image } from 'phosphor-react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
-import { Strings } from '../../constants';
-import { moderateScale } from '../../theme';
-import styles from './CreateUserScreenStyles';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
+import { Colors, moderateScale } from '../../theme';
+import stylesheet from './CreateUserScreenStyles';
 
 interface ModalPropsType {
   modalShown: boolean;
@@ -17,12 +18,13 @@ const PictureOptionsModal = ({
   setModalShown,
   handleCameraSelect,
   handleGallerySelect,
-}: ModalPropsType): JSX.Element => {
+}: ModalPropsType) => {
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   const handleModalVisibility = (): void => {
     setModalShown(!modalShown);
   };
-  
   const handleCamera = (): void => {
     handleCameraSelect();
   };
@@ -46,21 +48,30 @@ const PictureOptionsModal = ({
           <View style={styles.optionsContainer}>
             <TouchableOpacity style={styles.optionItem} onPress={handleCamera}>
               <View style={styles.optionIcon}>
-                <Camera size={moderateScale(25)} />
+                <Camera
+                  size={moderateScale(25)}
+                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                />
               </View>
-              <Text>{Strings.camera}</Text>
+              <Text style={styles.optionItemText}>{Strings.camera}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.optionItem} onPress={handleGallery}>
               <View style={styles.optionIcon}>
-                <Image size={moderateScale(25)} />
+                <Image
+                  size={moderateScale(25)}
+                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                />
               </View>
-              <Text>{Strings.gallery}</Text>
+              <Text style={styles.optionItemText}>{Strings.gallery}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.optionItem}>
               <View style={styles.optionIcon}>
-                <FinnTheHuman size={moderateScale(25)} />
+                <FinnTheHuman
+                  size={moderateScale(25)}
+                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                />
               </View>
-              <Text>{Strings.avatar}</Text>
+              <Text style={styles.optionItemText}>{Strings.avatar}</Text>
             </TouchableOpacity>
           </View>
         </View>

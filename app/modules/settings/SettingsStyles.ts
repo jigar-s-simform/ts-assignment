@@ -11,7 +11,7 @@ const stylesheet = (theme: ThemeType) =>
   StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors[theme]?.white ,
+      backgroundColor: Colors[theme]?.white,
       paddingHorizontal: horizontalScale(10),
     },
     settingItem: {
@@ -21,7 +21,7 @@ const stylesheet = (theme: ThemeType) =>
       padding: horizontalScale(20),
       marginVertical: verticalScale(8),
       borderRadius: moderateScale(8),
-      shadowColor:Colors[theme]?.black,
+      shadowColor: Colors[theme]?.black,
       shadowOffset: {
         width: moderateScale(5),
         height: moderateScale(2),
@@ -29,8 +29,8 @@ const stylesheet = (theme: ThemeType) =>
       shadowOpacity: 0.25,
       shadowRadius: moderateScale(6),
       elevation: moderateScale(5),
-      borderWidth: 1,
-      borderColor: Colors[theme]?.black
+      borderWidth: moderateScale(1),
+      borderColor: Colors[theme]?.black,
     },
     settingItemText: {
       fontSize: moderateScale(18),
@@ -79,7 +79,7 @@ const stylesheet = (theme: ThemeType) =>
     passwordItemText: {
       fontSize: moderateScale(12),
       fontWeight: '600',
-      color: Colors[theme]?.black
+      color: Colors[theme]?.black,
     },
     modalButtonsContainer: {
       flexDirection: 'row',
@@ -117,8 +117,8 @@ const stylesheet = (theme: ThemeType) =>
     bottomSheetButtonText: {
       color: Colors[theme]?.black,
       fontWeight: '500',
-      fontSize: moderateScale(16)
-    }
+      fontSize: moderateScale(16),
+    },
   });
 
 export default stylesheet;

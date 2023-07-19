@@ -31,7 +31,18 @@ interface CustomHookProps {
   setImagePath: React.Dispatch<React.SetStateAction<string | number | undefined>>;
 }
 
-const useCreate = ({ imagePath, setImagePath }: CustomHookProps) => {
+export interface UseCreateReturnType {
+  imagePath: string | number | undefined
+  modalShown: boolean
+  setModalShown: React.Dispatch<React.SetStateAction<boolean>>
+  handleProfileSelect: () => void
+  formik: FormikProps<SignUpSchemaTypes>
+  formRefs: React.MutableRefObject<any[]>
+  handleCameraSelect: () => Promise<void>
+  handleGallerySelect: () => Promise<void>
+}
+
+const useCreate = ({ imagePath, setImagePath }: CustomHookProps): UseCreateReturnType => {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector(homeSelector);
   const cameraPermission: Permission = globalMetrics.isAndroid

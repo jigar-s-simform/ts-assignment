@@ -13,8 +13,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.themeBlueDark,
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopLeftRadius: moderateScale(15),
-    borderTopRightRadius:moderateScale(15)
   },
   buttonImg: {
     width: moderateScale(30),

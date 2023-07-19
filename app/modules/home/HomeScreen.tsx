@@ -1,15 +1,16 @@
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { CustomLoader, LoaderSizeType } from '../../components';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import { getUsersThunk } from '../../services';
 import { Colors } from '../../theme';
-import styles from './HomeStyles';
+import stylesheet from './HomeStyles';
 import SearchComponent from './SearchComponent';
 import useHome, { UseHomeReturnType } from './useHome';
 import { UserCard } from './user-card';
-import { Strings } from '../../constants';
 
-const HomeScreen:FC = () => {
+const HomeScreen: FC = () => {
   const {
     users,
     handleOnEndReached,
@@ -18,8 +19,12 @@ const HomeScreen:FC = () => {
     searchText,
     page,
     dispatch,
-    isLoading
-  }:UseHomeReturnType = useHome();
+    isLoading,
+  }: UseHomeReturnType = useHome();
+
+  const { theme } = useContext(ThemeContext);
+
+  const styles = stylesheet(theme as ThemeType);
 
   useEffect(() => {
     dispatch(getUsersThunk(page));
@@ -35,20 +40,28 @@ const HomeScreen:FC = () => {
         showsVerticalScrollIndicator={false}
         onEndReached={() => handleOnEndReached(searchText)}
         onEndReachedThreshold={0}
-        ListFooterComponent={<CustomLoader size={LoaderSizeType.large} animating={isLoading} color={Colors.themeBlue} />}
+        ListFooterComponent={
+          <CustomLoader
+            size={LoaderSizeType.large}
+            animating={isLoading}
+            color={Colors[theme || ThemeValues.light]?.themeBlueDark}
+          />
+        }
         ListEmptyComponent={EmptySearchComponent}
       />
     </View>
   );
 };
 
-const EmptySearchComponent:FC = () => {
-  
+export const EmptySearchComponent: FC = () => {
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
+
   return (
     <View style={styles.searchEmptyContainer}>
-      <Text>{Strings.searchEmpty}</Text>
+      <Text style={styles.emptyComponentTextStyles}>{Strings.searchEmpty}</Text>
     </View>
-  )
-}
+  );
+};
 
 export default HomeScreen;

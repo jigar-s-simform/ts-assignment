@@ -1,6 +1,5 @@
-import { FormikProps, useFormik } from 'formik';
 import { Camera } from 'phosphor-react-native';
-import React, { useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import {
   GestureResponderEvent,
   Image,
@@ -10,16 +9,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Images } from '../../assets';
 import { CustomInput } from '../../components';
-import { Strings } from '../../constants';
+import { Strings, ThemeValues } from '../../constants';
+import { ThemeContext, ThemeType } from '../../context';
 import { Colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './CreateUserScreenStyles';
+import stylesheet from './CreateUserScreenStyles';
 import ProfileOptionsModal from './PictureOptionsModal';
-import useCreate from './useCreate';
-import { Images } from '../../assets';
+import useCreate, { UseCreateReturnType } from './useCreate';
 
-const CreateUserScreen = () => {
+const CreateUserScreen: FC = () => {
   const [imagePath, setImagePath] = useState<string | number | undefined>(
     Images.defaultImg,
   );
@@ -32,21 +32,29 @@ const CreateUserScreen = () => {
     setModalShown,
     handleCameraSelect,
     handleGallerySelect,
-  } = useCreate({imagePath, setImagePath});
+  }: UseCreateReturnType = useCreate({imagePath, setImagePath});
+
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme as ThemeType);
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.top}>
         <View style={styles.profileImgContainer}>
           <Image
-            source={typeof imagePath === 'number' ? imagePath : {uri: imagePath}}
+            source={
+              typeof imagePath === 'number' ? imagePath : { uri: imagePath }
+            }
             style={styles.profileImage}
             resizeMode="contain"
           />
           <TouchableOpacity
             style={styles.editIcon}
             onPress={handleProfileSelect}>
-            <Camera size={moderateScale(25)} color={Colors.white} />
+            <Camera
+              size={moderateScale(25)}
+              color={Colors[theme || ThemeValues.light]?.white}
+            />
           </TouchableOpacity>
         </View>
       </View>
