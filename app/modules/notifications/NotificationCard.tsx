@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { ThemeContext, ThemeType } from '../../context';
+import { ThemeContext } from '../../context';
 import { NotificationType } from '../../types';
 import stylesheet from './NotificationStyles';
 import useNotification, { UseNotificationReturnType } from './useNotification';

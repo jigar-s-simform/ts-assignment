@@ -1,7 +1,7 @@
 import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
 import { FC } from 'react';
 import { NavigationRoutes, Strings } from '../constants';
-import { ProfileScreen, SettingsScreen } from '../modules';
+import { ProfileScreen, SettingsScreen, WebView } from '../modules';
 import { DashBoardDrawerParamsList } from './NavigationTypes';
 import { HomeTab } from './home-tab';
 import { CustomHeaderWithBack } from '../components/custom-header-back';
@@ -43,6 +43,13 @@ const DashBoardDrawer: FC = (): JSX.Element => {
         }}
         name={NavigationRoutes.SettingsScreen}
         component={SettingsScreen}
+      />
+      <DasboardDrawer.Screen
+        options={{
+          headerTitle: Strings.google
+        }}
+        name={NavigationRoutes.WebView}
+        component={WebView}
       />
     </DasboardDrawer.Navigator>
   );
