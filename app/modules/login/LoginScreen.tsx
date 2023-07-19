@@ -12,8 +12,10 @@ import { CustomInput, CustomLoader, LoaderSizeType } from '../../components';
 import { Strings } from '../../constants';
 import { Colors, globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
-import styles from './LoginStyles';
+import stylesheet from './LoginStyles';
 import { UseLoginReturnType, useLogin } from './hooks';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context';
 
 /**
  * LoginScreen Component
@@ -24,6 +26,8 @@ import { UseLoginReturnType, useLogin } from './hooks';
  */
 const LoginScreen = (): JSX.Element => {
   const { formRefs, formik, isLoading }: UseLoginReturnType = useLogin();
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme);
 
   return (
     <KeyboardAvoidingView
@@ -66,7 +70,7 @@ const LoginScreen = (): JSX.Element => {
               <CustomLoader
                 animating={isLoading}
                 size={LoaderSizeType.small}
-                color={Colors.white}
+                color={Colors.commonColors.white}
               />
             ) : (
               <Text style={styles.loginBtnTxt}>{Strings.loginBtnText}</Text>
