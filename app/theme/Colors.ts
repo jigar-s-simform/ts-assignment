@@ -14,6 +14,7 @@ export interface LightColorType {
   blackWithOpacity: string;
   white: string;
   whiteWithOpacity: string;
+  themeBlue: string
   themeCyan: string;
   themeBlueLighter: string;
   themeBlueDark: string;
@@ -24,6 +25,7 @@ export interface DarkColorType {
   blackWithOpacity: string;
   white: string;
   whiteWithOpacity: string;
+  themeBlue: string
   themeBlueDark: string;
   themeCyan: string;
   themeBlueLighter: string;
@@ -50,6 +52,7 @@ export const light: LightColorType = {
   blackWithOpacity: '#000000AA',
   white: '#FFFFFF',
   whiteWithOpacity: '#FFFFFFAA',
+  themeBlue: '#4491DE',
   themeCyan: '#201A30',
   themeBlueLighter: '#FFFFFF',
   themeBlueDark: '#201A30',
@@ -60,6 +63,7 @@ export const dark: DarkColorType = {
   blackWithOpacity: '#FFFFFFAA',
   white: '#201A30',
   whiteWithOpacity: '#000000AA',
+  themeBlue: '#4491DE',
   themeBlueDark: '#F5F5F5',
   themeCyan: '#0CF6E3',
   themeBlueLighter: '#38304C',

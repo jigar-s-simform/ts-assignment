@@ -1,23 +1,33 @@
 import { ArrowLeft } from 'phosphor-react-native';
+import { useContext } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { moderateScale } from '../../theme';
-import { navigateBack } from '../../utils';
-import styles from './CustomHeaderStyles';
 import { Strings } from '../../constants';
+import { ThemeContext } from '../../context';
+import { Colors, moderateScale } from '../../theme';
+import { navigateBack } from '../../utils';
+import stylesheet from './CustomHeaderStyles';
 
 interface CustomHeaderTypes {
   title: string;
 }
 
-const CustomHeaderWithBack = ({ title }: CustomHeaderTypes): JSX.Element => {
+const CustomHeaderWithBack = ({ title }: CustomHeaderTypes) => {
+  const { theme } = useContext(ThemeContext);
+  const styles = stylesheet(theme);
 
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.leftContent} onPress={navigateBack}>
-        <ArrowLeft size={moderateScale(25)} weight="fill" />
+        <ArrowLeft
+          size={moderateScale(25)}
+          weight="fill"
+          color={Colors[theme].black}
+        />
       </TouchableOpacity>
       <View style={styles.centerContent}>
-        <Text numberOfLines={Strings.customHeaderNumberOfLines} ellipsizeMode='tail' style={styles.textStyles}>{title}</Text>
+        <Text numberOfLines={Strings.customHeaderNumberOfLines} ellipsizeMode="tail" style={styles.textStyles}>
+          {title}
+        </Text>
       </View>
       <View style={styles.leftContent} />
     </SafeAreaView>
