@@ -109,5 +109,6 @@ export default {
   areYouSure: 'Are you sure!',
   deleteNotification: 'Do you want to delete this notification?',
   notificationsEmpty: 'No notifications found!',
-  google: 'Google'
+  google: 'Google',
+  themeAsyncStorageKey: 'themeSelected'
 };

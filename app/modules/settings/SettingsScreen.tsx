@@ -1,4 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Lock,
   Newspaper,
@@ -6,14 +7,22 @@ import {
   Password,
   SignOut,
 } from 'phosphor-react-native';
-import React, { FC, useContext, useId, useMemo, useState } from 'react';
+import React, {
+  FC,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import {
   BottomSheetConstants,
+  SnapPointsType,
   Strings,
   bottomsheetInitialIndex,
 } from '../../constants';
-import { ThemeContext } from '../../context';
+import { ThemeContext, ThemeValueInterface } from '../../context';
 import { Colors, moderateScale } from '../../theme';
 import BottomSheetButton from './BottomSheetButton';
 import PasswordModal from './PasswordModal';
@@ -25,8 +34,27 @@ const SettingsScreen: FC = () => {
   const buttonIdOne: string = useId();
   const buttonIdTwo: string = useId();
   const buttonIdThree: string = useId();
-
   const [selected, setSelected] = useState<string>('');
+
+  useEffect(() => {
+    const getThemeSelected = async () => {
+      try {
+        const themeSelectedId = await AsyncStorage.getItem(
+          Strings.themeAsyncStorageKey,
+        );
+        if (themeSelectedId) setSelected(themeSelectedId);
+      } catch (e) {}
+    };
+    getThemeSelected();
+  }, []);
+
+  const { theme }: ThemeValueInterface =
+    useContext<ThemeValueInterface>(ThemeContext);
+
+  const snapPoints: SnapPointsType = useMemo<SnapPointsType>(
+    () => [BottomSheetConstants.minimum, BottomSheetConstants.maximum],
+    [],
+  );
 
   const {
     handleOpenUrl,
@@ -37,12 +65,6 @@ const SettingsScreen: FC = () => {
     handleTurnLightTheme,
     handleTurnSystemDefaultTheme,
   }: UseSettingsReturnType = useSettings(setModalShown);
-  
-  const { theme } = useContext(ThemeContext);
-  const snapPoints = useMemo(
-    () => [BottomSheetConstants.minimum, BottomSheetConstants.maximum],
-    [],
-  );
 
   const handleChangePassword = (): void => {
     setModalShown(true);

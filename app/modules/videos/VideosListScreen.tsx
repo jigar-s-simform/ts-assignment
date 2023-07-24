@@ -14,6 +14,7 @@ const VideosListScreen: FC = () => {
   return (
     <View style={styles.mainContainer}>
       <FlatList
+        inverted={true}
         data={videos}
         keyExtractor={(_,index) => index.toString()} // we are using index because data does not provide any id or similar property to use here
         renderItem={({ item }) => <VideoComponent video={item} />}
