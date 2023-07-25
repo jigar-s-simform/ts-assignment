@@ -1,11 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useCallback, useContext, useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { ColorSchemeName, useColorScheme } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { Strings } from './constants';
-import { ThemeContext, ThemeType } from './context';
+import { ThemeContext, ThemeType, ThemeValueInterface } from './context';
 import { RootMain } from './navigation';
 import { Store, persistor } from './redux';
 import {
@@ -17,8 +17,9 @@ import {
 } from './utils';
 
 const App = (): JSX.Element => {
-  const appearance = useColorScheme();
-  const { setTheme } = useContext(ThemeContext);
+  const appearance: ColorSchemeName = useColorScheme();
+  const { setTheme }: ThemeValueInterface =
+    useContext<ThemeValueInterface>(ThemeContext);
 
   const setAppTheme = useCallback(async () => {
     const IS_FIRST: string | null = await get(Strings.IS_FIRST);
@@ -29,8 +30,7 @@ const App = (): JSX.Element => {
       if (setTheme) setTheme(appearance as ThemeType);
     } else {
       const themeFromStorage = await get(Strings.theme);
-      if (themeFromStorage === appearance && setTheme)
-        setTheme(themeFromStorage as ThemeType);
+      if (themeFromStorage && setTheme) setTheme(themeFromStorage as ThemeType);
       else if (setTheme) setTheme(appearance as ThemeType);
     }
   }, []);

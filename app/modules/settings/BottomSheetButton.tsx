@@ -1,8 +1,9 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Circle } from 'phosphor-react-native';
 import React, { SetStateAction, useContext } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { ThemeValues } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import { Strings } from '../../constants';
+import { ThemeContext, ThemeValueInterface } from '../../context';
 import { Colors, moderateScale } from '../../theme';
 import stylesheet from './SettingsStyles';
 
@@ -22,12 +23,15 @@ const BottomSheetButton = ({
   setSelected,
 }: BottomSheetButtonProps) => {
 
-  const onPressHandler = (): void => {
+  const { theme }: ThemeValueInterface =
+    useContext<ThemeValueInterface>(ThemeContext);
+
+  const onPressHandler = async (): Promise<void> => {
     onPress();
+    await AsyncStorage.setItem(Strings.themeAsyncStorageKey, id);
     setSelected(id);
   };
 
-  const { theme } = useContext(ThemeContext);
   const styles = stylesheet(theme);
 
   return (
