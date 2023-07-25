@@ -7,6 +7,8 @@ import { Icons } from '../../assets';
 import { CustomHeaderWithoutBack } from '../../components/custom-header-back';
 import { NavigationRoutes, Strings } from '../../constants';
 import { CreateUserScreen, ProfileScreen, VideoStack } from '../../modules';
+import { setRoute, useAppDispatch } from '../../redux';
+import { navigateWithParam } from '../../utils';
 import HomeStack from '../HomeStack';
 import { HomeTabsParamsList } from '../NavigationTypes';
 import TabButton from './HomeTabButton';
@@ -15,6 +17,13 @@ import styles from './HomeTabStyles';
 const Tabs = createBottomTabNavigator<HomeTabsParamsList>();
 
 const HomeTabs: FC = () => {
+  const dispatch = useAppDispatch();
+
+  const handleOnPress = (route: NavigationRoutes): void => {
+    navigateWithParam(route);
+    dispatch(setRoute(route));
+  };
+
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -28,6 +37,9 @@ const HomeTabs: FC = () => {
               {...props}
               image={Icons.homeIcon}
               title={Strings.bottomNavigationTitles.home}
+              onPress={() => {
+                handleOnPress(NavigationRoutes.HomeScreen);
+              }}
             />
           ),
         }}
@@ -44,6 +56,9 @@ const HomeTabs: FC = () => {
               {...props}
               image={Icons.createUserIcon}
               title={Strings.bottomNavigationTitles.create}
+              onPress={() => {
+                handleOnPress(NavigationRoutes.CreateUserScreen);
+              }}
             />
           ),
         }}
@@ -52,12 +67,15 @@ const HomeTabs: FC = () => {
       />
       <Tabs.Screen
         options={{
-         headerShown: false,
+          headerShown: false,
           tabBarButton: (props: BottomTabBarButtonProps) => (
             <TabButton
               {...props}
               image={Icons.videosIcon}
               title={Strings.bottomNavigationTitles.videos}
+              onPress={() => {
+                handleOnPress(NavigationRoutes.VideoStack);
+              }}
             />
           ),
         }}
@@ -74,6 +92,9 @@ const HomeTabs: FC = () => {
               {...props}
               image={Icons.profileIcon}
               title={Strings.bottomNavigationTitles.profile}
+              onPress={() => {
+                handleOnPress(NavigationRoutes.ProfileScreen);
+              }}
             />
           ),
         }}

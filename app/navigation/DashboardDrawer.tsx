@@ -1,11 +1,13 @@
-import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  DrawerContentComponentProps,
+  createDrawerNavigator,
+} from '@react-navigation/drawer';
 import { FC } from 'react';
+import { CustomDrawer, CustomHeaderWithBack } from '../components';
 import { NavigationRoutes, Strings } from '../constants';
 import { ProfileScreen, SettingsScreen, WebView } from '../modules';
 import { DashBoardDrawerParamsList } from './NavigationTypes';
 import { HomeTab } from './home-tab';
-import { CustomHeaderWithBack } from '../components/custom-header-back';
-import { CustomDrawer } from '../components';
 
 // Create a drawer navigator using `createDrawerNavigator` from `@react-navigation/drawer`
 const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
@@ -20,33 +22,39 @@ const DasboardDrawer = createDrawerNavigator<DashBoardDrawerParamsList>();
  * This component returns a JSX element representing the dashboard drawer navigation.
  */
 const DashBoardDrawer: FC = (): JSX.Element => {
-  
   return (
-    <DasboardDrawer.Navigator drawerContent={(props:DrawerContentComponentProps) => <CustomDrawer {...props} />}>
+    <DasboardDrawer.Navigator
+      drawerContent={(props: DrawerContentComponentProps) => (
+        <CustomDrawer {...props} />
+      )}>
       <DasboardDrawer.Screen
         options={{
-          headerShown: false
+          headerShown: false,
         }}
         name={NavigationRoutes.HomeTabs}
         component={HomeTab}
       />
       <DasboardDrawer.Screen
         options={{
-          header: () => <CustomHeaderWithBack title={Strings.screenTitles.profile} />
+          header: () => (
+            <CustomHeaderWithBack title={Strings.screenTitles.profile} />
+          ),
         }}
         name={NavigationRoutes.ProfileScreen}
         component={ProfileScreen}
       />
       <DasboardDrawer.Screen
         options={{
-          header: () => <CustomHeaderWithBack title={Strings.screenTitles.settings} />
+          header: () => (
+            <CustomHeaderWithBack title={Strings.screenTitles.settings} />
+          ),
         }}
         name={NavigationRoutes.SettingsScreen}
         component={SettingsScreen}
       />
       <DasboardDrawer.Screen
         options={{
-          headerTitle: Strings.google
+          headerTitle: Strings.google,
         }}
         name={NavigationRoutes.WebView}
         component={WebView}
