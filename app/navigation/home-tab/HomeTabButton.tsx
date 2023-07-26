@@ -1,6 +1,9 @@
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
+import { useFocusEffect } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import { Animated, Image, Text, TouchableOpacity } from 'react-native';
+import { NavigationRoutes } from '../../constants';
+import { setRoute, useAppDispatch } from '../../redux';
 import { moderateScale } from '../../theme';
 import styles from './HomeTabStyles';
 
@@ -10,11 +13,12 @@ interface TabButtonProps extends BottomTabBarButtonProps {
 }
 
 const TabButton = (props: TabButtonProps): JSX.Element => {
-  const {image, onPress, accessibilityState, title} = props;
+  const { image, onPress, accessibilityState, title } = props;
   const focused: boolean = accessibilityState?.selected ?? false;
   const viewRef = useRef(null);
   const [yOffest] = useState<Animated.Value>(new Animated.Value(0));
   const transform = [{translateY: yOffest}];
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (focused) {
@@ -26,6 +30,13 @@ const TabButton = (props: TabButtonProps): JSX.Element => {
       yOffest.setValue(0);
     }
   }, [focused]);
+
+  useFocusEffect(() => {
+    if (props.to?.toLowerCase().includes(NavigationRoutes.HomeStack.toLowerCase())) 
+      dispatch(setRoute(NavigationRoutes.HomeScreen));
+    if (props.to?.toLowerCase().includes(NavigationRoutes.ProfileScreen.toLowerCase())) 
+      dispatch(setRoute(NavigationRoutes.ProfileScreen));
+  });
 
   return (
     <TouchableOpacity style={styles.buttonContainerMain} onPress={onPress}>

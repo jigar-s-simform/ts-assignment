@@ -55,11 +55,17 @@ const stylesheet = (theme: ThemeType) => StyleSheet.create({
     borderTopWidth: verticalScale(1),
   },
   signOutContainer: {
-    flex: 1,
+    borderTopWidth: 1,
+    borderColor: Colors[theme].black,
     justifyContent: 'flex-end',
-    paddingVertical: verticalScale(20),
+    paddingVertical: verticalScale(10),
   },
   labelStyle: {
+    fontWeight: '600',
+    fontSize: moderateScale(16),
+    color: Colors[theme].white,
+  },
+  labelStyleInActive: {
     fontWeight: '600',
     fontSize: moderateScale(16),
     color: Colors[theme].black,
@@ -69,6 +75,15 @@ const stylesheet = (theme: ThemeType) => StyleSheet.create({
   },
   drawerItemInActive: {
     backgroundColor:Colors[theme].white
+  },
+  versionTextStyle: {
+    fontWeight: '600',
+    fontSize: moderateScale(16),
+    color: Colors[theme].black,
+  },
+  drawerItemContainer: {
+    flex:1,
+    paddingVertical: verticalScale(10)
   }
 });
 

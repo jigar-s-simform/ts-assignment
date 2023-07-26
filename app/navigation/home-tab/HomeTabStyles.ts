@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(15),
     backgroundColor: Colors.commonColors.themeCyan,
     borderColor: Colors.commonColors.white,
-    tintColor: Colors.commonColors.themeBluelight,
+    tintColor: Colors.commonColors.black,
     resizeMode: 'contain',
     marginBottom: verticalScale(5),
   },

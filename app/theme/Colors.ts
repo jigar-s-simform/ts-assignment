@@ -65,7 +65,7 @@ export const light: LightColorType = {
 export const dark: DarkColorType = {
   black: '#FFFFFF',
   blackWithOpacity: '#FFFFFFAA',
-  white: '#201A30',
+  white: '#000',
   whiteWithOpacity: '#000000AA',
   themeBlue: '#4491DE',
   themeBlueDark: '#F5F5F5',

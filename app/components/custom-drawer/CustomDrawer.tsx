@@ -4,107 +4,139 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { EnvelopeSimple, Gear, House, User } from 'phosphor-react-native';
-import { useContext } from 'react';
-import { Image, SafeAreaView, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { NavigationRoutes, Strings } from '../../constants';
-import { ThemeContext } from '../../context';
-import { authSelector, useAppSelector } from '../../redux';
 import { Colors, moderateScale } from '../../theme';
-import { navigateWithParam, navigateWithReplace } from '../../utils';
 import stylesheet from './CustomDrawerStyles';
+import useDrawer, { UseDrawerReturnType } from './useDrawer';
 
 const CustomDrawer = (props: DrawerContentComponentProps): JSX.Element => {
-  const { userDetails } = useAppSelector(authSelector);
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme);
+  const {
+    userDetails,
+    theme,
+    handleOnPress,
+    routeSelected,
+    imageUrl
+  }: UseDrawerReturnType = useDrawer();
 
-  const handleLogout = (): void => {
-    navigateWithReplace(NavigationRoutes.LoginScreen);
-  };
+  const styles = stylesheet(theme);
 
   return (
     <DrawerContentScrollView
       scrollEnabled={false}
       contentContainerStyle={styles.mainContainer}
       {...props}>
-      <SafeAreaView>
-        <View style={styles.detailsContainer}>
-          <Image
-            source={
-              typeof userDetails?.avatar !== 'number'
-                ? {
-                    uri: userDetails?.avatar,
-                  }
-                : userDetails.avatar
-            }
-            style={styles.profileImgStyles}
-          />
-          <View style={styles.nameEmailContainer}>
-            <Text style={styles.detailNameText}>
-              {`${userDetails?.first_name} ${userDetails?.last_name}`}
+      <View style={styles.detailsContainer}>
+        <Image
+          source={imageUrl}
+          style={styles.profileImgStyles}
+        />
+        <View style={styles.nameEmailContainer}>
+          <Text style={styles.detailNameText}>
+            {`${userDetails?.first_name ?? Strings.yourName} ${
+              userDetails?.last_name ?? Strings.emptyString
+            }`}
+          </Text>
+          <View style={styles.emailContainer}>
+            <EnvelopeSimple
+              size={moderateScale(25)}
+              weight="bold"
+              color={Colors[theme].white}
+            />
+            <Text style={styles.detailText}>
+              {userDetails?.email ?? Strings.yourEmail}
             </Text>
-            <View style={styles.emailContainer}>
-              <EnvelopeSimple
-                size={moderateScale(25)}
-                weight="bold"
-                color={Colors[theme]?.white}
-              />
-              <Text style={styles.detailText}>{userDetails?.email}</Text>
-            </View>
           </View>
         </View>
+      </View>
+      <View style={styles.drawerItemContainer}>
         <DrawerItem
-          activeBackgroundColor={Colors[theme]?.themeColor}
-          labelStyle={styles.labelStyle}
+          focused={routeSelected === NavigationRoutes.HomeScreen}
+          activeTintColor={Colors[theme].white}
+          activeBackgroundColor={Colors[theme].black}
+          inactiveTintColor={Colors[theme].white}
+          inactiveBackgroundColor={Colors[theme].white}
+          labelStyle={
+            routeSelected === NavigationRoutes.HomeScreen
+              ? styles.labelStyle
+              : styles.labelStyleInActive
+          }
           icon={() => (
             <House
               size={moderateScale(25)}
               weight="bold"
-              color={Colors[theme]?.black}
+              color={
+                routeSelected === NavigationRoutes.HomeScreen
+                  ? Colors[theme].white
+                  : Colors[theme].black
+              }
             />
           )}
           label={Strings.home}
           onPress={() => {
-            navigateWithParam(NavigationRoutes.HomeScreen);
+            handleOnPress(NavigationRoutes.HomeScreen);
           }}
         />
         <DrawerItem
-          activeTintColor={Colors[theme]?.themeBlue}
-          activeBackgroundColor={Colors[theme]?.themeBlueDark}
-          labelStyle={styles.labelStyle}
+          focused={routeSelected === NavigationRoutes.ProfileScreen}
+          activeTintColor={Colors[theme].white}
+          activeBackgroundColor={Colors[theme].black}
+          inactiveTintColor={Colors[theme].white}
+          inactiveBackgroundColor={Colors[theme].white}
+          labelStyle={
+            routeSelected === NavigationRoutes.ProfileScreen
+              ? styles.labelStyle
+              : styles.labelStyleInActive
+          }
           icon={() => (
             <User
               size={moderateScale(25)}
               weight="bold"
-              color={Colors[theme]?.black}
+              color={
+                routeSelected === NavigationRoutes.ProfileScreen
+                  ? Colors[theme].white
+                  : Colors[theme].black
+              }
             />
           )}
           label={Strings.bottomNavigationTitles.profile}
           onPress={() => {
-            navigateWithParam(NavigationRoutes.ProfileScreen);
+            handleOnPress(NavigationRoutes.ProfileScreen);
           }}
         />
         <DrawerItem
-          activeBackgroundColor={Colors[theme]?.themeColor}
-          labelStyle={styles.labelStyle}
+          focused={routeSelected === NavigationRoutes.SettingsScreen}
+          activeTintColor={Colors[theme].white}
+          activeBackgroundColor={Colors[theme].black}
+          inactiveTintColor={Colors[theme].white}
+          inactiveBackgroundColor={Colors[theme].white}
+          labelStyle={
+            routeSelected === NavigationRoutes.SettingsScreen
+              ? styles.labelStyle
+              : styles.labelStyleInActive
+          }
           icon={() => (
             <Gear
               size={moderateScale(25)}
               weight="bold"
-              color={Colors[theme]?.black}
+              color={
+                routeSelected === NavigationRoutes.SettingsScreen
+                  ? Colors[theme].white
+                  : Colors[theme].black
+              }
             />
           )}
           label={Strings.settings}
           onPress={() => {
-            navigateWithParam(NavigationRoutes.SettingsScreen);
+            handleOnPress(NavigationRoutes.SettingsScreen);
           }}
         />
-      </SafeAreaView>
+      </View>
       <View style={styles.signOutContainer}>
         <DrawerItem
-          labelStyle={styles.labelStyle}
+          labelStyle={styles.versionTextStyle}
           label={Strings.appVersion}
-          onPress={handleLogout}
+          onPress={() => {}} // empty function because it necessary to define onPress prop and we don't want to perform anything
         />
       </View>
     </DrawerContentScrollView>

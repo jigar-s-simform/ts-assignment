@@ -110,5 +110,7 @@ export default {
   deleteNotification: 'Do you want to delete this notification?',
   notificationsEmpty: 'No notifications found!',
   google: 'Google',
-  themeAsyncStorageKey: 'themeSelected'
+  themeAsyncStorageKey: 'themeSelected',
+  yourName: 'Name',
+  yourEmail: 'your email'
 };

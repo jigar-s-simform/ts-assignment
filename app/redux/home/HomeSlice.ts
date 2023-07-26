@@ -4,6 +4,7 @@ import {
   PayloadAction,
   createSlice,
 } from '@reduxjs/toolkit';
+import { NavigationRoutes } from '../../constants';
 import { UserSchemaType, getUsersThunk } from '../../services';
 import { RootState } from '../store';
 
@@ -14,6 +15,7 @@ export interface InitialHomeStateType {
   searchText: string;
   error: string;
   searchedUsers: UserSchemaType[] | undefined;
+  routeSelected: NavigationRoutes;
 }
 
 const initialState: InitialHomeStateType = {
@@ -23,6 +25,7 @@ const initialState: InitialHomeStateType = {
   error: '',
   searchedUsers: undefined,
   searchText: '',
+  routeSelected: NavigationRoutes.HomeScreen,
 };
 
 const homeSlice = createSlice({
@@ -54,6 +57,12 @@ const homeSlice = createSlice({
         state.users = [action.payload, ...state.users];
         state.searchedUsers = [action.payload, ...state.users];
       }
+    },
+    setRoute: (
+      state: Draft<InitialHomeStateType>,
+      action: PayloadAction<NavigationRoutes>,
+    ) => {
+      state.routeSelected = action.payload;
     },
   },
   extraReducers: (builder: ActionReducerMapBuilder<InitialHomeStateType>) => {
@@ -92,6 +101,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const { searchUser, increasePage, addUser } = homeSlice.actions;
+export const {searchUser, increasePage, addUser, setRoute} = homeSlice.actions;
 export default homeSlice.reducer;
 export const homeSelector = (state: RootState) => state.home;
