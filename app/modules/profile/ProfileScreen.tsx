@@ -1,15 +1,13 @@
 import { Camera } from 'phosphor-react-native';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import {
   Image,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
-import { Images } from '../../assets';
 import { CustomInput } from '../../components';
-import { Strings, ThemeValues } from '../../constants';
-import { ThemeContext } from '../../context';
+import { Strings } from '../../constants';
 import { useInitializeRefs } from '../../hooks';
 import { Colors, moderateScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
@@ -23,14 +21,14 @@ import useProfile from './useProfile';
  */
 const ProfileScreen: FC = () => {
   const {
-    userDetails,
     formik,
     editable,
     handleEditOrSave,
     handleEditProfilePicture,
+    theme,
+    imageUrl
   } = useProfile();
   const formRefs = useInitializeRefs(4);
-  const { theme } = useContext(ThemeContext);
   const styles = stylesheet(theme);
 
   return (
@@ -38,11 +36,7 @@ const ProfileScreen: FC = () => {
       <View style={styles.top}>
         <View>
           <Image
-            source={
-              typeof userDetails?.avatar === 'string'
-                ? {uri: userDetails?.avatar}
-                : Images.defaultImg
-            }
+            source={imageUrl}
             style={styles.profileImage}
             resizeMode="contain"
           />
@@ -51,7 +45,7 @@ const ProfileScreen: FC = () => {
             onPress={handleEditProfilePicture}>
             <Camera
               size={moderateScale(25)}
-              color={Colors[theme]?.white}
+              color={Colors[theme].white}
             />
           </TouchableOpacity>
         </View>

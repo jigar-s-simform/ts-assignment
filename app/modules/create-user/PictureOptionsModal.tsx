@@ -1,8 +1,17 @@
 import { Camera, FinnTheHuman, Image } from 'phosphor-react-native';
-import React, { useContext } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
-import { Strings, ThemeValues } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import React from 'react';
+import {
+  ColorSchemeName,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
+import { StorageConstants, Strings } from '../../constants';
+import { ThemeType } from '../../services';
+import { mmkvStorage } from '../../services';
 import { Colors, moderateScale } from '../../theme';
 import stylesheet from './CreateUserScreenStyles';
 
@@ -19,8 +28,13 @@ const PictureOptionsModal = ({
   handleCameraSelect,
   handleGallerySelect,
 }: ModalPropsType) => {
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+  const [mmkvTheme] = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
+  const appearance: ColorSchemeName = useColorScheme();
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType;
+  const styles = stylesheet(theme);
 
   const handleModalVisibility = (): void => {
     setModalShown(!modalShown);
@@ -50,7 +64,7 @@ const PictureOptionsModal = ({
               <View style={styles.optionIcon}>
                 <Camera
                   size={moderateScale(25)}
-                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                  color={Colors[theme].themeCyan}
                 />
               </View>
               <Text style={styles.optionItemText}>{Strings.camera}</Text>
@@ -59,7 +73,7 @@ const PictureOptionsModal = ({
               <View style={styles.optionIcon}>
                 <Image
                   size={moderateScale(25)}
-                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                  color={Colors[theme].themeCyan}
                 />
               </View>
               <Text style={styles.optionItemText}>{Strings.gallery}</Text>
@@ -68,7 +82,7 @@ const PictureOptionsModal = ({
               <View style={styles.optionIcon}>
                 <FinnTheHuman
                   size={moderateScale(25)}
-                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                  color={Colors[theme].themeCyan}
                 />
               </View>
               <Text style={styles.optionItemText}>{Strings.avatar}</Text>

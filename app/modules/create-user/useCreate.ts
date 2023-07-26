@@ -1,6 +1,6 @@
 import { FormikProps, useFormik } from 'formik';
 import { useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, ColorSchemeName, useColorScheme } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import {
   PERMISSIONS,
@@ -9,7 +9,7 @@ import {
   RESULTS,
   openSettings,
 } from 'react-native-permissions';
-import { CameraTypes, MediaTypes, Strings } from '../../constants';
+import { CameraTypes, MediaTypes, StorageConstants, Strings } from '../../constants';
 import { useInitializeRefs, usePermissionStatus } from '../../hooks';
 import {
   addUser,
@@ -25,6 +25,8 @@ import {
   signUpSchema,
 } from '../../utils';
 import { Images } from '../../assets';
+import { useMMKVString } from 'react-native-mmkv';
+import { ThemeType, mmkvStorage } from '../../services';
 
 interface CustomHookProps {
   imagePath: string | number | undefined;
@@ -40,11 +42,15 @@ export interface UseCreateReturnType {
   formRefs: React.MutableRefObject<any[]>
   handleCameraSelect: () => Promise<void>
   handleGallerySelect: () => Promise<void>
+  theme: ThemeType
 }
 
 const useCreate = ({ imagePath, setImagePath }: CustomHookProps): UseCreateReturnType => {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector(homeSelector);
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme] = useMMKVString(StorageConstants.themeStorageKey, mmkvStorage);
+  
   const cameraPermission: Permission = globalMetrics.isAndroid
     ? PERMISSIONS.ANDROID.CAMERA
     : PERMISSIONS.IOS.CAMERA;
@@ -188,6 +194,7 @@ const useCreate = ({ imagePath, setImagePath }: CustomHookProps): UseCreateRetur
     formRefs,
     handleCameraSelect,
     handleGallerySelect,
+    theme: (mmkvTheme ?? appearance) as ThemeType
   };
 };
 

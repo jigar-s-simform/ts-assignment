@@ -1,8 +1,8 @@
 import { FormikProps, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, ColorSchemeName, useColorScheme } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { MediaTypes, Strings } from '../../constants';
+import { MediaTypes, StorageConstants, Strings } from '../../constants';
 import {
   authSelector,
   saveProfileChanges,
@@ -10,8 +10,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
-import { UserSchemaType } from '../../services';
+import { ThemeType, UserSchemaType, mmkvStorage } from '../../services';
 import { SignUpSchemaTypes, signUpSchema } from '../../utils';
+import { useMMKVString } from 'react-native-mmkv';
+import { Images } from '../../assets';
 
 /**
  * @description custom̦ hook for implementing business logic
@@ -25,13 +27,26 @@ export interface UseProfileReturnType {
   editable: boolean,
   handleEditOrSave : () => void,
   handleEditProfilePicture: () => Promise<void>
+  theme: ThemeType,
+  imageUrl: number | { uri: string }
 }
 
 const useProfile = (): UseProfileReturnType => {
   const { userDetails } = useAppSelector(authSelector);
-  let picturePath = userDetails?.avatar; 
+
+  let picturePath = userDetails?.avatar;
+  
+  let imageUrl: number | {uri: string} = Images.defaultImg;
+  if (userDetails && typeof userDetails.avatar === 'string')
+    imageUrl = { uri: userDetails.avatar };
+
   const dispatch = useAppDispatch()
   const [editable, setEditable] = useState<boolean>(false);
+  const [mmkvTheme] = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
+  const appearance: ColorSchemeName = useColorScheme();
 
   //useEffect loads form with user data
   useEffect(() => {
@@ -81,10 +96,10 @@ const useProfile = (): UseProfileReturnType => {
 
   const formik: FormikProps<SignUpSchemaTypes> = useFormik<SignUpSchemaTypes>({
     initialValues: {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: '',
+      email: Strings.emptyString,
+      password: Strings.emptyString,
+      firstName: Strings.emptyString,
+      lastName: Strings.emptyString,
     },
     validationSchema: signUpSchema,
     onSubmit(values: SignUpSchemaTypes) {
@@ -101,6 +116,8 @@ const useProfile = (): UseProfileReturnType => {
     editable,
     handleEditOrSave,
     handleEditProfilePicture,
+    theme: (mmkvTheme ?? appearance) as ThemeType,
+    imageUrl
   };
 };
 
