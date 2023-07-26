@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Circle } from 'phosphor-react-native';
-import React, { SetStateAction, useContext } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { Strings } from '../../constants';
-import { ThemeContext, ThemeValueInterface } from '../../context';
+import React, { SetStateAction } from 'react';
+import { ColorSchemeName, Text, TouchableOpacity, useColorScheme } from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
+import { StorageConstants, Strings } from '../../constants';
+import { ThemeType, UseMmkvReturnType, mmkvStorage } from '../../services';
 import { Colors, moderateScale } from '../../theme';
 import stylesheet from './SettingsStyles';
 
@@ -23,8 +24,10 @@ const BottomSheetButton = ({
   setSelected,
 }: BottomSheetButtonProps) => {
 
-  const { theme }: ThemeValueInterface =
-    useContext<ThemeValueInterface>(ThemeContext);
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme]: UseMmkvReturnType = useMMKVString(StorageConstants.themeStorageKey, mmkvStorage);
+
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType;
 
   const onPressHandler = async (): Promise<void> => {
     onPress();

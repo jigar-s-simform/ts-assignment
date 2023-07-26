@@ -1,4 +1,4 @@
-import React, { SetStateAction, useContext } from 'react';
+import React, { SetStateAction } from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import { CustomInput } from '../../components';
 import { Strings } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import { ThemeType } from '../../context';
 import { useInitializationRef } from '../../hooks';
 import { globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import stylesheet from './SettingsStyles';
-import useSettings from './useSettings';
+import useSettings, { UseSettingsReturnType } from './useSettings';
 
 interface PasswordModalPropsType {
   modalShown: boolean;
@@ -24,9 +24,8 @@ const PasswordModal = ({
   modalShown,
   setModalShown,
 }: PasswordModalPropsType): JSX.Element => {
-  const formRefs = useInitializationRef(3);
-  const {formik} = useSettings(setModalShown);
-  const {theme} = useContext(ThemeContext);
+  const formRefs: React.MutableRefObject<any[]> = useInitializationRef(3);
+  const { formik, theme }: UseSettingsReturnType = useSettings(setModalShown);
 
   const styles = stylesheet(theme as ThemeType);
 
