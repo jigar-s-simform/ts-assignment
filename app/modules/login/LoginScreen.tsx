@@ -14,8 +14,7 @@ import { Colors, globalMetrics } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import stylesheet from './LoginStyles';
 import { UseLoginReturnType, useLogin } from './hooks';
-import { useContext } from 'react';
-import { ThemeContext } from '../../context';
+import { FC } from 'react';
 
 /**
  * LoginScreen Component
@@ -24,9 +23,8 @@ import { ThemeContext } from '../../context';
  *
  * @returns {JSX.Element} The rendered LoginScreen component.
  */
-const LoginScreen = (): JSX.Element => {
-  const { formRefs, formik, isLoading }: UseLoginReturnType = useLogin();
-  const { theme } = useContext(ThemeContext);
+const LoginScreen: FC = () => {
+  const { formRefs, formik, isLoading, theme }: UseLoginReturnType = useLogin();
   const styles = stylesheet(theme);
 
   return (

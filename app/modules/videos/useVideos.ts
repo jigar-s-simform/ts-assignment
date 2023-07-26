@@ -1,12 +1,14 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useContext, useEffect, useState } from 'react';
-import { ScaledSize, StatusBar, useWindowDimensions } from 'react-native';
+import { ColorSchemeName, ScaledSize, StatusBar, useColorScheme, useWindowDimensions } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Video, { OnLoadData, OnProgressData } from 'react-native-video';
-import { Strings, data } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import { StorageConstants, Strings, data } from '../../constants';
+import { ThemeContext } from '../../context';
 import { globalMetrics } from '../../theme';
 import stylesheet from './VideoStyles';
+import { useMMKVString } from 'react-native-mmkv';
+import { ThemeType, mmkvStorage } from '../../services';
 export interface VideoType {
   description: string;
   sources: string[];
@@ -40,6 +42,7 @@ export interface UseVideosReturnType {
   toggleAudio: () => void;
   width: number;
   height: number;
+  theme: ThemeType
 }
 
 const useVideos = (
@@ -53,8 +56,14 @@ const useVideos = (
   const { width, height }: ScaledSize = useWindowDimensions();
   const navigation: NavigationProp<ReactNavigation.RootParamList> =
     useNavigation();
-  const { theme } = useContext(ThemeContext);
+    const appearance: ColorSchemeName = useColorScheme();
+    const [mmkvTheme] = useMMKVString(
+      StorageConstants.themeStorageKey,
+      mmkvStorage,
+    );
 
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType 
+  
   const videos: VideoType[] = data?.categories[0]?.videos
  
   useEffect(() => {
@@ -68,7 +77,7 @@ const useVideos = (
   useEffect(() => {
     if (width > height) {
       navigation.getParent()?.setOptions({
-        tabBarStyle: stylesheet(theme as ThemeType).tabBarStylesLandScape,
+        tabBarStyle: stylesheet(theme).tabBarStylesLandScape,
       });
       navigation.setOptions({
         headerShown: false,
@@ -76,7 +85,7 @@ const useVideos = (
       StatusBar.setHidden(true);
     } else {
       navigation.getParent()?.setOptions({
-        tabBarStyle: stylesheet(theme as ThemeType).tabBarStylesPotrait,
+        tabBarStyle: stylesheet(theme).tabBarStylesPotrait,
       });
       navigation.setOptions({
         headerShown: true,
@@ -159,6 +168,7 @@ const useVideos = (
     toggleAudio,
     width,
     height,
+    theme
   };
 };
 

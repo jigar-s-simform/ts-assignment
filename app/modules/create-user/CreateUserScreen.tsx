@@ -1,5 +1,5 @@
 import { Camera } from 'phosphor-react-native';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   GestureResponderEvent,
   Image,
@@ -12,7 +12,6 @@ import {
 import { Images } from '../../assets';
 import { CustomInput } from '../../components';
 import { Strings, ThemeValues } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
 import { Colors, globalMetrics, moderateScale, verticalScale } from '../../theme';
 import { handleSubmitEdit } from '../../utils';
 import stylesheet from './CreateUserScreenStyles';
@@ -32,10 +31,10 @@ const CreateUserScreen: FC = () => {
     setModalShown,
     handleCameraSelect,
     handleGallerySelect,
+    theme
   }: UseCreateReturnType = useCreate({imagePath, setImagePath});
 
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+  const styles = stylesheet(theme);
 
   return (
     <View style={styles.mainContainer}>

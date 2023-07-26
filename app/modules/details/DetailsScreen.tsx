@@ -1,6 +1,6 @@
 import { useRoute } from '@react-navigation/native';
 import { Envelope, MessengerLogo, User } from 'phosphor-react-native';
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import {
   Image,
   ImageBackground,
@@ -10,18 +10,17 @@ import {
 } from 'react-native';
 import { Images } from '../../assets';
 import { Strings } from '../../constants';
-import { ThemeContext } from '../../context';
 import { UserSchemaType } from '../../services';
 import { Colors, moderateScale } from '../../theme';
 import { DetailScreenRouteProp } from './DetailTypes';
 import stylesheet from './DetailsScreenStyles';
-import useDetails from './useDetails';
+import useDetails, { UseDetailsReturnType } from './useDetails';
 
 const DetailsScreen: FC = () => {
   const route = useRoute<DetailScreenRouteProp>();
-  const { user: userDetails }: {user: UserSchemaType} = route.params;
-  const { handleSendSms }: {handleSendSms: () => void} = useDetails();
-  const { theme } = useContext(ThemeContext);
+  const { user: userDetails }: { user: UserSchemaType } = route.params;
+  const { handleSendSms, theme, imageUrl }: UseDetailsReturnType =
+    useDetails(userDetails);
   const styles = stylesheet(theme);
 
   return (
@@ -35,11 +34,7 @@ const DetailsScreen: FC = () => {
         </ImageBackground>
         <View style={styles.profileNameContainer}>
           <Image
-            source={
-              typeof userDetails?.avatar === 'string'
-                ? {uri: userDetails?.avatar}
-                : Images.defaultImg
-            }
+            source={imageUrl}
             style={styles.profileImage}
             resizeMode="contain"
           />
@@ -51,30 +46,24 @@ const DetailsScreen: FC = () => {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.detailItem}>
-          <User
-            size={moderateScale(28)}
-            color={Colors[theme]?.themeBlueDark}
-          />
+          <User size={moderateScale(28)} color={Colors[theme].themeBlueDark} />
           <Text style={styles.detailText}>{userDetails.first_name}</Text>
         </View>
         <View style={styles.detailItem}>
-          <User
-            size={moderateScale(28)}
-            color={Colors[theme]?.themeBlueDark}
-          />
+          <User size={moderateScale(28)} color={Colors[theme].themeBlueDark} />
           <Text style={styles.detailText}>{userDetails.last_name}</Text>
         </View>
         <View style={styles.detailItem}>
           <Envelope
             size={moderateScale(28)}
-            color={Colors[theme]?.themeBlueDark}
+            color={Colors[theme].themeBlueDark}
           />
           <Text style={styles.detailText}>{userDetails.email}</Text>
         </View>
         <TouchableOpacity style={styles.detailItem} onPress={handleSendSms}>
           <MessengerLogo
             size={moderateScale(28)}
-            color={Colors[theme]?.themeBlueDark}
+            color={Colors[theme].themeBlueDark}
           />
           <Text style={styles.detailText}>{Strings.phone}</Text>
         </TouchableOpacity>
