@@ -1,10 +1,17 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { FormikProps, useFormik } from 'formik';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { Alert, useColorScheme } from 'react-native';
-import { AsyncUpdateStatus, NavigationRoutes, Strings, ThemeValues } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import { useMMKVString } from 'react-native-mmkv';
+import {
+  AsyncUpdateStatus,
+  NavigationRoutes,
+  StorageConstants,
+  Strings,
+  ThemeValues,
+} from '../../constants';
+import { ThemeType } from '../../services';
 import {
   authSelector,
   logout,
@@ -12,12 +19,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
+import { mmkvStorage } from '../../services';
 import {
   PasswordUpdateSchemaTypes,
   navigateWithParam,
   navigateWithReplace,
   passwordUpdateSchema,
-  save,
   updatePassword,
 } from '../../utils';
 
@@ -29,7 +36,7 @@ export interface UseSettingsReturnType {
   handleToggleBottomSheet: () => void;
   handleTurnDarkTheme: () => void;
   handleTurnLightTheme: () => void;
-  handleTurnSystemDefaultTheme: () => Promise<void>
+  handleTurnSystemDefaultTheme: () => void;
 }
 
 const useSettings = (
@@ -38,14 +45,18 @@ const useSettings = (
   const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector(authSelector);
   const sheetRef = useRef<BottomSheet>(null);
-  const { setTheme } = useContext(ThemeContext);
   const appearance = useColorScheme();
+
+  const [_, setMmkvTheme] = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
 
   const formik = useFormik<PasswordUpdateSchemaTypes>({
     initialValues: {
       currentPassword: userDetails?.password ?? Strings.emptyString,
-      newPassword: '',
-      confirmNewPassword: '',
+      newPassword: Strings.emptyString,
+      confirmNewPassword: Strings.emptyString,
     },
     validationSchema: passwordUpdateSchema,
     onSubmit: async (values: PasswordUpdateSchemaTypes) => {
@@ -82,21 +93,17 @@ const useSettings = (
     sheetRef.current?.expand();
   };
 
-  const handleTurnDarkTheme = async (): Promise<void> => {
-    if (setTheme) setTheme(ThemeValues.dark);
-    await save(Strings.theme, ThemeValues.dark);
+  const handleTurnDarkTheme = (): void => {
+    setMmkvTheme(ThemeValues.dark);
   };
 
-  const handleTurnLightTheme = async (): Promise<void> => {
-    if (setTheme) setTheme(ThemeValues.light);
-    await save(Strings.theme, ThemeValues.light);
+  const handleTurnLightTheme = (): void => {
+    setMmkvTheme(ThemeValues.light);
   };
 
   const handleTurnSystemDefaultTheme = async (): Promise<void> => {
-    if (setTheme) setTheme(appearance as ThemeType);
-    await save(Strings.theme, appearance);
+    setMmkvTheme(appearance as ThemeType);
   };
-
 
   return {
     handleOpenUrl,
@@ -106,7 +113,7 @@ const useSettings = (
     handleToggleBottomSheet,
     handleTurnDarkTheme,
     handleTurnLightTheme,
-    handleTurnSystemDefaultTheme
+    handleTurnSystemDefaultTheme,
   };
 };
 

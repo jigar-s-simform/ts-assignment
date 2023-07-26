@@ -1,6 +1,9 @@
 import { AnyAction, EmptyObject, ThunkDispatch } from '@reduxjs/toolkit';
-import { useEffect } from 'react';
+import { useRef } from 'react';
+import { ColorSchemeName, TextInput, useColorScheme } from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { StorageConstants, Strings } from '../../constants';
 import {
   InitialAuthStateType,
   InitialHomeStateType,
@@ -10,7 +13,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
-import { UserSchemaType, getUsersThunk } from '../../services';
+import { ThemeType, UserSchemaType, mmkvStorage } from '../../services';
 export interface FunctionType {
   (item: string): void;
 }
@@ -31,24 +34,33 @@ export interface UseHomeReturnType {
     undefined,
     AnyAction
   >;
+  theme: ThemeType,
+  inputRef: React.RefObject<TextInput>
+  clearInput: () => void
 }
 
 const useHome = (): UseHomeReturnType => {
   const dispatch = useAppDispatch();
+  const appearance: ColorSchemeName = useColorScheme()
+  const [mmkvTheme] = useMMKVString(StorageConstants.themeStorageKey, mmkvStorage);
+  const inputRef = useRef<TextInput>(null);
 
-  useEffect(() => {
-    dispatch(getUsersThunk(1));
-  }, []);
-
-  const {users, searchedUsers, searchText, isLoading, page} =
+  const { users, searchedUsers, searchText, isLoading, page } =
     useAppSelector(homeSelector);
 
-  const handleOnEndReached: FunctionType = text => {
+  const handleOnEndReached: FunctionType = (text: string | undefined) => {
     if (!text) dispatch(increasePage());
   };
 
-  const search: FunctionType = text => {
+  const search: FunctionType = (text: string) => {
     dispatch(searchUser(text));
+  };
+
+  // clears search input
+  const clearInput = (): void => {
+    inputRef.current?.clear();
+    dispatch(searchUser(Strings.emptyString));
+    inputRef.current?.blur();
   };
 
   return {
@@ -60,6 +72,9 @@ const useHome = (): UseHomeReturnType => {
     isLoading,
     page,
     dispatch,
+    theme: (mmkvTheme ?? appearance) as ThemeType,
+    inputRef,
+    clearInput
   };
 };
 

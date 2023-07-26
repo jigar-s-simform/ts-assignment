@@ -1,20 +1,22 @@
 import { EnvelopeSimple } from 'phosphor-react-native';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Images } from '../../../assets';
 import { NavigationRoutes, ThemeValues } from '../../../constants';
-import { ThemeContext, ThemeType } from '../../../context';
 import { UserSchemaType } from '../../../services';
 import { Colors, moderateScale } from '../../../theme';
 import { navigateWithParam } from '../../../utils';
+import useHome, { UseHomeReturnType } from '../useHome';
 import stylesheet from './UserCardStyles';
 
 const UserCard = ({ item: user }: { item: UserSchemaType }) => {
-  const handleOnPress = () => {
+
+  const handleOnPress = (): void => {
     navigateWithParam(NavigationRoutes.DetailsScreen, { user });
   };
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+
+  const { theme }: UseHomeReturnType = useHome();
+  const styles = stylesheet(theme);
 
   return (
     <>
