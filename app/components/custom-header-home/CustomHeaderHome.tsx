@@ -1,12 +1,21 @@
 import { BellRinging, List } from 'phosphor-react-native';
-import { useContext } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationRoutes, Strings } from '../../constants';
-import { ThemeContext } from '../../context';
+import {
+  ColorSchemeName,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
+import { NavigationRoutes, StorageConstants, Strings } from '../../constants';
+import { ThemeType } from '../../context';
 import { authSelector, useAppSelector } from '../../redux';
+import { UseMmkvReturnType, mmkvStorage } from '../../services';
 import { Colors, moderateScale } from '../../theme';
 import { navigateWithParam, toggleDrawer } from '../../utils';
 import stylesheet from './CustomHeaderStyles';
+import { FC } from 'react';
 
 /**
  * CustomHeader Function
@@ -16,8 +25,13 @@ import stylesheet from './CustomHeaderStyles';
  * with the following parameters: navigation (the navigation object), options (header options), and route (current route).
  * The function returns a JSX element representing the custom header component.
  */
-const CustomHeaderHome = (): JSX.Element => {
-  const { theme } = useContext(ThemeContext);
+const CustomHeaderHome: FC = () => {
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme]: UseMmkvReturnType = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType;
   const styles = stylesheet(theme);
   const { notifications } = useAppSelector(authSelector);
 
@@ -28,10 +42,7 @@ const CustomHeaderHome = (): JSX.Element => {
     <SafeAreaView>
       <View style={styles.container}>
         <TouchableOpacity onPress={toggleDrawer}>
-          <List
-            size={moderateScale(25)}
-            color={Colors[theme].themeCyan}
-          />
+          <List size={moderateScale(25)} color={Colors[theme].themeCyan} />
         </TouchableOpacity>
         <Text style={styles.headerText}>
           {Strings.bottomNavigationTitles.home}

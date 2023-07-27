@@ -1,8 +1,17 @@
 import { Eye, EyeSlash } from 'phosphor-react-native';
-import React, { useContext, useImperativeHandle, useRef, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Strings, ThemeValues } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
+import React, { useImperativeHandle, useRef, useState } from 'react';
+import {
+  ColorSchemeName,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
+import { StorageConstants, Strings, ThemeValues } from '../../constants';
+import { ThemeType } from '../../context';
+import { UseMmkvReturnType, mmkvStorage } from '../../services';
 import { Colors, moderateScale } from '../../theme';
 import stylesheet from './CustomInputStyles';
 import CustomTextInputType from './CustomInputTypes';
@@ -18,62 +27,74 @@ import CustomTextInputType from './CustomInputTypes';
  * properties passed to the CustomInput component, and a ref, which is a forwarded ref to access the input element.
  * The function returns a JSX element representing the custom input component.
  */
-const CustomInput = React.forwardRef((props: CustomTextInputType, ref): JSX.Element => {
-  const inputRef = useRef<TextInput>(null);
-  const [passwordShown, setPasswordShown] = useState<boolean>(false);
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+const CustomInput = React.forwardRef(
+  (props: CustomTextInputType, ref): JSX.Element => {
+    const inputRef = useRef<TextInput>(null);
+    const [passwordShown, setPasswordShown] = useState<boolean>(false);
 
-  useImperativeHandle(ref, () => ({
-    focus: () => {
-      inputRef.current?.focus();
-    },
-  }), []);
+    const appearance: ColorSchemeName = useColorScheme();
+    const [mmkvTheme]: UseMmkvReturnType = useMMKVString(
+      StorageConstants.themeStorageKey,
+      mmkvStorage,
+    );
+    const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType; // typecasting because mmkv stores theme as string
+    const styles = stylesheet(theme);
 
-  const handlePasswordVisibility = (): void => {
-    setPasswordShown(!passwordShown);
-  };
+    useImperativeHandle(
+      ref,
+      () => ({
+        focus: () => {
+          inputRef.current?.focus();
+        },
+      }),
+      [],
+    );
 
-  return (
-    <>
-      <View style={styles.inputContainer}>
-        <TextInput
-          editable={props.editable}
-          ref={inputRef}
-          secureTextEntry={
-            props.name === Strings.formInputNames.password && !passwordShown
-          }
-          placeholder={props.name}
-          returnKeyType={props.returnKeyType}
-          autoCapitalize="none"
-          placeholderTextColor={Colors[theme || ThemeValues.light]?.black}
-          style={styles.textInputStyles}
-          onChangeText={props.onChangeText}
-          onBlur={props.onBlur}
-          onSubmitEditing={props.onSubmitEditing}
-          defaultValue={props.defaultValue}
-        />
-        {props.name === Strings.formInputNames.password && (
-          <TouchableOpacity onPress={handlePasswordVisibility}>
-            {!passwordShown ? (
-              <EyeSlash
-                size={moderateScale(20)}
-                color={Colors[theme || ThemeValues.light]?.themeCyan}
-              />
-            ) : (
-              <Eye
-                size={moderateScale(20)}
-                color={Colors[theme || ThemeValues.light]?.themeCyan}
-              />
-            )}
-          </TouchableOpacity>
+    const handlePasswordVisibility = (): void => {
+      setPasswordShown(!passwordShown);
+    };
+
+    return (
+      <>
+        <View style={styles.inputContainer}>
+          <TextInput
+            editable={props.editable}
+            ref={inputRef}
+            secureTextEntry={
+              props.name === Strings.formInputNames.password && !passwordShown
+            }
+            placeholder={props.name}
+            returnKeyType={props.returnKeyType}
+            autoCapitalize="none"
+            placeholderTextColor={Colors[theme || ThemeValues.light]?.black}
+            style={styles.textInputStyles}
+            onChangeText={props.onChangeText}
+            onBlur={props.onBlur}
+            onSubmitEditing={props.onSubmitEditing}
+            defaultValue={props.defaultValue}
+          />
+          {props.name === Strings.formInputNames.password && (
+            <TouchableOpacity onPress={handlePasswordVisibility}>
+              {!passwordShown ? (
+                <EyeSlash
+                  size={moderateScale(20)}
+                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                />
+              ) : (
+                <Eye
+                  size={moderateScale(20)}
+                  color={Colors[theme || ThemeValues.light]?.themeCyan}
+                />
+              )}
+            </TouchableOpacity>
+          )}
+        </View>
+        {props.touched && props.error && (
+          <Text style={styles.textWarning}>{props.error}</Text>
         )}
-      </View>
-      {props.touched && props.error && (
-        <Text style={styles.textWarning}>{props.error}</Text>
-      )}
-    </>
-  );
-});
+      </>
+    );
+  },
+);
 
 export default CustomInput;

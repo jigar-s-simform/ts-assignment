@@ -41,6 +41,7 @@ const SettingsScreen: FC = () => {
           Strings.themeAsyncStorageKey,
         );
         if (themeSelectedId) setSelected(themeSelectedId);
+        else setSelected(buttonIdThree)
       } catch (e) {}
     };
     getThemeSelected();
