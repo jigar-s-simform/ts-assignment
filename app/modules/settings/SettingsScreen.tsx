@@ -9,11 +9,10 @@ import {
 } from 'phosphor-react-native';
 import React, {
   FC,
-  useContext,
   useEffect,
   useId,
   useMemo,
-  useState,
+  useState
 } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import {
@@ -22,7 +21,6 @@ import {
   Strings,
   bottomsheetInitialIndex,
 } from '../../constants';
-import { ThemeContext, ThemeValueInterface } from '../../context';
 import { Colors, moderateScale } from '../../theme';
 import BottomSheetButton from './BottomSheetButton';
 import PasswordModal from './PasswordModal';
@@ -48,9 +46,6 @@ const SettingsScreen: FC = () => {
     getThemeSelected();
   }, []);
 
-  const { theme }: ThemeValueInterface =
-    useContext<ThemeValueInterface>(ThemeContext);
-
   const snapPoints: SnapPointsType = useMemo<SnapPointsType>(
     () => [BottomSheetConstants.minimum, BottomSheetConstants.maximum],
     [],
@@ -64,6 +59,7 @@ const SettingsScreen: FC = () => {
     handleTurnDarkTheme,
     handleTurnLightTheme,
     handleTurnSystemDefaultTheme,
+    theme
   }: UseSettingsReturnType = useSettings(setModalShown);
 
   const handleChangePassword = (): void => {

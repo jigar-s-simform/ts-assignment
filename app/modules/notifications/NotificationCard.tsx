@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { ThemeContext } from '../../context';
 import { NotificationType } from '../../types';
 import stylesheet from './NotificationStyles';
 import useNotification, { UseNotificationReturnType } from './useNotification';
@@ -9,10 +8,9 @@ const NotificationCard = ({
   notification,
 }: {
   notification: NotificationType;
-}): JSX.Element => {
-  const { theme } = useContext(ThemeContext);
+  }): JSX.Element => {
+  const { handleNotificationDelete, theme }: UseNotificationReturnType = useNotification();
   const styles = stylesheet(theme);
-  const { handleNotificationDelete }: UseNotificationReturnType = useNotification();
 
   const handleLongPress = (): void => {
     handleNotificationDelete(notification)

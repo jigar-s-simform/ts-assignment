@@ -13,17 +13,16 @@ import {
   ThumbsDown,
   ThumbsUp,
 } from 'phosphor-react-native';
-import { FC, LegacyRef, useContext, useRef } from 'react';
+import { FC, LegacyRef, useRef } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Video from 'react-native-video';
 import { NavigationRoutes, Strings } from '../../constants';
-import { ThemeContext, ThemeType } from '../../context';
 import {
   Colors,
   globalMetrics,
   horizontalScale,
   moderateScale,
-  verticalScale
+  verticalScale,
 } from '../../theme';
 import { VideoStackParamsList } from './VideoStack';
 import stylesheet from './VideoStyles';
@@ -59,10 +58,10 @@ const VideoPlayer: FC = () => {
     height,
     isAudible,
     toggleAudio,
+    theme,
   }: UseVideosReturnType = useVideos(videoRef);
 
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+  const styles = stylesheet(theme);
   // current position of slider
   const currentPosition = currentTime && duration ? currentTime / duration : 0;
 
@@ -140,15 +139,9 @@ const VideoPlayer: FC = () => {
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePlayPause}>
               {!isPlaying ? (
-                <Play
-                  size={moderateScale(30)}
-                  color={Colors[theme].white}
-                />
+                <Play size={moderateScale(30)} color={Colors[theme].white} />
               ) : (
-                <Pause
-                  size={moderateScale(30)}
-                  color={Colors[theme].white}
-                />
+                <Pause size={moderateScale(30)} color={Colors[theme].white} />
               )}
             </TouchableOpacity>
             <TouchableOpacity onPress={seekForward}>
@@ -220,10 +213,7 @@ const VideoPlayer: FC = () => {
         </View>
         <View style={styles.reactionContainer}>
           <View style={styles.reactionItem}>
-            <ThumbsUp
-              size={moderateScale(28)}
-              color={Colors[theme].black}
-            />
+            <ThumbsUp size={moderateScale(28)} color={Colors[theme].black} />
             <Text
               style={
                 styles.reactionItemText
@@ -235,17 +225,11 @@ const VideoPlayer: FC = () => {
             />
           </View>
           <View style={styles.reactionItem}>
-            <Share
-              size={moderateScale(28)}
-              color={Colors[theme].black}
-            />
+            <Share size={moderateScale(28)} color={Colors[theme].black} />
             <Text style={styles.reactionItemText}>{`${Strings.share}`}</Text>
           </View>
           <View style={styles.reactionItem}>
-            <Chats
-              size={moderateScale(28)}
-              color={Colors[theme].black}
-            />
+            <Chats size={moderateScale(28)} color={Colors[theme].black} />
             <Text style={styles.reactionItemText}>{`${Strings.liveChat}`}</Text>
           </View>
         </View>

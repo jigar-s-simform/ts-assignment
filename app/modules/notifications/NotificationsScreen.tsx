@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FlatList, View } from 'react-native';
-import { ThemeContext, ThemeType } from '../../context';
 import { authSelector, useAppSelector } from '../../redux';
 import NotificationCard from './NotificationCard';
 import stylesheet from './NotificationStyles';
 import NotificationsEmptyComponent from './NotificationsEmptyComponent';
+import useNotification, { UseNotificationReturnType } from './useNotification';
 
 const NotificationsScreen = (): JSX.Element => {
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme as ThemeType);
+  const { theme }: UseNotificationReturnType = useNotification()
+  const styles = stylesheet(theme);
   const { notifications } = useAppSelector(authSelector);
  
   return (

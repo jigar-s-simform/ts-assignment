@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationRoutes, Strings } from '../../constants';
-import { ThemeContext } from '../../context';
 import { navigateWithParam } from '../../utils';
 import stylesheet from './VideoStyles';
-import { VideoType } from './useVideos';
+import useVideos, { UseVideosReturnType, VideoType } from './useVideos';
 
 interface VideoComponentPropsType {
   video: VideoType;
@@ -12,11 +10,11 @@ interface VideoComponentPropsType {
 
 const VideoComponent = ({ video }: VideoComponentPropsType): JSX.Element => {
   
-  const navigateToVideoPlayer = () => {
+  const navigateToVideoPlayer = (): void => {
     navigateWithParam(NavigationRoutes.VideoPlayer, {video});
   };
   
-  const { theme } = useContext(ThemeContext);
+  const { theme }: UseVideosReturnType = useVideos();
   const styles = stylesheet(theme);
 
   return (

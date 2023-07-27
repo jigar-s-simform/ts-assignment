@@ -11,7 +11,7 @@ import {
   Strings,
   ThemeValues,
 } from '../../constants';
-import { ThemeType } from '../../services';
+import { ThemeType, UseMmkvReturnType } from '../../services';
 import {
   authSelector,
   logout,
@@ -27,8 +27,10 @@ import {
   passwordUpdateSchema,
   updatePassword,
 } from '../../utils';
+import { ColorSchemeName } from 'react-native';
 
 export interface UseSettingsReturnType {
+  theme: ThemeType
   handleOpenUrl: () => Promise<void>;
   handleLogout: () => void;
   formik: FormikProps<PasswordUpdateSchemaTypes>;
@@ -44,10 +46,9 @@ const useSettings = (
 ): UseSettingsReturnType => {
   const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector(authSelector);
-  const sheetRef = useRef<BottomSheet>(null);
-  const appearance = useColorScheme();
-
-  const [_, setMmkvTheme] = useMMKVString(
+  const sheetRef: React.RefObject<BottomSheetMethods> = useRef<BottomSheet>(null);
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme, setMmkvTheme]: UseMmkvReturnType = useMMKVString(
     StorageConstants.themeStorageKey,
     mmkvStorage,
   );
@@ -114,6 +115,7 @@ const useSettings = (
     handleTurnDarkTheme,
     handleTurnLightTheme,
     handleTurnSystemDefaultTheme,
+    theme: (mmkvTheme ?? appearance) as ThemeType
   };
 };
 
