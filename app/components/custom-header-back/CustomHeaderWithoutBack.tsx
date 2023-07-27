@@ -1,6 +1,13 @@
-import { useContext } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
-import { ThemeContext } from '../../context';
+import {
+  ColorSchemeName,
+  SafeAreaView,
+  Text,
+  View,
+  useColorScheme,
+} from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
+import { StorageConstants } from '../../constants';
+import { ThemeType, UseMmkvReturnType, mmkvStorage } from '../../services';
 import stylesheet from './CustomHeaderStyles';
 
 interface CustomHeaderTypes {
@@ -8,9 +15,14 @@ interface CustomHeaderTypes {
 }
 
 const CustomHeaderWithoutBack = ({ title }: CustomHeaderTypes) => {
-  const { theme } = useContext(ThemeContext);
-  const styles = stylesheet(theme)
-   
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme]: UseMmkvReturnType = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType;
+  const styles = stylesheet(theme);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.leftContent} />

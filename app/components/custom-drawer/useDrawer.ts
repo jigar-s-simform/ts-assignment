@@ -1,15 +1,16 @@
-import { useContext } from 'react';
+import { ColorSchemeName, useColorScheme } from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
 import { Images } from '../../assets';
-import { NavigationRoutes } from '../../constants';
-import { ThemeContext, ThemeType, ThemeValueInterface } from '../../context';
+import { NavigationRoutes, StorageConstants } from '../../constants';
+import { ThemeType } from '../../context';
 import {
-    authSelector,
-    homeSelector,
-    setRoute,
-    useAppDispatch,
-    useAppSelector,
+  authSelector,
+  homeSelector,
+  setRoute,
+  useAppDispatch,
+  useAppSelector,
 } from '../../redux';
-import { UserSchemaType } from '../../services';
+import { UseMmkvReturnType, UserSchemaType, mmkvStorage } from '../../services';
 import { navigateWithParam } from '../../utils';
 
 export interface UseDrawerReturnType {
@@ -17,15 +18,19 @@ export interface UseDrawerReturnType {
   userDetails: UserSchemaType | undefined;
   routeSelected: NavigationRoutes;
   theme: ThemeType;
-  imageUrl: number | {uri: string};
+  imageUrl: number | { uri: string };
 }
 
 const useDrawer = (): UseDrawerReturnType => {
   const { userDetails } = useAppSelector(authSelector);
   const { routeSelected } = useAppSelector(homeSelector);
   const dispatch = useAppDispatch();
-  const { theme }: ThemeValueInterface =
-    useContext<ThemeValueInterface>(ThemeContext);
+  const appearance: ColorSchemeName = useColorScheme();
+  const [mmkvTheme]: UseMmkvReturnType = useMMKVString(
+    StorageConstants.themeStorageKey,
+    mmkvStorage,
+  );
+  const theme: ThemeType = (mmkvTheme ?? appearance) as ThemeType;
 
   const handleOnPress = (route: NavigationRoutes): void => {
     navigateWithParam(route);
@@ -34,7 +39,7 @@ const useDrawer = (): UseDrawerReturnType => {
 
   let imageUrl: number | {uri: string} = Images.defaultImg;
   if (userDetails && typeof userDetails.avatar === 'string')
-    imageUrl = { uri: userDetails.avatar };
+    imageUrl = {uri: userDetails.avatar};
 
   return {
     userDetails,
